@@ -1,14 +1,13 @@
-    # Calculadora Básica — Christian
+# Calculadora Básica — Christian
 
-Pequeña calculadora web creada como primer proyecto del bootcamp Full Stack.  
+Calculadora web creada como primer proyecto pequeño.  
 Diseño oscuro con acentos de neón, soporte por teclado y cálculo de porcentaje.
 
 ## Características
+
 - Operaciones básicas: suma, resta, multiplicación, división.
 - Soporte de punto decimal.
-- Botón `%` (convierte el valor actual a porcentaje).
 - Teclado físico soportado: números, `Enter` (=), `Backspace` (←), `Escape` (C).
-- Animación de pantalla al mostrar resultado.
 
 ## Tecnologías
 - HTML5
