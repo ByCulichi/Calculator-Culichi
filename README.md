@@ -1,15 +1,15 @@
-# Calculadora Básica — Christian
+# Basic Calculator — Christian
 
-Calculadora web creada como primer proyecto pequeño.  
-Diseño oscuro con acentos de neón, soporte por teclado y cálculo de porcentaje.
+Web calculator created as a first small project.
+Dark design with neon accents, keyboard support, and percentage calculations.
 
-## Características
+## Features
 
-- Operaciones básicas: suma, resta, multiplicación, división.
-- Soporte de punto decimal.
-- Teclado físico soportado: números, `Enter` (=), `Backspace` (←), `Escape` (C).
+- Basic operations: addition, subtraction, multiplication, division.
+- Decimal point support.
+- Physical keyboard support: numbers, Enter (=), Backspace (←), Escape (C).
 
-## Tecnologías
+## Technologies
 - HTML5
-- CSS3 (variables, grid, animaciones)
-- JavaScript (DOM, eventos, manejo de strings/números)
+- CSS3 (variables, grid, animations)
+- JavaScript (DOM, events, string/number handling)
