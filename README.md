@@ -1,3 +1,7 @@
+## 🎥 Demo
+
+![Calculadora Demo](./Animation.gif)
+
 # Basic Calculator — Christian
 
 Web calculator created as a first small project.
