@@ -4,10 +4,6 @@
 
 > A sophisticated iOS-inspired calculator web application with multiple calculation modes and advanced features.
 
-## 🎥 Demo
-
-![Calculadora Demo](./Animation.gif)
-
 ## ✨ Features
 
 ### 🔢 **Three Calculation Modes**
