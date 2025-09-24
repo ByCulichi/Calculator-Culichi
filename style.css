@@ -77,6 +77,36 @@ body {
     min-height: 100vh;
 }
 
+/* Splash Screen */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.splash-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.splash-content h1 {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 24pt;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
 /* ------------------------------
     Contenedor principal de la calculadora
    ------------------------------ */
@@ -106,17 +136,17 @@ body {
     pointer-events: none;
 }
 
-/* Hamburger menu */
+/* Hamburger menu - frameless orange icon */
 .hamburger-menu {
     position: absolute;
     top: 16px;
     left: 16px;
     z-index: 1000;
-    background: var(--sidebar-button-bg);
-    border: 1px solid var(--mode-selector-border);
+    background: transparent;     /* Frameless */
+    border: none;               /* No border */
     border-radius: 8px;
-    width: 36px;
-    height: 36px;
+    width: 24px;               /* 24x24px as specified */
+    height: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,14 +156,14 @@ body {
 }
 
 .hamburger-menu:hover {
-    background: var(--sidebar-button-hover);
+    background: rgba(255, 149, 0, 0.1);  /* Subtle orange hover */
 }
 
 .hamburger-menu span {
     display: block;
-    width: 18px;
+    width: 16px;
     height: 2px;
-    background: var(--btn-text);
+    background: #FF9500;        /* Orange color */
     margin: 1.5px 0;
     transition: all 0.2s ease;
     border-radius: 1px;
@@ -148,11 +178,22 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* Calculator logo */
+.calculator-logo {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    width: 24px;
+    height: 24px;
+    z-index: 100;
+    border-radius: 4px;
+}
+
 /* Mode selector */
 .mode-selector {
     position: absolute;
     bottom: 20px;
-    left: 20px;
+    left: 60px;                /* Move right to avoid logo */
     z-index: 50;
 }
 
@@ -464,10 +505,11 @@ body {
 /* Botón cero - ahora cuadrado como los demás */
 .calc-button.zero {
     /* Remove the double-wide spanning */
-    grid-column: span 1;
-    aspect-ratio: 1 / 1;
-    height: var(--btn-size);
-    border-radius: var(--btn-border-radius);  /* Circular like other buttons */
+    grid-column: span 1 !important;
+    aspect-ratio: 1 / 1 !important;
+    height: var(--btn-size) !important;
+    width: var(--btn-size) !important;
+    border-radius: 50% !important;  /* Force circular like other buttons */
 }
 
 /* Scientific y conversion button styling */

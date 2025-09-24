@@ -9,6 +9,13 @@
     <title>IMATH Calculator</title>
 </head>
 <body>
+    <!-- Splash screen overlay -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <h1>MAC de la página</h1>
+        </div>
+    </div>
+
     <!-- Contenedor principal de la calculadora -->
     <div class="wrapper">
         <!-- Hamburger menu -->
@@ -38,8 +45,11 @@
         <!-- Overlay para el menú -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- Selector de modo en la esquina inferior izquierda -->
-        <div class="mode-selector" id="modeSelector">
+        <!-- Calculator logo in bottom-left -->
+        <img src="iconoCalaculadora.jpg" alt="Calculator Logo" class="calculator-logo">
+
+        <!-- Selector de modo en la esquina inferior izquierda (hidden for now) -->
+        <div class="mode-selector" id="modeSelector" style="display: none;">
             <button class="mode-selector-btn active" data-mode="basic">Básica</button>
             <div class="mode-dropdown" id="modeDropdown">
                 <button class="mode-option" data-mode="basic">Básica</button>
