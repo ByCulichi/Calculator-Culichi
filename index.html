@@ -1,162 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style.css">
-	<title>IMATH Calculator</title>
-</head>
-<body>
-	<!-- Splash screen overlay -->
-	<div class="splash-screen" id="splashScreen">
-		<div class="splash-content">
-			<h1>MAC de la página</h1>
-		</div>
-	</div>
-
-	<!-- Contenedor principal de la calculadora -->
-	<div class="wrapper">
-		<!-- Hamburger menu -->
-		<button class="hamburger-menu" id="hamburgerBtn" aria-label="Menú">
-			<span></span>
-			<span></span>
-			<span></span>
-		</button>
-
-		<!-- Panel lateral con historial mejorado -->
-		<div class="sidebar" id="sidebar">
-			<div class="sidebar-header">
-				<h3>Historial</h3>
-				<button class="close-sidebar" id="closeSidebar" aria-label="Cerrar menú">×</button>
-			</div>
-			<div class="sidebar-content">
-				<div class="history-section">
-					<div class="history-period-tabs">
-						<button class="period-tab active" data-period="recent">Últimos 7 días</button>
-						<button class="period-tab" data-period="month">Últimos 30 días</button>
-					</div>
-					<div class="history-content" id="historyContent">
-						<!-- El historial se llenará dinámicamente -->
-					</div>
-					<div class="history-actions">
-						<button class="history-action-btn edit-btn" id="editHistory">Editar</button>
-						<button class="history-action-btn delete-btn" id="clearHistory">Borrar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- Overlay para el menú -->
-		<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-		<!-- Calculator logo and bottom menu in bottom-left -->
-		<div class="bottom-left-controls">
-			<img src="iconoCalaculadora.jpg" alt="Calculator Logo" class="calculator-logo">
-			<button class="bottom-menu-btn" id="bottomMenuBtn" aria-label="Calculator Modes">
-				<span></span>
-				<span></span>
-				<span></span>
-			</button>
-		</div>
-
-		<!-- Bottom slide-up menu -->
-		<div class="bottom-menu-overlay" id="bottomMenuOverlay"></div>
-		<div class="bottom-menu" id="bottomMenu">
-			<div class="bottom-menu-header">
-				<div class="bottom-menu-handle"></div>
-			</div>
-			<div class="bottom-menu-content">
-				<button class="menu-option active" data-mode="basic">Básica</button>
-				<button class="menu-option" data-mode="scientific">Científica</button>
-				<button class="menu-option" data-mode="notes">Notas matemáticas</button>
-				<button class="menu-option" data-mode="convert">Convertir</button>
-			</div>
-		</div>
-
-		<!-- Selector de modo (oculto por ahora) -->
-		<div class="mode-selector" id="modeSelector" style="display: none;">
-			<button class="mode-selector-btn active" data-mode="basic">Básica</button>
-			<div class="mode-dropdown" id="modeDropdown">
-				<button class="mode-option" data-mode="basic">Básica</button>
-				<button class="mode-option" data-mode="scientific">Científica</button>
-				<button class="mode-option" data-mode="conversions">Conversiones</button>
-			</div>
-		</div>
-
-		<!-- Pantalla -->
-		<section class="screen" aria-label="Pantalla de la calculadora">
-			0
-		</section>
-
-		<!-- Teclado -->
-		<section class="calc-buttons" id="calcButtons">
-			<!-- Fila 1 -->
-			<div class="calc-button-row">
-				<button class="calc-button" aria-label="Limpiar">AC</button>
-				<button class="calc-button" aria-label="Cambio de signo">+/−</button>
-				<button class="calc-button" aria-label="Porcentaje">%</button>
-				<button class="calc-button op" aria-label="Dividir">÷</button>
-			</div>
-
-			<!-- Filas científicas (ocultas en modo básico) -->
-			<div class="calc-button-row scientific-row" style="display: none;">
-				<button class="calc-button scientific" aria-label="Seno">sin</button>
-				<button class="calc-button scientific" aria-label="Coseno">cos</button>
-				<button class="calc-button scientific" aria-label="Tangente">tan</button>
-				<button class="calc-button scientific" aria-label="Logaritmo natural">ln</button>
-			</div>
-			<div class="calc-button-row scientific-row" style="display: none;">
-				<button class="calc-button scientific" aria-label="Logaritmo base 10">log</button>
-				<button class="calc-button scientific" aria-label="Raíz cuadrada">√</button>
-				<button class="calc-button scientific" aria-label="Al cuadrado">x²</button>
-				<button class="calc-button scientific" aria-label="Pi">π</button>
-			</div>
-
-			<!-- Fila de conversiones (oculta en otros modos) -->
-			<div class="calc-button-row conversion-row" style="display: none;">
-				<button class="calc-button conversion" aria-label="Celsius a Fahrenheit">°C→°F</button>
-				<button class="calc-button conversion" aria-label="Kilómetros a millas">km→mi</button>
-				<button class="calc-button conversion" aria-label="Kilogramos a libras">kg→lb</button>
-				<button class="calc-button conversion" aria-label="Metros a pies">m→ft</button>
-			</div>
-
-			<!-- Fila 2 -->
-			<div class="calc-button-row">
-				<button class="calc-button" aria-label="Siete">7</button>
-				<button class="calc-button" aria-label="Ocho">8</button>
-				<button class="calc-button" aria-label="Nueve">9</button>
-				<button class="calc-button op" aria-label="Multiplicar">×</button>
-			</div>
-
-			<!-- Fila 3 -->
-			<div class="calc-button-row">
-				<button class="calc-button" aria-label="Cuatro">4</button>
-				<button class="calc-button" aria-label="Cinco">5</button>
-				<button class="calc-button" aria-label="Seis">6</button>
-				<button class="calc-button op" aria-label="Restar">−</button>
-			</div>
-
-			<!-- Fila 4 -->
-			<div class="calc-button-row">
-				<button class="calc-button" aria-label="Uno">1</button>
-				<button class="calc-button" aria-label="Dos">2</button>
-				<button class="calc-button" aria-label="Tres">3</button>
-				<button class="calc-button op" aria-label="Sumar">+</button>
-			</div>
-
-			<!-- Fila 5: 0, ., = -->
-			<div class="calc-button-row bottom-row">
-				<button class="calc-button zero" aria-label="Cero">0</button>
-				<button class="calc-button" aria-label="Punto decimal">.</button>
-				<button class="calc-button op eq" aria-label="Igual">=</button>
-			</div>
-		</section>
-	</div>
-
-	<!-- Script principal -->
-	<script src="script.js?v=4"></script>
-=======
     <!-- 
         Calculator Culichi - iOS-Style Calculator Web App
         
@@ -324,10 +168,10 @@
 
             <!-- Scientific Row 3: Additional functions and constants -->
             <div class="calc-button-row scientific-row" style="display: none;">
-                <button class="calc-button scientific" aria-label="Logaritmo natural">ln</button>      <!-- Natural log -->
-                <button class="calc-button scientific" aria-label="Raíz cuadrada">√</button>          <!-- Square root -->
-                <button class="calc-button scientific" aria-label="Potencia">x²</button>              <!-- Power -->
+                <button class="calc-button scientific" aria-label="Número e">e</button>            <!-- Euler's number -->
+                <button class="calc-button scientific" aria-label="Retroceder">←</button>          <!-- Backspace -->
                 <button class="calc-button scientific" aria-label="Paréntesis izquierdo">(</button>   <!-- Parentheses (not implemented) -->
+                <button class="calc-button scientific" aria-label="Reservado"><!--Reserved--></button> <!-- Empty slot -->
             </div>
 
             <!-- === CONVERSION MODE BUTTONS (Hidden in other modes) === -->
@@ -383,6 +227,5 @@
         Version 4 includes cache-busting parameter
     -->
     <script src="script.js?v=4"></script>
->>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 </body>
 </html>
