@@ -18,17 +18,13 @@
             <span></span>
         </button>
 
-        <!-- Panel lateral con historial -->
+        <!-- Panel lateral con historial únicamente -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h3>IMATH Calculator</h3>
                 <button class="close-sidebar" id="closeSidebar" aria-label="Cerrar menú">×</button>
             </div>
             <div class="sidebar-content">
-                <div class="mode-switcher">
-                    <button class="mode-btn active" id="normalMode">Normal</button>
-                    <button class="mode-btn" id="scientificMode">Científica</button>
-                </div>
                 <div class="history-section">
                     <h4>Historial</h4>
                     <div class="history-content" id="historyContent">
@@ -41,6 +37,16 @@
 
         <!-- Overlay para el menú -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Selector de modo en la esquina inferior izquierda -->
+        <div class="mode-selector" id="modeSelector">
+            <button class="mode-selector-btn active" data-mode="basic">Básica</button>
+            <div class="mode-dropdown" id="modeDropdown">
+                <button class="mode-option" data-mode="basic">Básica</button>
+                <button class="mode-option" data-mode="scientific">Científica</button>
+                <button class="mode-option" data-mode="conversions">Conversiones</button>
+            </div>
+        </div>
 
         <!-- Pantalla donde se muestran los resultados y operaciones -->
         <section class="screen" aria-label="Pantalla de la calculadora">
@@ -57,12 +63,28 @@
                 <button class="calc-button op" aria-label="Dividir">÷</button>
             </div>
 
-            <!-- Fila científica (oculta en modo normal) -->
+            <!-- Fila científica (oculta en modo básico) -->
             <div class="calc-button-row scientific-row" style="display: none;">
                 <button class="calc-button scientific" aria-label="Seno">sin</button>
                 <button class="calc-button scientific" aria-label="Coseno">cos</button>
                 <button class="calc-button scientific" aria-label="Tangente">tan</button>
                 <button class="calc-button scientific" aria-label="Logaritmo">log</button>
+            </div>
+
+            <!-- Fila científica adicional (oculta en modo básico) -->
+            <div class="calc-button-row scientific-row" style="display: none;">
+                <button class="calc-button scientific" aria-label="Logaritmo natural">ln</button>
+                <button class="calc-button scientific" aria-label="Raíz cuadrada">√</button>
+                <button class="calc-button scientific" aria-label="Potencia">x²</button>
+                <button class="calc-button scientific" aria-label="Paréntesis izquierdo">(</button>
+            </div>
+
+            <!-- Fila de conversiones (oculta en otros modos) -->
+            <div class="calc-button-row conversion-row" style="display: none;">
+                <button class="calc-button conversion" aria-label="Celsius a Fahrenheit">°C→°F</button>
+                <button class="calc-button conversion" aria-label="Kilómetros a millas">km→mi</button>
+                <button class="calc-button conversion" aria-label="Kilogramos a libras">kg→lb</button>
+                <button class="calc-button conversion" aria-label="Metros a pies">m→ft</button>
             </div>
 
             <!-- Fila 2: 7 8 9 × -->
