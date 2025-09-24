@@ -76,25 +76,32 @@
     /* === SIDEBAR STYLING === */
     --sidebar-bg: #FFFFFF;      /* White sidebar background */
     --sidebar-border: #E5E5EA;  /* Light border color */
-    --sidebar-text: #000000;
-    --sidebar-button-bg: #F2F2F7;
-    --sidebar-button-hover: #E8E8ED;
+    --sidebar-text: #000000;      /* Black text in sidebar */
+    --sidebar-button-bg: #F2F2F7; /* Light button backgrounds in sidebar */
+    --sidebar-button-hover: #E8E8ED; /* Hover state for sidebar buttons */
     
-    /* Mode selector */
-    --mode-selector-bg: #FFFFFF;
-    --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --mode-selector-border: #E5E5EA;
+    /* === MODE SELECTOR STYLING === */
+    --mode-selector-bg: #FFFFFF;  /* White background for mode selector */
+    --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    --mode-selector-border: #E5E5EA; /* Light border color */
 }
 
-/* ------------------------------
-    Reset y layout principal
-   ------------------------------ */
+/**
+ * ============================================================
+ *                    GLOBAL RESET & BASE STYLES
+ * ============================================================
+ * Universal reset for consistent cross-browser styling
+ * and base typography following iOS design principles
+ */
+
+/* Universal box model reset for consistent sizing */
 * { 
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
 }
 
+/* Main body styling with iOS font stack and centering layout */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
@@ -105,18 +112,25 @@ body {
     min-height: 100vh;
 }
 
-/* Splash Screen */
+/**
+ * ============================================================
+ *                    SPLASH SCREEN COMPONENT
+ * ============================================================
+ * Full-screen overlay shown on app startup with branding
+ * Auto-dismisses after 2 seconds or on user interaction
+ */
+
 .splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark overlay */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 9999; /* Highest z-index to appear above everything */
     opacity: 1;
     transition: opacity 0.3s ease;
 }
