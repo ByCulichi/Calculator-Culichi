@@ -489,6 +489,49 @@ body {
     background: #3A3A3C;
 }
 
+/* Edit mode styles for history items */
+.history-item.editable {
+    padding: 12px;
+    position: relative;
+}
+
+.history-item.editable .history-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    margin-right: 12px;
+}
+
+.delete-history-item {
+    background: #FF3B30;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.delete-history-item:hover {
+    background: #D70015;
+    transform: scale(1.1);
+}
+
+.no-history {
+    color: #8E8E93;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
 .history-actions {
     display: flex;
     gap: 12px;
@@ -514,6 +557,14 @@ body {
 
 .edit-btn:hover {
     background: #0056CC;
+}
+
+.edit-btn.cancel-mode {
+    background: #FF9500;
+}
+
+.edit-btn.cancel-mode:hover {
+    background: #E6840A;
 }
 
 .delete-btn {

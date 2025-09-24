@@ -7,6 +7,7 @@ let buffer = "0";
 let runningTotal = 0;
 let previousOperator = null;
 let calculatorHistory = [];
+let historyEditMode = false;
 
 // Get display element
 const screen = document.querySelector('.screen');
@@ -106,22 +107,78 @@ function updateHistoryDisplay() {
     // Update history in sidebar if exists
     const historyContent = document.getElementById('historyContent');
     if (historyContent && calculatorHistory.length > 0) {
-        historyContent.innerHTML = calculatorHistory.slice(-10).map((calc, index) => {
+        const recentHistory = calculatorHistory.slice(-10);
+        historyContent.innerHTML = recentHistory.map((calc, index) => {
             const parts = calc.split(' = ');
             const calculation = parts[0];
             const result = parts[1];
-            return `
-                <div class="history-item">
-                    <span class="calc-expression">${calculation}</span>
-                    <span class="calc-result">${result}</span>
-                </div>
-            `;
+            // Calculate the actual index in the full history array
+            const actualIndex = calculatorHistory.length - recentHistory.length + index;
+            
+            if (historyEditMode) {
+                return `
+                    <div class="history-item editable" data-index="${actualIndex}">
+                        <div class="history-content">
+                            <span class="calc-expression">${calculation}</span>
+                            <span class="calc-result">${result}</span>
+                        </div>
+                        <button class="delete-history-item" data-index="${actualIndex}" title="Eliminar">&times;</button>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="history-item">
+                        <span class="calc-expression">${calculation}</span>
+                        <span class="calc-result">${result}</span>
+                    </div>
+                `;
+            }
         }).join('');
+        
+        // Attach delete listeners if in edit mode
+        if (historyEditMode) {
+            attachHistoryDeleteListeners();
+        }
+    } else if (historyContent && calculatorHistory.length === 0) {
+        historyContent.innerHTML = '<div class="no-history">No hay historial</div>';
     }
 }
 
 function showMessage(message) {
     console.log(message); // For debugging
+}
+
+function toggleHistoryEditMode() {
+    historyEditMode = !historyEditMode;
+    const editBtn = document.getElementById('editHistory');
+    
+    if (historyEditMode) {
+        editBtn.textContent = 'Cancelar';
+        editBtn.classList.add('cancel-mode');
+    } else {
+        editBtn.textContent = 'Editar';
+        editBtn.classList.remove('cancel-mode');
+    }
+    
+    updateHistoryDisplay();
+}
+
+function deleteHistoryItem(index) {
+    if (index >= 0 && index < calculatorHistory.length) {
+        calculatorHistory.splice(index, 1);
+        updateHistoryDisplay();
+    }
+}
+
+function attachHistoryDeleteListeners() {
+    const deleteButtons = document.querySelectorAll('.delete-history-item');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const index = parseInt(e.target.dataset.index);
+            deleteHistoryItem(index);
+        });
+    });
 }
 
 function toggleSidebar() {
@@ -331,11 +388,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Edit history button (placeholder)
+    // Edit history button
     const editHistoryBtn = document.getElementById('editHistory');
     if (editHistoryBtn) {
         editHistoryBtn.addEventListener('click', () => {
-            console.log('Edit history functionality would go here');
+            toggleHistoryEditMode();
         });
     }
 
