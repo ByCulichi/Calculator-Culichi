@@ -47,14 +47,13 @@
             0
         </section>
 
-        <!-- Teclado: 5 filas, 4 columnas -->
-        <section class="calc-buttons">
         <!-- Teclado: 5 filas, 4 columnas (Normal) / 6 filas en modo científico -->
         <section class="calc-buttons" id="calcButtons">
             <!-- Fila 1: AC, +/−, %, ÷ -->
             <div class="calc-button-row">
-                <!-- Nota: mostramos AC; si tu JS espera "C", puedes leer data-key="C" -->
-@@ -27,6 +58,14 @@
+                <button class="calc-button" aria-label="Limpiar">AC</button>
+                <button class="calc-button" aria-label="Cambio de signo">+/−</button>
+                <button class="calc-button" aria-label="Porcentaje">%</button>
                 <button class="calc-button op" aria-label="Dividir">÷</button>
             </div>
 
@@ -69,11 +68,37 @@
             <!-- Fila 2: 7 8 9 × -->
             <div class="calc-button-row">
                 <button class="calc-button" aria-label="Siete">7</button>
-@@ -62,6 +101,6 @@
+                <button class="calc-button" aria-label="Ocho">8</button>
+                <button class="calc-button" aria-label="Nueve">9</button>
+                <button class="calc-button op" aria-label="Multiplicar">×</button>
+            </div>
+
+            <!-- Fila 3: 4 5 6 − -->
+            <div class="calc-button-row">
+                <button class="calc-button" aria-label="Cuatro">4</button>
+                <button class="calc-button" aria-label="Cinco">5</button>
+                <button class="calc-button" aria-label="Seis">6</button>
+                <button class="calc-button op" aria-label="Restar">−</button>
+            </div>
+
+            <!-- Fila 4: 1 2 3 + -->
+            <div class="calc-button-row">
+                <button class="calc-button" aria-label="Uno">1</button>
+                <button class="calc-button" aria-label="Dos">2</button>
+                <button class="calc-button" aria-label="Tres">3</button>
+                <button class="calc-button op" aria-label="Sumar">+</button>
+            </div>
+
+            <!-- Fila 5: 0, ., = -->
+            <div class="calc-button-row">
+                <button class="calc-button zero" aria-label="Cero">0</button>
+                <button class="calc-button" aria-label="Punto decimal">.</button>
+                <button class="calc-button eq" aria-label="Igual">=</button>
+            </div>
+        </section>
     </div>
 
     <!-- Script principal para la funcionalidad de la calculadora -->
-    <script src="script.js"></script>
     <script src="script.js?v=4"></script>
 </body>
 </html>
