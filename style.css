@@ -1,53 +1,81 @@
 /* ============================================================
-    IMATH Calculator - Estilos iPhone Light Theme
+    Calculator Culichi - iOS-Style Calculator Styles
+    
+    A comprehensive stylesheet for a sophisticated calculator app featuring:
+    - iOS-inspired design with dark theme and orange accents
+    - Responsive layout that adapts to different screen sizes
+    - Three calculation modes: Basic, Scientific, and Conversion
+    - Smooth animations and transitions for modern UX
+    - History sidebar with slide-out functionality
+    - Circular buttons with neumorphic shadows
+    - Accessible design with proper ARIA labels
+    
+    Color Palette:
+    - Background: Light gray (#F5F5F5)
+    - Calculator Panel: Pure black (#000000)
+    - Number Buttons: Dark gray (#333333)
+    - Function Buttons: Medium gray (#A6A6A6)
+    - Operator Buttons: Orange (#FF9500) - iOS accent color
+    - Text: White on dark buttons, black on light buttons
+    
+    Layout: CSS Grid for button arrangement with responsive design
    ============================================================ */
 
-/* ------------------------------
-    Paleta de colores iPhone dark theme (iOS Calculator style)
-   ------------------------------ */
+/**
+ * ============================================================
+ *                    CSS CUSTOM PROPERTIES (CSS Variables)
+ * ============================================================
+ * Centralized color and size definitions for consistent theming
+ * and easy maintenance. All colors follow iOS design guidelines.
+ */
 :root {
-    /* Fondo de la web */
-    --bg: #F5F5F5;
+    /* === BACKGROUND COLORS === */
+    --bg: #F5F5F5;              /* Main page background - light gray */
     
-    /* Calculadora */
-    --panel-bg: #000000;
-    --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
-    --panel-border-radius: 20px;
+    /* === CALCULATOR PANEL STYLING === */
+    --panel-bg: #000000;        /* Calculator background - pure black like iOS */
+    --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);  /* Subtle shadow for depth */
+    --panel-border-radius: 20px; /* Rounded corners for modern look */
 
-    /* Branding */
-    --brand-text: "";  /* Remove IMATH branding */
-    --brand-color: #8E8E93;
+    /* === BRANDING === */
+    --brand-text: "";           /* No additional branding text */
+    --brand-color: #8E8E93;     /* iOS secondary text color */
 
-    /* Pantalla */
-    --screen-bg: transparent;
-    --screen-text: #FFFFFF;
-    --screen-size: 48px;
+    /* === DISPLAY SCREEN === */
+    --screen-bg: transparent;   /* Transparent background blends with panel */
+    --screen-text: #FFFFFF;     /* White text for high contrast */
+    --screen-size: 48px;        /* Large font size for readability */
 
-    /* Botones */
-    --btn-bg: #333333;           /* Number buttons: dark gray */
-    --btn-bg-hover: #404040;
-    --btn-ac: #A6A6A6;           /* Function buttons: medium gray */
-    --btn-ac-hover: #B8B8B8;
-    --btn-op: #FF9500;           /* Operator buttons: orange */
-    --btn-op-hover: #FFB84D;
-    --btn-text: #FFFFFF;         /* White text on dark buttons */
-    --btn-text-ac: #000000;      /* Black text on function buttons */
-    --btn-text-op: #FFFFFF;      /* White text on operator buttons */
-    --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);  /* Enhanced shadow for neumorphism */
-    --btn-border-radius: 50%;    /* Circular buttons */
-
-    /* Tamaños */
-    --btn-gap: 12px;
-    --btn-size: 75px;            /* 75px diameter for circular buttons */
-    --btn-font: 32pt;            /* 32pt for numbers - bold */
-    --btn-font-ops: 28pt;        /* 28pt for operators - bold */
-
-    --focus: #007AFF;
-    --wrapper-w: 380px;
+    /* === BUTTON COLOR SCHEME === */
+    --btn-bg: #333333;          /* Number buttons - dark gray */
+    --btn-bg-hover: #404040;    /* Hover state - slightly lighter */
+    --btn-ac: #A6A6A6;          /* Function buttons (AC, +/-, %) - medium gray */
+    --btn-ac-hover: #B8B8B8;    /* Function button hover state */
+    --btn-op: #FF9500;          /* Operator buttons (+, -, ×, ÷, =) - iOS orange */
+    --btn-op-hover: #FFB84D;    /* Operator button hover - lighter orange */
     
-    /* Sidebar */
-    --sidebar-bg: #FFFFFF;
-    --sidebar-border: #E5E5EA;
+    /* === BUTTON TEXT COLORS === */
+    --btn-text: #FFFFFF;        /* White text on dark number buttons */
+    --btn-text-ac: #000000;     /* Black text on light function buttons */
+    --btn-text-op: #FFFFFF;     /* White text on orange operator buttons */
+    
+    /* === BUTTON VISUAL EFFECTS === */
+    --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);  /* Neumorphic shadow effect */
+    --btn-border-radius: 50%;   /* Circular buttons like iOS calculator */
+
+    /* === BUTTON DIMENSIONS === */
+    --btn-gap: 12px;            /* Space between buttons */
+    --btn-size: 75px;           /* Standard button diameter (75px circle) */
+    --btn-font: 32pt;           /* Large font for numbers - bold and readable */
+    --btn-font-ops: 28pt;       /* Slightly smaller for operator symbols */
+
+    /* === ACCENT AND FOCUS COLORS === */
+    --focus: #007AFF;           /* iOS blue for focus states */
+    --wrapper-w: 380px;         /* Maximum calculator width */
+    
+    /* === SIDEBAR STYLING === */
+    --sidebar-bg: #FFFFFF;      /* White sidebar background */
+    --sidebar-border: #E5E5EA;  /* Light border color */
     --sidebar-text: #000000;
     --sidebar-button-bg: #F2F2F7;
     --sidebar-button-hover: #E8E8ED;
