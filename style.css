@@ -3,7 +3,7 @@
    ============================================================ */
 
 /* ------------------------------
-    Paleta de colores y variables base
+    Paleta de colores iPhone light theme
    ------------------------------ */
 :root {
     /* Fondo de la web */
@@ -40,6 +40,7 @@
     --btn-size: 72px;
     --btn-font: 2rem;
     --btn-font-ops: 2.3rem;
+
     --focus: #007AFF;
     --wrapper-w: 380px;
     
@@ -136,17 +137,87 @@ body {
     transition: all 0.2s ease;
     border-radius: 1px;
 }
-
 .hamburger-menu.active span:nth-child(1) {
     transform: rotate(45deg) translate(4px, 4px);
 }
-
 .hamburger-menu.active span:nth-child(2) {
     opacity: 0;
 }
-
 .hamburger-menu.active span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mode selector */
+.mode-selector {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
+}
+
+.mode-selector-btn {
+    background: var(--mode-selector-bg);
+    border: 1px solid var(--mode-selector-border);
+    color: var(--btn-text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: var(--mode-selector-shadow);
+    min-width: 80px;
+}
+
+.mode-selector-btn:hover {
+    background: var(--sidebar-button-hover);
+}
+
+.mode-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: var(--mode-selector-bg);
+    border: 1px solid var(--mode-selector-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.mode-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mode-option {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--btn-text);
+    padding: 12px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.mode-option:hover {
+    background: var(--sidebar-button-hover);
+}
+
+.mode-option:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.mode-option:last-child {
+    border-radius: 0 0 8px 8px;
 }
 
 /* Sidebar */
@@ -208,38 +279,6 @@ body {
     padding: 20px;
     flex: 1;
     overflow-y: auto;
-}
-
-/* Mode switcher */
-.mode-switcher {
-    display: flex;
-    background: var(--sidebar-button-bg);
-    border: 1px solid var(--mode-selector-border);
-    border-radius: 8px;
-    padding: 4px;
-    margin-bottom: 30px;
-}
-
-.mode-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    color: var(--sidebar-text);
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.mode-btn.active {
-    background: var(--btn-op);
-    color: var(--btn-text-op);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.mode-btn:not(.active):hover {
-    background: var(--sidebar-button-hover);
 }
 
 /* History section */
@@ -307,7 +346,6 @@ body {
     transition: all 0.3s ease;
     pointer-events: none;
 }
-
 .sidebar-overlay.active {
     opacity: 1;
     visibility: visible;
