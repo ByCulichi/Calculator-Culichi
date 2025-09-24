@@ -1,10 +1,11 @@
 /* ============================================================
-    Calculator Culichi - Complete JavaScript Implementation
+    Calculator Culichi - Enhanced JavaScript Implementation
     
-    A sophisticated iOS-style calculator with three modes:
-    - Basic: Standard arithmetic operations
-    - Scientific: Trigonometric and logarithmic functions  
-    - Conversion: Unit conversions (temperature, distance, weight)
+    A sophisticated iOS-style calculator with improved error handling:
+    - Enhanced Basic: Standard arithmetic operations with error validation
+    - Safe Scientific: Trigonometric and logarithmic functions with input validation
+    - Accurate Conversion: Unit conversions with precision handling
+    - Robust Error Handling: Comprehensive validation and error messages
    ============================================================ */
 
 /**
@@ -23,7 +24,74 @@ let previousOperator = null;
 let calculatorHistory = [];
 
 /** @type {HTMLElement} Reference to the calculator display screen */
-const screen = document.querySelector('.screen');
+let screen = null; // Will be initialized in DOMContentLoaded
+
+/**
+ * ============================================================
+ *                    UTILITY FUNCTIONS
+ * ============================================================
+ */
+
+/**
+ * Safely rounds number to avoid floating point precision issues
+ * @param {number} num - Number to round
+ * @param {number} decimals - Number of decimal places (default: 10)
+ * @returns {number} Rounded number
+ */
+function safeRound(num, decimals = 10) {
+    return Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
+}
+
+/**
+ * Validates if a number is valid for mathematical operations
+ * @param {number} num - Number to validate
+ * @returns {boolean} True if valid, false otherwise
+ */
+function isValidNumber(num) {
+    return !isNaN(num) && isFinite(num);
+}
+
+/**
+ * Formats display number for better readability
+ * @param {number} num - Number to format
+ * @returns {string} Formatted number string
+ */
+function formatDisplayNumber(num) {
+    // Handle very large or very small numbers
+    if (Math.abs(num) >= 1e10 || (Math.abs(num) < 1e-6 && num !== 0)) {
+        return num.toExponential(6);
+    }
+    
+    // Remove unnecessary trailing zeros
+    const rounded = safeRound(num);
+    return rounded.toString();
+}
+
+/**
+ * Shows error message on calculator display
+ * @param {string} error - Error message to display
+ */
+function showError(error) {
+    console.error('Calculator Error:', error);
+    
+    if (screen) {
+        const originalStyle = {
+            fontSize: screen.style.fontSize,
+            color: screen.style.color
+        };
+        
+        screen.textContent = error;
+        screen.style.fontSize = '20px'; // Smaller font for error messages
+        screen.style.color = '#FF3B30'; // Red color for errors
+        
+        setTimeout(() => {
+            buffer = "0";
+            updateScreen();
+            screen.style.fontSize = originalStyle.fontSize || '48px';
+            screen.style.color = originalStyle.color || '#FFFFFF';
+        }, 3000);
+    }
+}
 
 /**
  * ============================================================
@@ -33,15 +101,39 @@ const screen = document.querySelector('.screen');
 
 /**
  * Updates the calculator display with the current buffer value
- * Handles negative number display by wrapping in parentheses
+ * Handles negative number display and formatting
  */
 function updateScreen() {
-    // Display negative numbers in parentheses for clarity
-    let displayValue = buffer;
-    if (buffer.startsWith("-") && buffer !== "-0" && buffer !== "0") {
-        displayValue = `(${buffer})`;
+    if (!screen) {
+        console.error('Screen element not found');
+        return;
     }
-    screen.textContent = displayValue;
+    
+    try {
+        let displayValue = buffer;
+        
+        // Handle special cases
+        if (buffer === "Error" || buffer === "Infinity" || buffer === "-Infinity") {
+            screen.textContent = buffer;
+            return;
+        }
+        
+        // Parse and format number for display
+        const numValue = parseFloat(buffer);
+        if (isValidNumber(numValue)) {
+            displayValue = formatDisplayNumber(numValue);
+        }
+        
+        // Display negative numbers in parentheses for clarity
+        if (displayValue.startsWith("-") && displayValue !== "-0" && displayValue !== "0") {
+            displayValue = `(${displayValue})`;
+        }
+        
+        screen.textContent = displayValue;
+    } catch (error) {
+        console.error('Error updating screen:', error);
+        screen.textContent = "Error";
+    }
 }
 
 /**
@@ -57,92 +149,311 @@ function handleACButton() {
 
 /**
  * Toggles the sign of the current number (+/− button)
- * Does nothing if buffer is "0"
+ * Does nothing if buffer is "0" or contains an error
  */
 function handlePlusMinusButton() {
-    if (buffer === "0") return;
-    if (buffer.charAt(0) === "-") {
-        buffer = buffer.substring(1);
-    } else {
-        buffer = "-" + buffer;
+    if (buffer === "0" || buffer === "Error" || !isValidNumber(parseFloat(buffer))) {
+        return;
     }
-    updateScreen();
+    
+    try {
+        if (buffer.charAt(0) === "-") {
+            buffer = buffer.substring(1);
+        } else {
+            buffer = "-" + buffer;
+        }
+        updateScreen();
+    } catch (error) {
+        console.error('Error in plus/minus operation:', error);
+        showError("Error");
+    }
 }
 
 /**
  * Converts current number to percentage by dividing by 100
+ * Validates input before performing operation
  */
 function handlePercentage() {
-    buffer = String(parseFloat(buffer) / 100);
-    updateScreen();
+    try {
+        const numValue = parseFloat(buffer);
+        if (!isValidNumber(numValue)) {
+            showError("Entrada inválida");
+            return;
+        }
+        
+        const result = safeRound(numValue / 100);
+        buffer = formatDisplayNumber(result);
+        updateScreen();
+    } catch (error) {
+        console.error('Error in percentage operation:', error);
+        showError("Error");
+    }
 }
 
 /**
  * Handles mathematical operations (+, −, ×, ÷)
+ * Validates input and handles division by zero
  * @param {string} operator - The operator symbol to process
  */
 function handleMath(operator) {
-    if (buffer === "0") return;
+    if (buffer === "0" || buffer === "Error") return;
     
-    const intBuffer = parseFloat(buffer);
-    if (runningTotal === 0) {
-        runningTotal = intBuffer;
-    } else {
-        flushOperation(intBuffer);
+    try {
+        const intBuffer = parseFloat(buffer);
+        if (!isValidNumber(intBuffer)) {
+            showError("Entrada inválida");
+            return;
+        }
+        
+        if (runningTotal === 0) {
+            runningTotal = intBuffer;
+        } else {
+            const result = flushOperation(intBuffer);
+            if (!isValidNumber(result)) {
+                return; // Error already handled in flushOperation
+            }
+            runningTotal = result;
+        }
+        
+        previousOperator = operator;
+        buffer = "0";
+    } catch (error) {
+        console.error('Error in math operation:', error);
+        showError("Error");
     }
-    
-    previousOperator = operator;
-    buffer = "0";
 }
 
 /**
- * Performs the pending mathematical operation
+ * Performs the pending mathematical operation with error handling
  * Updates runningTotal based on previousOperator
  * @param {number} intBuffer - The number to operate with
+ * @returns {number} The calculation result
  */
 function flushOperation(intBuffer) {
-    if (previousOperator === "+") {
-        runningTotal += intBuffer;
-    } else if (previousOperator === "−") {
-        runningTotal -= intBuffer;
-    } else if (previousOperator === "×") {
-        runningTotal *= intBuffer;
-    } else if (previousOperator === "÷") {
-        runningTotal /= intBuffer;
+    try {
+        if (!previousOperator) return runningTotal;
+        
+        let result;
+        switch (previousOperator) {
+            case "+":
+                result = runningTotal + intBuffer;
+                break;
+            case "−":
+                result = runningTotal - intBuffer;
+                break;
+            case "×":
+                result = runningTotal * intBuffer;
+                break;
+            case "÷":
+                if (intBuffer === 0) {
+                    showError("División por cero");
+                    return runningTotal;
+                }
+                result = runningTotal / intBuffer;
+                break;
+            default:
+                return runningTotal;
+        }
+        
+        if (!isValidNumber(result)) {
+            showError("Resultado inválido");
+            return runningTotal;
+        }
+        
+        return safeRound(result);
+    } catch (error) {
+        console.error('Error in flush operation:', error);
+        showError("Error");
+        return runningTotal;
     }
 }
 
 /**
- * Performs pending operation and returns the result
- * Used for equals (=) button functionality
+ * Performs pending operation and returns the result (for equals button)
  * @param {number} intBuffer - The number to operate with
  * @returns {number} The calculated result
  */
 function flushOperationAndReturn(intBuffer) {
-    if (previousOperator === "+") {
-        runningTotal += intBuffer;
-    } else if (previousOperator === "−") {
-        runningTotal -= intBuffer;
-    } else if (previousOperator === "×") {
-        runningTotal *= intBuffer;
-    } else if (previousOperator === "÷") {
-        runningTotal /= intBuffer;
-    }
-    return runningTotal;
+    const result = flushOperation(intBuffer);
+    runningTotal = result;
+    return result;
 }
 
 /**
- * Handles number input (0-9)
+ * Handles number input (0-9) with validation
  * Appends digits to buffer or replaces "0"
  * @param {string} numString - The digit to add
  */
 function handleNumber(numString) {
-    if (buffer === "0") {
-        buffer = numString;
-    } else {
-        buffer += numString;
+    try {
+        // Reset buffer if it contains an error
+        if (buffer === "Error" || buffer === "Infinity" || buffer === "-Infinity") {
+            buffer = "0";
+        }
+        
+        // Limit number length to prevent display overflow
+        if (buffer.length >= 15) {
+            showMessage("Límite de dígitos alcanzado");
+            return;
+        }
+        
+        if (buffer === "0") {
+            buffer = numString;
+        } else {
+            buffer += numString;
+        }
+        updateScreen();
+    } catch (error) {
+        console.error('Error in number input:', error);
+        showError("Error");
     }
-    updateScreen();
+}
+
+/**
+ * ============================================================
+ *                    SCIENTIFIC FUNCTIONS (ENHANCED)
+ * ============================================================
+ */
+
+/**
+ * Handles trigonometric functions with input validation
+ * @param {string} func - The function name (sin, cos, tan)
+ */
+function handleTrigFunction(func) {
+    try {
+        const numValue = parseFloat(buffer);
+        if (!isValidNumber(numValue)) {
+            showError("Entrada inválida");
+            return;
+        }
+        
+        // Convert degrees to radians
+        const radians = (numValue * Math.PI) / 180;
+        let result;
+        
+        switch (func) {
+            case "sin":
+                result = Math.sin(radians);
+                break;
+            case "cos":
+                result = Math.cos(radians);
+                break;
+            case "tan":
+                // Check for asymptotes (odd multiples of 90 degrees)
+                if (Math.abs(Math.cos(radians)) < 1e-10) {
+                    showError("Indefinido (tan 90°)");
+                    return;
+                }
+                result = Math.tan(radians);
+                break;
+            default:
+                return;
+        }
+        
+        if (!isValidNumber(result)) {
+            showError("Resultado inválido");
+            return;
+        }
+        
+        buffer = formatDisplayNumber(safeRound(result));
+        updateScreen();
+    } catch (error) {
+        console.error(`Error in ${func} function:`, error);
+        showError("Error");
+    }
+}
+
+/**
+ * Handles logarithmic functions with domain validation
+ * @param {string} func - The function name (log, ln)
+ */
+function handleLogFunction(func) {
+    try {
+        const numValue = parseFloat(buffer);
+        if (!isValidNumber(numValue)) {
+            showError("Entrada inválida");
+            return;
+        }
+        
+        if (numValue <= 0) {
+            showError("Log de número ≤ 0");
+            return;
+        }
+        
+        let result;
+        switch (func) {
+            case "log":
+                result = Math.log10(numValue);
+                break;
+            case "ln":
+                result = Math.log(numValue);
+                break;
+            default:
+                return;
+        }
+        
+        if (!isValidNumber(result)) {
+            showError("Resultado inválido");
+            return;
+        }
+        
+        buffer = formatDisplayNumber(safeRound(result));
+        updateScreen();
+    } catch (error) {
+        console.error(`Error in ${func} function:`, error);
+        showError("Error");
+    }
+}
+
+/**
+ * Handles square root with validation
+ */
+function handleSquareRoot() {
+    try {
+        const numValue = parseFloat(buffer);
+        if (!isValidNumber(numValue)) {
+            showError("Entrada inválida");
+            return;
+        }
+        
+        if (numValue < 0) {
+            showError("√ de número negativo");
+            return;
+        }
+        
+        const result = Math.sqrt(numValue);
+        buffer = formatDisplayNumber(safeRound(result));
+        updateScreen();
+    } catch (error) {
+        console.error('Error in square root:', error);
+        showError("Error");
+    }
+}
+
+/**
+ * Handles power of 2 with overflow check
+ */
+function handleSquare() {
+    try {
+        const numValue = parseFloat(buffer);
+        if (!isValidNumber(numValue)) {
+            showError("Entrada inválida");
+            return;
+        }
+        
+        const result = Math.pow(numValue, 2);
+        
+        if (!isValidNumber(result)) {
+            showError("Resultado muy grande");
+            return;
+        }
+        
+        buffer = formatDisplayNumber(safeRound(result));
+        updateScreen();
+    } catch (error) {
+        console.error('Error in square operation:', error);
+        showError("Error");
+    }
 }
 
 /**
@@ -152,31 +463,10 @@ function handleNumber(numString) {
  */
 
 /**
- * Toggles the bottom menu visibility (currently unused)
- * Legacy function for bottom menu interface
- */
-function toggleBottomMenu() {
-    const bottomMenu = document.getElementById('bottomMenu');
-    const overlay = document.getElementById('bottomMenuOverlay');
-    const menuBtn = document.getElementById('bottomMenuBtn');
-    
-    bottomMenu.classList.toggle('active');
-    overlay.classList.toggle('active');
-    
-    // Animate hamburger icon
-    if (bottomMenu.classList.contains('active')) {
-        menuBtn.classList.add('active');
-    } else {
-        menuBtn.classList.remove('active');
-    }
-}
-
-/**
  * Updates the history display in the sidebar
  * Shows the last 10 calculations with expression and result
  */
 function updateHistoryDisplay() {
-    // Update history in sidebar if exists
     const historyContent = document.getElementById('historyContent');
     if (historyContent && calculatorHistory.length > 0) {
         historyContent.innerHTML = calculatorHistory.slice(-10).map((calc, index) => {
@@ -199,198 +489,240 @@ function updateHistoryDisplay() {
  * @param {string} message - The message to display
  */
 function showMessage(message) {
+    if (!screen) return;
+    
     console.log(message); // For debugging
     
-    // Show message in the calculator display briefly
     const originalBuffer = buffer;
-    const originalDisplay = screen.textContent;
+    const originalStyle = {
+        fontSize: screen.style.fontSize,
+        color: screen.style.color
+    };
     
     screen.textContent = message;
-    screen.style.fontSize = '24px'; // Smaller font for messages
-    screen.style.color = '#FF9500'; // Orange color for messages
+    screen.style.fontSize = '24px';
+    screen.style.color = '#FF9500';
     
     setTimeout(() => {
         buffer = originalBuffer;
         updateScreen();
-        screen.style.fontSize = '48px'; // Restore normal font size
-        screen.style.color = '#FFFFFF'; // Restore white color
+        screen.style.fontSize = originalStyle.fontSize || '48px';
+        screen.style.color = originalStyle.color || '#FFFFFF';
     }, 2000);
 }
 
 /**
- * Toggles the sidebar visibility
- * Controls hamburger menu, sidebar, and overlay states
+ * Safely toggles sidebar visibility with error handling
  */
 function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-    hamburgerBtn.classList.toggle('active');
+    try {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        
+        if (sidebar) sidebar.classList.toggle('active');
+        if (overlay) overlay.classList.toggle('active');
+        if (hamburgerBtn) hamburgerBtn.classList.toggle('active');
+    } catch (error) {
+        console.error('Error toggling sidebar:', error);
+    }
 }
 
 /**
  * ============================================================
- *                    MAIN SYMBOL HANDLER
+ *                    MAIN SYMBOL HANDLER (ENHANCED)
  * ============================================================
  */
 
 /**
- * Main function that handles all calculator button inputs
- * Routes different symbols to appropriate handler functions
- * Supports basic operations, scientific functions, and unit conversions
+ * Main function that handles all calculator button inputs with enhanced error handling
  * @param {string} symbol - The symbol from button press or keyboard input
  */
 function handleSymbol(symbol) {
-    switch (symbol) {
-        // === BASIC CALCULATOR FUNCTIONS ===
-        
-        case "AC":
-        case "C":
-            handleACButton();
-            break;
+    try {
+        switch (symbol) {
+            // === BASIC CALCULATOR FUNCTIONS ===
+            case "AC":
+            case "C":
+                handleACButton();
+                break;
 
-        case "+/−":
-            handlePlusMinusButton();
-            break;
+            case "+/−":
+                handlePlusMinusButton();
+                break;
 
-        case "%":
-            handlePercentage();
-            break;
+            case "%":
+                handlePercentage();
+                break;
 
-        case "=":
-            if (!previousOperator) return;
-            const calculation = `${runningTotal} ${previousOperator} ${buffer} = ${flushOperationAndReturn(parseFloat(buffer))}`;
-            flushOperation(parseFloat(buffer));
-            previousOperator = null;
-            buffer = String(runningTotal);
-            // Add to history if not duplicate
-            if (calculatorHistory[calculatorHistory.length - 1] !== calculation) {
-                calculatorHistory.push(calculation);
-                updateHistoryDisplay();
-            }
-            runningTotal = 0;
-            updateScreen();
-            break;
+            case "=":
+                if (!previousOperator) return;
+                const intBuffer = parseFloat(buffer);
+                if (!isValidNumber(intBuffer)) {
+                    showError("Entrada inválida");
+                    return;
+                }
+                
+                const result = flushOperationAndReturn(intBuffer);
+                if (isValidNumber(result)) {
+                    const calculation = `${runningTotal} ${previousOperator} ${buffer} = ${formatDisplayNumber(result)}`;
+                    
+                    previousOperator = null;
+                    buffer = formatDisplayNumber(result);
+                    
+                    // Add to history if not duplicate
+                    if (calculatorHistory[calculatorHistory.length - 1] !== calculation) {
+                        calculatorHistory.push(calculation);
+                        updateHistoryDisplay();
+                    }
+                    
+                    runningTotal = 0;
+                    updateScreen();
+                }
+                break;
 
-        case "←":
-            // Backspace: remove last digit or reset to "0"
-            buffer = buffer.length === 1 ? "0" : buffer.slice(0, -1);
-            updateScreen();
-            break;
-
-        case ".":
-            // Add decimal point if not already present
-            if (!buffer.includes(".")) {
-                buffer += ".";
+            case "←":
+                // Backspace: remove last digit or reset to "0"
+                if (buffer === "Error" || buffer === "Infinity" || buffer === "-Infinity") {
+                    buffer = "0";
+                } else {
+                    buffer = buffer.length === 1 ? "0" : buffer.slice(0, -1);
+                }
                 updateScreen();
-            }
-            break;
+                break;
 
-        // === MATHEMATICAL OPERATORS ===
-        
-        case "+":
-        case "−":
-        case "×":
-        case "÷":
-            handleMath(symbol);
-            break;
+            case ".":
+                // Add decimal point if not already present and buffer is valid
+                if (buffer === "Error" || buffer === "Infinity" || buffer === "-Infinity") {
+                    buffer = "0.";
+                } else if (!buffer.includes(".")) {
+                    buffer += ".";
+                }
+                updateScreen();
+                break;
 
-        // === SCIENTIFIC FUNCTIONS ===
-        // All trigonometric functions expect input in degrees
-        
-        case "sin":
-            // Sine function (input in degrees, converted to radians)
-            buffer = String(Math.sin(parseFloat(buffer) * Math.PI / 180));
-            updateScreen();
-            break;
-        case "cos":
-            // Cosine function (input in degrees, converted to radians)
-            buffer = String(Math.cos(parseFloat(buffer) * Math.PI / 180));
-            updateScreen();
-            break;
-        case "tan":
-            // Tangent function (input in degrees, converted to radians)
-            buffer = String(Math.tan(parseFloat(buffer) * Math.PI / 180));
-            updateScreen();
-            break;
-        case "log":
-            // Base-10 logarithm
-            buffer = String(Math.log10(parseFloat(buffer)));
-            updateScreen();
-            break;
-        case "ln":
-            // Natural logarithm (base e)
-            buffer = String(Math.log(parseFloat(buffer)));
-            updateScreen();
-            break;
-        case "√":
-            // Square root
-            buffer = String(Math.sqrt(parseFloat(buffer)));
-            updateScreen();
-            break;
-        case "x²":
-            // Square (power of 2)
-            buffer = String(Math.pow(parseFloat(buffer), 2));
-            updateScreen();
-            break;
-        case "(":
-            // Parentheses not implemented yet
-            showMessage("Paréntesis no implementado");
-            break;
+            // === MATHEMATICAL OPERATORS ===
+            case "+":
+            case "−":
+            case "×":
+            case "÷":
+                handleMath(symbol);
+                break;
 
-        // === UNIT CONVERSION FUNCTIONS ===
+            // === ENHANCED SCIENTIFIC FUNCTIONS ===
+            case "sin":
+            case "cos":
+            case "tan":
+                handleTrigFunction(symbol);
+                break;
+                
+            case "log":
+            case "ln":
+                handleLogFunction(symbol);
+                break;
+                
+            case "√":
+                handleSquareRoot();
+                break;
+                
+            case "x²":
+                handleSquare();
+                break;
+                
+            case "(":
+                showMessage("Paréntesis no implementado");
+                break;
 
-        case "°C→°F":
-            // Temperature: Celsius to Fahrenheit
-            const celsius = parseFloat(buffer);
-            buffer = String((celsius * 9/5) + 32);
-            showMessage(`${celsius}°C = ${buffer}°F`);
-            updateScreen();
-            break;
-        case "km→mi":
-            // Distance: Kilometers to miles
-            const km = parseFloat(buffer);
-            buffer = String(km * 0.621371);
-            showMessage(`${km}km = ${buffer}mi`);
-            updateScreen();
-            break;
-        case "kg→lb":
-            // Weight: Kilograms to pounds
-            const kg = parseFloat(buffer);
-            buffer = String(kg * 2.20462);
-            showMessage(`${kg}kg = ${buffer}lb`);
-            updateScreen();
-            break;
-        case "m→ft":
-            // Distance: Meters to feet
-            const meters = parseFloat(buffer);
-            buffer = String(meters * 3.28084);
-            showMessage(`${meters}m = ${buffer}ft`);
-            updateScreen();
-            break;
+            // === UNIT CONVERSION FUNCTIONS (ENHANCED) ===
+            case "°C→°F":
+                try {
+                    const celsius = parseFloat(buffer);
+                    if (!isValidNumber(celsius)) {
+                        showError("Entrada inválida");
+                        return;
+                    }
+                    const fahrenheit = safeRound((celsius * 9/5) + 32);
+                    buffer = formatDisplayNumber(fahrenheit);
+                    showMessage(`${formatDisplayNumber(celsius)}°C = ${buffer}°F`);
+                    updateScreen();
+                } catch (error) {
+                    console.error('Error in temperature conversion:', error);
+                    showError("Error");
+                }
+                break;
+                
+            case "km→mi":
+                try {
+                    const km = parseFloat(buffer);
+                    if (!isValidNumber(km) || km < 0) {
+                        showError("Entrada inválida");
+                        return;
+                    }
+                    const miles = safeRound(km * 0.621371);
+                    buffer = formatDisplayNumber(miles);
+                    showMessage(`${formatDisplayNumber(km)}km = ${buffer}mi`);
+                    updateScreen();
+                } catch (error) {
+                    console.error('Error in distance conversion:', error);
+                    showError("Error");
+                }
+                break;
+                
+            case "kg→lb":
+                try {
+                    const kg = parseFloat(buffer);
+                    if (!isValidNumber(kg) || kg < 0) {
+                        showError("Entrada inválida");
+                        return;
+                    }
+                    const pounds = safeRound(kg * 2.20462);
+                    buffer = formatDisplayNumber(pounds);
+                    showMessage(`${formatDisplayNumber(kg)}kg = ${buffer}lb`);
+                    updateScreen();
+                } catch (error) {
+                    console.error('Error in weight conversion:', error);
+                    showError("Error");
+                }
+                break;
+                
+            case "m→ft":
+                try {
+                    const meters = parseFloat(buffer);
+                    if (!isValidNumber(meters) || meters < 0) {
+                        showError("Entrada inválida");
+                        return;
+                    }
+                    const feet = safeRound(meters * 3.28084);
+                    buffer = formatDisplayNumber(feet);
+                    showMessage(`${formatDisplayNumber(meters)}m = ${buffer}ft`);
+                    updateScreen();
+                } catch (error) {
+                    console.error('Error in length conversion:', error);
+                    showError("Error");
+                }
+                break;
 
-        // === MATHEMATICAL CONSTANTS ===
-            
-        case "π":
-            // Pi constant (3.14159...)
-            buffer = String(Math.PI);
-            updateScreen();
-            break;
-        case "e":
-            // Euler's number (2.71828...)
-            buffer = String(Math.E);
-            updateScreen();
-            break;
+            // === MATHEMATICAL CONSTANTS ===
+            case "π":
+                buffer = formatDisplayNumber(Math.PI);
+                updateScreen();
+                break;
+                
+            case "e":
+                buffer = formatDisplayNumber(Math.E);
+                updateScreen();
+                break;
 
-        default:
-            // Handle numeric input (0-9)
-            if (!isNaN(parseInt(symbol))) {
-                handleNumber(symbol);
-            }
-            break;
+            default:
+                // Handle numeric input (0-9)
+                if (!isNaN(parseInt(symbol)) && symbol.length === 1) {
+                    handleNumber(symbol);
+                }
+                break;
+        }
+    } catch (error) {
+        console.error('Error in handleSymbol:', error);
+        showError("Error");
     }
 }
 
@@ -401,179 +733,176 @@ function handleSymbol(symbol) {
  */
 
 /**
- * Main initialization function - runs when DOM is fully loaded
- * Sets up all event listeners and initializes calculator state
+ * Main initialization function with comprehensive error handling
  */
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize display with "0"
-    updateScreen();
+    try {
+        // Initialize screen reference
+        screen = document.querySelector('.screen');
+        if (!screen) {
+            console.error('Calculator screen element not found');
+            return;
+        }
+        
+        // Initialize display with "0"
+        updateScreen();
 
-    /**
-     * === CALCULATOR BUTTON EVENT LISTENERS ===
-     * Adds click handlers to all calculator buttons
-     */
-    document.querySelectorAll('.calc-button').forEach(button => {
-        button.addEventListener('click', () => {
-            // Special handling for icon button (bottom-left calculator icon)
-            if (button.classList.contains('icon-btn')) {
-                console.log('Calculator icon clicked - could show info or settings');
-                return; // Don't process as a symbol
-            }
-            
-            const symbol = button.textContent.trim();
-            handleSymbol(symbol);
-        });
-    });
-
-    /**
-     * === SIDEBAR/HAMBURGER MENU FUNCTIONALITY ===
-     * Controls the slide-out history sidebar
-     */
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    const closeSidebar = document.getElementById('closeSidebar');
-
-    if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', toggleSidebar);
-    }
-    
-    if (overlay) {
-        overlay.addEventListener('click', toggleSidebar);
-    }
-    
-    if (closeSidebar) {
-        closeSidebar.addEventListener('click', toggleSidebar);
-    }
-
-    /**
-     * === MODE SWITCHING FUNCTIONALITY ===
-     * Handles Basic, Scientific, and Conversion mode switching
-     */
-    document.querySelectorAll('.menu-option').forEach(option => {
-        option.addEventListener('click', (e) => {
-            // Remove active state from all mode options
-            document.querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('active'));
-            // Add active state to clicked option
-            e.target.classList.add('active');
-            
-            // Get selected mode and log for future implementation
-            const mode = e.target.dataset.mode;
-            console.log('Switching to mode:', mode);
-            
-            // Close bottom menu with delay for smooth UX
-            setTimeout(() => {
-                toggleBottomMenu();
-            }, 300);
-        });
-    });
-
-    /**
-     * === HISTORY MANAGEMENT FUNCTIONS ===
-     */
-    
-    // Clear history with user confirmation
-    const clearHistoryBtn = document.getElementById('clearHistory');
-    if (clearHistoryBtn) {
-        clearHistoryBtn.addEventListener('click', () => {
-            if (calculatorHistory.length === 0) {
-                showMessage('No hay historial para borrar');
-                return;
-            }
-            
-            // Show confirmation dialog before clearing
-            const confirmDelete = confirm('¿Estás seguro de que quieres borrar todo el historial?');
-            if (confirmDelete) {
-                calculatorHistory = [];
-                updateHistoryDisplay();
-                showMessage('Historial borrado');
-            }
-        });
-    }
-
-    // Edit history functionality - loads last calculation for editing
-    const editHistoryBtn = document.getElementById('editHistory');
-    if (editHistoryBtn) {
-        editHistoryBtn.addEventListener('click', () => {
-            if (calculatorHistory.length === 0) {
-                showMessage('No hay historial para editar');
-                return;
-            }
-            
-            // Extract last number from most recent calculation
-            const lastCalculation = calculatorHistory[calculatorHistory.length - 1];
-            if (lastCalculation) {
-                const parts = lastCalculation.split(' = ');
-                const expression = parts[0];
-                // Use regex to find the last number in the expression
-                const match = expression.match(/[\d.]+$/);
-                if (match) {
-                    buffer = match[0];
-                    updateScreen();
-                    showMessage('Última operación cargada para editar');
+        // === CALCULATOR BUTTON EVENT LISTENERS ===
+        document.querySelectorAll('.calc-button').forEach(button => {
+            button.addEventListener('click', () => {
+                try {
+                    // Special handling for icon button
+                    if (button.classList.contains('icon-btn')) {
+                        console.log('Calculator icon clicked - could show info or settings');
+                        return;
+                    }
+                    
+                    const symbol = button.textContent.trim();
+                    handleSymbol(symbol);
+                } catch (error) {
+                    console.error('Error in button click handler:', error);
+                    showError("Error");
                 }
+            });
+        });
+
+        // === SIDEBAR/HAMBURGER MENU FUNCTIONALITY ===
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const overlay = document.getElementById('sidebarOverlay');
+        const closeSidebar = document.getElementById('closeSidebar');
+
+        if (hamburgerBtn) {
+            hamburgerBtn.addEventListener('click', toggleSidebar);
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', toggleSidebar);
+        }
+        
+        if (closeSidebar) {
+            closeSidebar.addEventListener('click', toggleSidebar);
+        }
+
+        // === MODE SWITCHING FUNCTIONALITY ===
+        document.querySelectorAll('.menu-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                try {
+                    document.querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    const mode = e.target.dataset.mode;
+                    console.log('Switching to mode:', mode);
+                } catch (error) {
+                    console.error('Error in mode switching:', error);
+                }
+            });
+        });
+
+        // === HISTORY MANAGEMENT FUNCTIONS ===
+        const clearHistoryBtn = document.getElementById('clearHistory');
+        if (clearHistoryBtn) {
+            clearHistoryBtn.addEventListener('click', () => {
+                try {
+                    if (calculatorHistory.length === 0) {
+                        showMessage('No hay historial para borrar');
+                        return;
+                    }
+                    
+                    const confirmDelete = confirm('¿Estás seguro de que quieres borrar todo el historial?');
+                    if (confirmDelete) {
+                        calculatorHistory = [];
+                        updateHistoryDisplay();
+                        showMessage('Historial borrado');
+                    }
+                } catch (error) {
+                    console.error('Error clearing history:', error);
+                    showError("Error");
+                }
+            });
+        }
+
+        const editHistoryBtn = document.getElementById('editHistory');
+        if (editHistoryBtn) {
+            editHistoryBtn.addEventListener('click', () => {
+                try {
+                    if (calculatorHistory.length === 0) {
+                        showMessage('No hay historial para editar');
+                        return;
+                    }
+                    
+                    const lastCalculation = calculatorHistory[calculatorHistory.length - 1];
+                    if (lastCalculation) {
+                        const parts = lastCalculation.split(' = ');
+                        const expression = parts[0];
+                        const match = expression.match(/[\d.]+$/);
+                        if (match && isValidNumber(parseFloat(match[0]))) {
+                            buffer = match[0];
+                            updateScreen();
+                            showMessage('Última operación cargada para editar');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error editing history:', error);
+                    showError("Error");
+                }
+            });
+        }
+
+        // === SPLASH SCREEN HANDLING ===
+        const splashScreen = document.getElementById('splashScreen');
+        if (splashScreen) {
+            setTimeout(() => {
+                splashScreen.classList.add('hidden');
+                setTimeout(() => {
+                    splashScreen.remove();
+                }, 300);
+            }, 2000);
+            
+            splashScreen.addEventListener('click', () => {
+                splashScreen.classList.add('hidden');
+                setTimeout(() => {
+                    splashScreen.remove();
+                }, 300);
+            });
+        }
+
+        // === ENHANCED KEYBOARD SUPPORT ===
+        document.addEventListener('keydown', (event) => {
+            try {
+                const key = event.key;
+                
+                if (key >= '0' && key <= '9') {
+                    handleSymbol(key);
+                } else if (key === '+') {
+                    handleSymbol('+');
+                } else if (key === '-') {
+                    handleSymbol('−');
+                } else if (key === '*') {
+                    handleSymbol('×');
+                } else if (key === '/') {
+                    event.preventDefault();
+                    handleSymbol('÷');
+                } else if (key === 'Enter' || key === '=') {
+                    handleSymbol('=');
+                } else if (key === 'Escape') {
+                    handleSymbol('AC');
+                } else if (key === 'Backspace') {
+                    handleSymbol('←');
+                } else if (key === '.') {
+                    handleSymbol('.');
+                } else if (key === '%') {
+                    handleSymbol('%');
+                }
+            } catch (error) {
+                console.error('Error in keyboard handler:', error);
+                showError("Error");
             }
         });
-    }
 
-    /**
-     * === SPLASH SCREEN HANDLING ===
-     * Auto-dismiss splash screen and handle user tap to dismiss
-     */
-    const splashScreen = document.getElementById('splashScreen');
-    if (splashScreen) {
-        // Auto dismiss after 2 seconds
-        setTimeout(() => {
-            splashScreen.classList.add('hidden');
-            // Remove from DOM after CSS transition completes
-            setTimeout(() => {
-                splashScreen.remove();
-            }, 300);
-        }, 2000);
-        
-        // Allow manual dismissal by clicking
-        splashScreen.addEventListener('click', () => {
-            splashScreen.classList.add('hidden');
-            setTimeout(() => {
-                splashScreen.remove();
-            }, 300);
-        });
+    } catch (error) {
+        console.error('Error in DOMContentLoaded:', error);
+        if (screen) {
+            screen.textContent = "Error de inicialización";
+        }
     }
-
-    /**
-     * === KEYBOARD SUPPORT ===
-     * Maps physical keyboard keys to calculator functions
-     * Supported keys: 0-9, +, -, *, /, =, Enter, Escape, Backspace, ., %
-     */
-    document.addEventListener('keydown', (event) => {
-        const key = event.key;
-        
-        // Number keys (0-9)
-        if (key >= '0' && key <= '9') {
-            handleSymbol(key);
-        }
-        // Mathematical operators
-        else if (key === '+') {
-            handleSymbol('+');
-        } else if (key === '-') {
-            handleSymbol('−'); // Use proper minus symbol
-        } else if (key === '*') {
-            handleSymbol('×'); // Use proper multiplication symbol
-        } else if (key === '/') {
-            event.preventDefault(); // Prevent browser search
-            handleSymbol('÷'); // Use proper division symbol
-        }
-        // Special function keys
-        else if (key === 'Enter' || key === '=') {
-            handleSymbol('=');
-        } else if (key === 'Escape') {
-            handleSymbol('AC'); // Clear calculator
-        } else if (key === 'Backspace') {
-            handleSymbol('←'); // Backspace function
-        } else if (key === '.') {
-            handleSymbol('.');
-        } else if (key === '%') {
-            handleSymbol('%');
-        }
-    });
 });
