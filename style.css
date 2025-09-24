@@ -394,6 +394,41 @@ body{
   border-radius: 999px;
 }
 
+/* Scientific row styling */
+.scientific-row {
+  transition: all 0.3s ease;
+}
+
+.calc-button.scientific {
+  background: var(--btn-grey);
+  color: var(--btn-text);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.calc-button.scientific:hover {
+  background: var(--btn-grey-hover);
+}
+
+/* Responsive adjustments for scientific mode */
+.calc-buttons.scientific-mode {
+  gap: 14px;
+}
+
+.calc-buttons.scientific-mode .calc-button {
+  min-height: 70px;
+}
+
+@media (max-width: 480px) {
+  .calc-buttons.scientific-mode .calc-button {
+    min-height: 60px;
+    font-size: 1.6rem;
+  }
+  
+  .calc-button.scientific {
+    font-size: 1.2rem;
+  }
+}
 /* Responsivo */
 @media (max-width: 480px){
   :root{

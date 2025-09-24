@@ -47,8 +47,8 @@
             0
         </section>
 
-        <!-- Teclado: 5 filas, 4 columnas -->
-        <section class="calc-buttons">
+        <!-- Teclado: 5 filas, 4 columnas (Normal) / 6 filas en modo científico -->
+        <section class="calc-buttons" id="calcButtons">
             <!-- Fila 1: AC, +/−, %, ÷ -->
             <div class="calc-button-row">
                 <!-- Nota: mostramos AC; si tu JS espera "C", puedes leer data-key="C" -->
@@ -56,6 +56,14 @@
                 <button class="calc-button" aria-label="Más/Menos">±</button>
                 <button class="calc-button" aria-label="Porcentaje">%</button>
                 <button class="calc-button op" aria-label="Dividir">÷</button>
+            </div>
+
+            <!-- Fila científica (oculta en modo normal) -->
+            <div class="calc-button-row scientific-row" style="display: none;">
+                <button class="calc-button scientific" aria-label="Seno">sin</button>
+                <button class="calc-button scientific" aria-label="Coseno">cos</button>
+                <button class="calc-button scientific" aria-label="Tangente">tan</button>
+                <button class="calc-button scientific" aria-label="Logaritmo">log</button>
             </div>
 
             <!-- Fila 2: 7 8 9 × -->
@@ -93,6 +101,6 @@
     </div>
 
     <!-- Script principal para la funcionalidad de la calculadora -->
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>

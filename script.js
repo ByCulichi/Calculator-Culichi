@@ -72,6 +72,20 @@ function handleSymbol(symbol) {
         case "÷":
             handleMath(symbol);
             break;
+
+        // Funciones científicas
+        case "sin":
+            buffer = String(Math.sin(parseFloat(buffer) * Math.PI / 180));
+            break;
+        case "cos":
+            buffer = String(Math.cos(parseFloat(buffer) * Math.PI / 180));
+            break;
+        case "tan":
+            buffer = String(Math.tan(parseFloat(buffer) * Math.PI / 180));
+            break;
+        case "log":
+            buffer = String(Math.log10(parseFloat(buffer)));
+            break;
     }
 }
 
@@ -255,15 +269,20 @@ function switchMode(scientific) {
     isScientificMode = scientific;
     const normalBtn = document.getElementById('normalMode');
     const scientificBtn = document.getElementById('scientificMode');
+    const calcButtons = document.getElementById('calcButtons');
+    const scientificRow = document.querySelector('.scientific-row');
     
     if (scientific) {
         normalBtn.classList.remove('active');
         scientificBtn.classList.add('active');
-        // TODO: Implementar modo científico
+        calcButtons.classList.add('scientific-mode');
+        scientificRow.style.display = 'contents';
         showMessage("Modo científico");
     } else {
         scientificBtn.classList.remove('active');
         normalBtn.classList.add('active');
+        calcButtons.classList.remove('scientific-mode');
+        scientificRow.style.display = 'none';
         showMessage("Modo normal");
     }
 }
