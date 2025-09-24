@@ -1,4 +1,5 @@
 /* ============================================================
+<<<<<<< HEAD
     IMATH Calculator - Estilos iPhone Dark Theme (iOS Calculator style)
     Notas:
     - Edita variables en :root para personalizar colores y tamaños.
@@ -16,11 +17,51 @@
     --panel-bg: #000000;
     --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
     --panel-border-radius: 20px;
+=======
+    Calculator Culichi - iOS-Style Calculator Styles
+    
+    A comprehensive stylesheet for a sophisticated calculator app featuring:
+    - iOS-inspired design with dark theme and orange accents
+    - Responsive layout that adapts to different screen sizes
+    - Three calculation modes: Basic, Scientific, and Conversion
+    - Smooth animations and transitions for modern UX
+    - History sidebar with slide-out functionality
+    - Circular buttons with neumorphic shadows
+    - Accessible design with proper ARIA labels
+    
+    Color Palette:
+    - Background: Light gray (#F5F5F5)
+    - Calculator Panel: Pure black (#000000)
+    - Number Buttons: Dark gray (#333333)
+    - Function Buttons: Medium gray (#A6A6A6)
+    - Operator Buttons: Orange (#FF9500) - iOS accent color
+    - Text: White on dark buttons, black on light buttons
+    
+    Layout: CSS Grid for button arrangement with responsive design
+   ============================================================ */
 
-    /* Branding */
-    --brand-text: "IMATH";
-    --brand-color: #8E8E93;
+/**
+ * ============================================================
+ *                    CSS CUSTOM PROPERTIES (CSS Variables)
+ * ============================================================
+ * Centralized color and size definitions for consistent theming
+ * and easy maintenance. All colors follow iOS design guidelines.
+ */
+:root {
+    /* === BACKGROUND COLORS === */
+    --bg: #F5F5F5;              /* Main page background - light gray */
+    
+    /* === CALCULATOR PANEL STYLING === */
+    --panel-bg: #000000;        /* Calculator background - pure black like iOS */
+    --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);  /* Subtle shadow for depth */
+    --panel-border-radius: 20px; /* Rounded corners for modern look */
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 
+    /* === BRANDING === */
+    --brand-text: "";           /* No additional branding text */
+    --brand-color: #8E8E93;     /* iOS secondary text color */
+
+<<<<<<< HEAD
     /* Pantalla de resultado */
     --screen-bg: transparent;
     --screen-text: #FFFFFF;
@@ -74,6 +115,70 @@
     }
 
     body {
+=======
+    /* === DISPLAY SCREEN === */
+    --screen-bg: transparent;   /* Transparent background blends with panel */
+    --screen-text: #FFFFFF;     /* White text for high contrast */
+    --screen-size: 48px;        /* Large font size for readability */
+
+    /* === BUTTON COLOR SCHEME === */
+    --btn-bg: #333333;          /* Number buttons - dark gray */
+    --btn-bg-hover: #404040;    /* Hover state - slightly lighter */
+    --btn-ac: #A6A6A6;          /* Function buttons (AC, +/-, %) - medium gray */
+    --btn-ac-hover: #B8B8B8;    /* Function button hover state */
+    --btn-op: #FF9500;          /* Operator buttons (+, -, ×, ÷, =) - iOS orange */
+    --btn-op-hover: #FFB84D;    /* Operator button hover - lighter orange */
+    
+    /* === BUTTON TEXT COLORS === */
+    --btn-text: #FFFFFF;        /* White text on dark number buttons */
+    --btn-text-ac: #000000;     /* Black text on light function buttons */
+    --btn-text-op: #FFFFFF;     /* White text on orange operator buttons */
+    
+    /* === BUTTON VISUAL EFFECTS === */
+    --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);  /* Neumorphic shadow effect */
+    --btn-border-radius: 50%;   /* Circular buttons like iOS calculator */
+
+    /* === BUTTON DIMENSIONS === */
+    --btn-gap: 12px;            /* Space between buttons */
+    --btn-size: 75px;           /* Standard button diameter (75px circle) */
+    --btn-font: 32pt;           /* Large font for numbers - bold and readable */
+    --btn-font-ops: 28pt;       /* Slightly smaller for operator symbols */
+
+    /* === ACCENT AND FOCUS COLORS === */
+    --focus: #007AFF;           /* iOS blue for focus states */
+    --wrapper-w: 380px;         /* Maximum calculator width */
+    
+    /* === SIDEBAR STYLING === */
+    --sidebar-bg: #FFFFFF;      /* White sidebar background */
+    --sidebar-border: #E5E5EA;  /* Light border color */
+    --sidebar-text: #000000;      /* Black text in sidebar */
+    --sidebar-button-bg: #F2F2F7; /* Light button backgrounds in sidebar */
+    --sidebar-button-hover: #E8E8ED; /* Hover state for sidebar buttons */
+    
+    /* === MODE SELECTOR STYLING === */
+    --mode-selector-bg: #FFFFFF;  /* White background for mode selector */
+    --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    --mode-selector-border: #E5E5EA; /* Light border color */
+}
+
+/**
+ * ============================================================
+ *                    GLOBAL RESET & BASE STYLES
+ * ============================================================
+ * Universal reset for consistent cross-browser styling
+ * and base typography following iOS design principles
+ */
+
+/* Universal box model reset for consistent sizing */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+/* Main body styling with iOS font stack and centering layout */
+body {
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
     display: flex;
@@ -83,19 +188,31 @@
     min-height: 100vh;
     }
 
+<<<<<<< HEAD
     /* ------------------------------
     Splash Screen (pantalla inicial)
     ------------------------------ */
     .splash-screen {
+=======
+/**
+ * ============================================================
+ *                    SPLASH SCREEN COMPONENT
+ * ============================================================
+ * Full-screen overlay shown on app startup with branding
+ * Auto-dismisses after 2 seconds or on user interaction
+ */
+
+.splash-screen {
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
     position: fixed;
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark overlay */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 9999; /* Highest z-index to appear above everything */
     opacity: 1;
     transition: opacity 0.3s ease;
     }
@@ -179,6 +296,7 @@
     border-radius: 1px;
     }
 
+<<<<<<< HEAD
     .hamburger-menu.active span:nth-child(1) {
     transform: rotate(45deg) translate(4px, 4px);
     }
@@ -236,6 +354,9 @@
     transition: all 0.2s ease;
     border-radius: 1px;
     }
+=======
+/* Calculator logo and bottom controls - REMOVED (now in calculator grid) */
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 
     /* ------------------------------
     Menú deslizante inferior (overlay + hoja)
@@ -525,14 +646,25 @@
     transition: all 0.2s ease;
     }
 
+<<<<<<< HEAD
     .edit-btn {
     background: #007AFF;
+=======
+.edit-btn {
+    background: #FF9500;    /* Orange for edit as specified */
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
     color: white;
     }
 
+<<<<<<< HEAD
     .edit-btn:hover {
     background: #0056CC;
     }
+=======
+.edit-btn:hover {
+    background: #FFB84D;    /* Lighter orange on hover */
+}
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 
     .delete-btn {
     background: #FF3B30;
@@ -602,11 +734,16 @@
     display: contents;
     }
 
+<<<<<<< HEAD
     /* Fila inferior especial a 3 columnas (si se usa) */
     .calc-button-row.bottom-row {
+=======
+/* Special bottom row with 4 equal columns */
+.calc-button-row.bottom-row {
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
     display: grid;
     grid-column: 1 / -1;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--btn-gap);
     }
 
@@ -623,7 +760,7 @@
     background: var(--btn-bg);
     color: var(--btn-text);
     font-size: var(--btn-font);
-    font-weight: 400;
+    font-weight: bold;               /* Bold text for all buttons */
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     box-shadow: var(--btn-shadow);
@@ -632,6 +769,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
     touch-action: manipulation;   /* Remove 300ms delay on mobile */
     will-change: transform;       /* Smooth press animation */
     }
@@ -646,22 +784,51 @@
     transform: scale(0.95);
     box-shadow: var(--btn-shadow);
     }
+=======
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Hover y active para botones */
+.calc-button:hover { 
+    background: var(--btn-bg-hover); 
+    transform: scale(0.95);           /* iOS-style scale on press */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);  /* Reduced shadow on press */
+}
+
+.calc-button:active { 
+    transform: scale(0.90);           /* More pronounced press effect */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);  /* Deeper shadow when pressed */
+}
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 
     .calc-button:focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 2px;
     }
 
+<<<<<<< HEAD
     /* Operadores */
     .calc-button.op {
     font-size: var(--btn-font-ops);
+=======
+/* Operaciones (÷ × − + =) */
+.calc-button.op { 
+    font-size: var(--btn-font-ops); 
+    font-weight: bold;           /* Bold operators */
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
     background: var(--btn-op);
     color: var(--btn-text-op);
     }
 
     .calc-button.op:hover {
     background: var(--btn-op-hover);
+<<<<<<< HEAD
     }
+=======
+    transform: scale(0.95);           /* Consistent hover effect */
+    box-shadow: 0 2px 8px rgba(255, 149, 0, 0.4);  /* Orange shadow for operators */
+}
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 
     /* Primera fila: AC, +/- y % (función) */
     .calc-button-row:first-child .calc-button:first-child,
@@ -677,14 +844,48 @@
     background: var(--btn-ac-hover);
     }
 
+<<<<<<< HEAD
     /* Botón 0 cuadrado/circular igual al resto (sin span doble ancho) */
     .calc-button.zero {
+=======
+/* Botón cero - ahora igual que los demás */
+.calc-button.zero {
+    /* Make it exactly like other number buttons */
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
     grid-column: span 1 !important;
     aspect-ratio: 1 / 1 !important;
     height: var(--btn-size) !important;
     width: var(--btn-size) !important;
+<<<<<<< HEAD
     border-radius: 50% !important;
     }
+=======
+    border-radius: 50% !important;  /* Circular like other buttons */
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: var(--btn-font);
+    font-weight: bold;
+}
+
+/* Icon button in bottom row */
+.calc-button.icon-btn {
+    background: var(--btn-bg);      /* Same as number buttons */
+    color: var(--btn-text);
+    padding: 0;                     /* No padding for image */
+    border-radius: 50%;
+}
+
+.calc-button.icon-btn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.icon-img {
+    width: 24px;                    /* 24x24px as specified */
+    height: 24px;
+    border-radius: 4px;             /* Slight rounding for the image */
+    object-fit: cover;              /* Ensure good fit */
+}
+>>>>>>> 05025315c4d0f77af8ff3d772763e697df3a1359
 
     /* Botones de modo científico / conversión (texto más pequeño) */
     .calc-button.scientific,
