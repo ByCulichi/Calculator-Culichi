@@ -86,13 +86,37 @@ function handleNumber(numString) {
     updateScreen();
 }
 
+function toggleBottomMenu() {
+    const bottomMenu = document.getElementById('bottomMenu');
+    const overlay = document.getElementById('bottomMenuOverlay');
+    const menuBtn = document.getElementById('bottomMenuBtn');
+    
+    bottomMenu.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Animate hamburger icon
+    if (bottomMenu.classList.contains('active')) {
+        menuBtn.classList.add('active');
+    } else {
+        menuBtn.classList.remove('active');
+    }
+}
+
 function updateHistoryDisplay() {
     // Update history in sidebar if exists
     const historyContent = document.getElementById('historyContent');
     if (historyContent && calculatorHistory.length > 0) {
-        historyContent.innerHTML = calculatorHistory.slice(-10).map(calc => 
-            `<div class="history-item">${calc}</div>`
-        ).join('');
+        historyContent.innerHTML = calculatorHistory.slice(-10).map((calc, index) => {
+            const parts = calc.split(' = ');
+            const calculation = parts[0];
+            const result = parts[1];
+            return `
+                <div class="history-item">
+                    <span class="calc-expression">${calculation}</span>
+                    <span class="calc-result">${result}</span>
+                </div>
+            `;
+        }).join('');
     }
 }
 
@@ -267,12 +291,51 @@ document.addEventListener('DOMContentLoaded', function() {
         closeSidebar.addEventListener('click', toggleSidebar);
     }
 
+    // Bottom menu functionality
+    const bottomMenuBtn = document.getElementById('bottomMenuBtn');
+    const bottomMenuOverlay = document.getElementById('bottomMenuOverlay');
+    
+    if (bottomMenuBtn) {
+        bottomMenuBtn.addEventListener('click', toggleBottomMenu);
+    }
+    
+    if (bottomMenuOverlay) {
+        bottomMenuOverlay.addEventListener('click', toggleBottomMenu);
+    }
+
+    // Menu options handling
+    document.querySelectorAll('.menu-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+            // Remove active from all options
+            document.querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('active'));
+            // Add active to clicked option
+            e.target.classList.add('active');
+            
+            // Here you can add mode switching logic
+            const mode = e.target.dataset.mode;
+            console.log('Switching to mode:', mode);
+            
+            // Close menu
+            setTimeout(() => {
+                toggleBottomMenu();
+            }, 300);
+        });
+    });
+
     // Clear history button
     const clearHistoryBtn = document.getElementById('clearHistory');
     if (clearHistoryBtn) {
         clearHistoryBtn.addEventListener('click', () => {
             calculatorHistory = [];
             updateHistoryDisplay();
+        });
+    }
+
+    // Edit history button (placeholder)
+    const editHistoryBtn = document.getElementById('editHistory');
+    if (editHistoryBtn) {
+        editHistoryBtn.addEventListener('click', () => {
+            console.log('Edit history functionality would go here');
         });
     }
 

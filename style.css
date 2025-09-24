@@ -178,15 +178,125 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Calculator logo */
-.calculator-logo {
+/* Calculator logo and bottom controls */
+.bottom-left-controls {
     position: fixed;
     bottom: 16px;
     left: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+}
+
+.calculator-logo {
     width: 24px;
     height: 24px;
-    z-index: 100;
     border-radius: 4px;
+}
+
+.bottom-menu-btn {
+    background: transparent;
+    border: none;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bottom-menu-btn:hover {
+    background: rgba(255, 149, 0, 0.1);
+    border-radius: 4px;
+}
+
+.bottom-menu-btn span {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: #FF9500;
+    margin: 1.5px 0;
+    transition: all 0.2s ease;
+    border-radius: 1px;
+}
+
+/* Bottom slide-up menu */
+.bottom-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.bottom-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.bottom-menu {
+    position: fixed;
+    bottom: -300px;
+    left: 0;
+    right: 0;
+    background: #1C1C1E;
+    border-radius: 20px 20px 0 0;
+    z-index: 999;
+    transition: bottom 0.3s ease;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.bottom-menu.active {
+    bottom: 0;
+}
+
+.bottom-menu-header {
+    padding: 12px 0 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-menu-handle {
+    width: 36px;
+    height: 4px;
+    background: #636366;
+    border-radius: 2px;
+}
+
+.bottom-menu-content {
+    padding: 20px 0 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-option {
+    background: none;
+    border: none;
+    color: #007AFF;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 16px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.menu-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.menu-option.active {
+    color: #FF9500;
+    font-weight: 600;
 }
 
 /* Mode selector */
@@ -262,20 +372,20 @@ body {
     border-radius: 0 0 8px 8px;
 }
 
-/* Sidebar */
+/* Sidebar - Enhanced iOS-style history panel */
 .sidebar {
     position: fixed;
     top: 0;
     left: -350px;
     width: 350px;
     height: 100vh;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--sidebar-border);
+    background: #1C1C1E;  /* Dark background like iOS */
+    border-right: 1px solid #2C2C2E;
     z-index: 1001;
     transition: left 0.3s ease;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar.active {
@@ -283,24 +393,24 @@ body {
 }
 
 .sidebar-header {
-    padding: 20px;
-    border-bottom: 1px solid var(--sidebar-border);
+    padding: 60px 20px 20px;  /* More padding for status bar */
+    border-bottom: 1px solid #2C2C2E;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .sidebar-header h3 {
-    color: var(--sidebar-text);
+    color: #FFFFFF;
     margin: 0;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .close-sidebar {
     background: none;
     border: none;
-    color: var(--sidebar-text);
+    color: #FF9500;  /* Orange close button */
     font-size: 24px;
     cursor: pointer;
     padding: 8px;
@@ -314,32 +424,106 @@ body {
 }
 
 .close-sidebar:hover {
-    background: var(--sidebar-button-hover);
+    background: rgba(255, 149, 0, 0.1);
 }
 
 .sidebar-content {
-    padding: 20px;
     flex: 1;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* History section */
-.history-section h4 {
-    color: var(--sidebar-text);
-    margin: 0 0 16px 0;
-    font-size: 18px;
-    font-weight: 600;
+.history-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px 20px;
+}
+
+.history-period-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #2C2C2E;
+}
+
+.period-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #8E8E93;
+    font-size: 16px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.period-tab.active {
+    color: #007AFF;
+    border-bottom-color: #007AFF;
 }
 
 .history-content {
-    max-height: 400px;
+    flex: 1;
     overflow-y: auto;
     margin-bottom: 20px;
 }
 
 .history-item {
-    background: var(--sidebar-button-bg);
-    border: 1px solid var(--mode-selector-border);
+    background: #2C2C2E;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s ease;
+}
+
+.history-item:hover {
+    background: #3A3A3C;
+}
+
+.history-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #2C2C2E;
+}
+
+.history-action-btn {
+    flex: 1;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-btn {
+    background: #007AFF;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #0056CC;
+}
+
+.delete-btn {
+    background: #FF3B30;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #D70015;
+}
     padding: 12px;
     margin-bottom: 8px;
     border-radius: 8px;
@@ -348,30 +532,6 @@ body {
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.history-item:hover {
-    background: var(--sidebar-button-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.clear-history {
-    width: 100%;
-    background: #FF3B30;
-    color: #FFFFFF;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.clear-history:hover {
-    background: #D70015;
-    transform: translateY(-1px);
 }
 
 /* Sidebar overlay */

@@ -25,19 +25,25 @@
             <span></span>
         </button>
 
-        <!-- Panel lateral con historial únicamente -->
+        <!-- Panel lateral con historial mejorado -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3>IMATH Calculator</h3>
+                <h3>Historial</h3>
                 <button class="close-sidebar" id="closeSidebar" aria-label="Cerrar menú">×</button>
             </div>
             <div class="sidebar-content">
                 <div class="history-section">
-                    <h4>Historial</h4>
+                    <div class="history-period-tabs">
+                        <button class="period-tab active" data-period="recent">Últimos 7 días</button>
+                        <button class="period-tab" data-period="month">Últimos 30 días</button>
+                    </div>
                     <div class="history-content" id="historyContent">
                         <!-- El historial se llenará dinámicamente -->
                     </div>
-                    <button class="clear-history" id="clearHistory">Limpiar Historial</button>
+                    <div class="history-actions">
+                        <button class="history-action-btn edit-btn" id="editHistory">Editar</button>
+                        <button class="history-action-btn delete-btn" id="clearHistory">Borrar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,8 +51,29 @@
         <!-- Overlay para el menú -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- Calculator logo in bottom-left -->
-        <img src="iconoCalaculadora.jpg" alt="Calculator Logo" class="calculator-logo">
+        <!-- Calculator logo and bottom menu in bottom-left -->
+        <div class="bottom-left-controls">
+            <img src="iconoCalaculadora.jpg" alt="Calculator Logo" class="calculator-logo">
+            <button class="bottom-menu-btn" id="bottomMenuBtn" aria-label="Calculator Modes">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Bottom slide-up menu -->
+        <div class="bottom-menu-overlay" id="bottomMenuOverlay"></div>
+        <div class="bottom-menu" id="bottomMenu">
+            <div class="bottom-menu-header">
+                <div class="bottom-menu-handle"></div>
+            </div>
+            <div class="bottom-menu-content">
+                <button class="menu-option active" data-mode="basic">Básica</button>
+                <button class="menu-option" data-mode="scientific">Científica</button>
+                <button class="menu-option" data-mode="notes">Notas matemáticas</button>
+                <button class="menu-option" data-mode="convert">Convertir</button>
+            </div>
+        </div>
 
         <!-- Selector de modo en la esquina inferior izquierda (hidden for now) -->
         <div class="mode-selector" id="modeSelector" style="display: none;">
