@@ -1,445 +1,433 @@
-/* =========================
-   IMATH iOS look + carcasa web (oscuro)
-   ========================= */
+/* ============================================================
+   IMATH Calculator - Estilos principales y carcasa web (oscuro)
+   ============================================================ */
 
-/* Paleta y dimensiones base */
-:root{
-  /* Carcasa */
-  --bg: #000000;
-  --panel-top: #0a0b0d;
-  --panel-bot: #05060a;
-  --panel-border: rgba(255,255,255,0.06);
-  --panel-shadow: 0 28px 64px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.04);
+/* ------------------------------
+   Paleta de colores y variables base
+   ------------------------------ */
+:root {
+    /* Carcasa */
+    --bg: #000000;
+    --panel-top: #0a0b0d;
+    --panel-bot: #05060a;
+    --panel-border: rgba(255,255,255,0.06);
+    --panel-shadow: 0 28px 64px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.04);
 
-  /* Branding */
-  --brand-text: "IMATH";
-  --brand-color: rgba(255,255,255,0.12);
+    /* Branding */
+    --brand-text: "IMATH";
+    --brand-color: rgba(255,255,255,0.12);
 
-  /* Pantalla */
-  --screen-bg: transparent;
-  --screen-text: #ffffff;
-  --screen-size: 64px;
+    /* Pantalla */
+    --screen-bg: transparent;
+    --screen-text: #ffffff;
+    --screen-size: 64px;
 
-  /* Botones */
-  --btn-grey: #3e3e3e;           /* más oscuro */
-  --btn-grey-hover: #575757;
-  --btn-ac: #9d9d9d;             /* AC claro */
-  --btn-ac-hover: #b8b8b8;
-  --btn-op: #ff9500;             /* naranja iOS */
-  --btn-op-hover: #ffb84d;
-  --btn-text: #ffffff;
+    /* Botones */
+    --btn-grey: #3e3e3e;
+    --btn-grey-hover: #575757;
+    --btn-ac: #9d9d9d;
+    --btn-ac-hover: #b8b8b8;
+    --btn-op: #ff9500;
+    --btn-op-hover: #ffb84d;
+    --btn-text: #ffffff;
 
-  /* Tamaños */
-  --btn-gap: 18px;
-  --btn-size: 84px;              /* diámetro mínimo (más grande) */
-  --btn-font: 2.2rem;            /* números */
-  --btn-font-ops: 2.7rem;        /* operaciones más grandes */
-  --btn-font-dot: 2.3rem;        /* punto un poco más grande */
+    /* Tamaños */
+    --btn-gap: 18px;
+    --btn-size: 84px;
+    --btn-font: 2.2rem;
+    --btn-font-ops: 2.7rem;
+    --btn-font-dot: 2.3rem;
 
-  --focus: #a58cff;              /* foco accesible */
-  --btn-shadow: 0 2px 10px rgba(0,0,0,.28);
+    --focus: #a58cff;
+    --btn-shadow: 0 2px 10px rgba(0,0,0,.28);
 
-  --wrapper-w: 440px;            /* un poco más grande */
+    --wrapper-w: 440px;
 }
 
-/* Reset/base */
-html, body{ height:100%; }
-*{ box-sizing:border-box; }
+/* ------------------------------
+   Reset y estilos base
+   ------------------------------ */
+html, body { height: 100%; }
+* { box-sizing: border-box; }
 
-body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background: var(--bg);
-  color: var(--btn-text);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: 32px;
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background: var(--bg);
+    color: var(--btn-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
 }
 
-/* Carcasa web con marca centrada */
-.wrapper{
-  width: var(--wrapper-w);
-  max-width: calc(100% - 40px);
-  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
-  border-radius: 18px;
-  padding: 26px 20px 22px;
-  border: 1px solid var(--panel-border);
-  box-shadow: var(--panel-shadow);
-  position: relative;
-  overflow: hidden;
+/* ------------------------------
+   Carcasa principal de la calculadora
+   ------------------------------ */
+.wrapper {
+    width: var(--wrapper-w);
+    max-width: calc(100% - 40px);
+    background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
+    border-radius: 18px;
+    padding: 26px 20px 22px;
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--panel-shadow);
+    position: relative;
+    overflow: hidden;
 }
 
 /* Hamburger menu */
 .hamburger-menu{
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  z-index: 1000;
-  background: rgba(255,255,255,0.1);
-  border: none;
-  border-radius: 8px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
-
 .hamburger-menu:hover{
-  background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.2);
 }
-
 .hamburger-menu span{
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: #ffffff;
-  margin: 2px 0;
-  transition: all 0.3s ease;
-  border-radius: 2px;
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #ffffff;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
 }
-
 .hamburger-menu.active span:nth-child(1){
-  transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(5px, 5px);
 }
-
 .hamburger-menu.active span:nth-child(2){
-  opacity: 0;
+    opacity: 0;
 }
-
 .hamburger-menu.active span:nth-child(3){
-  transform: rotate(-45deg) translate(7px, -6px);
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* Sidebar */
 .sidebar{
-  position: fixed;
-  top: 0;
-  left: -320px;
-  width: 320px;
-  height: 100vh;
-  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
-  border-right: 1px solid var(--panel-border);
-  z-index: 1001;
-  transition: left 0.3s ease;
-  display: flex;
-  flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
+    border-right: 1px solid var(--panel-border);
+    z-index: 1001;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
-
 .sidebar.active{
-  left: 0;
+    left: 0;
 }
-
 .sidebar-header{
-  padding: 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
 .sidebar-header h3{
-  color: #ffffff;
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
 }
-
 .close-sidebar{
-  background: none;
-  border: none;
-  color: #ffffff;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 4px;
-  transition: background 0.3s ease;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
 }
-
 .close-sidebar:hover{
-  background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.1);
 }
-
 .sidebar-content{
-  padding: 20px;
-  flex: 1;
-  overflow-y: auto;
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
 }
 
 /* Mode switcher */
 .mode-switcher{
-  display: flex;
-  background: rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 4px;
-  margin-bottom: 30px;
+    display: flex;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 30px;
 }
-
 .mode-btn{
-  flex: 1;
-  background: none;
-  border: none;
-  color: #ffffff;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
+    flex: 1;
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
 }
-
 .mode-btn.active{
-  background: var(--btn-op);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    background: var(--btn-op);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-
 .mode-btn:not(.active):hover{
-  background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.1);
 }
 
 /* History section */
 .history-section h4{
-  color: #ffffff;
-  margin: 0 0 15px 0;
-  font-size: 16px;
-  font-weight: 500;
+    color: #ffffff;
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    font-weight: 500;
 }
-
 .history-content{
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
 }
-
 .history-item{
-  background: rgba(255,255,255,0.05);
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  color: #ffffff;
-  font-family: monospace;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: monospace;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
-
 .history-item:hover{
-  background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.1);
 }
-
 .clear-history{
-  width: 100%;
-  background: rgba(255,0,0,0.2);
-  color: #ff6b6b;
-  border: 1px solid rgba(255,107,107,0.3);
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s ease;
+    width: 100%;
+    background: rgba(255,0,0,0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(255,107,107,0.3);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
-
 .clear-history:hover{
-  background: rgba(255,0,0,0.3);
-  border-color: rgba(255,107,107,0.5);
+    background: rgba(255,0,0,0.3);
+    border-color: rgba(255,107,107,0.5);
 }
 
 /* Sidebar overlay */
 .sidebar-overlay{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: 999;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
-
 .sidebar-overlay.active{
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 /* Marca IMATH centrada arriba */
-.wrapper::before{
-  content: var(--brand-text);
-  position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-weight: 800;
-  letter-spacing: 3.6px;
-  font-size: 12px;
-  color: var(--brand-color);
-  text-shadow: 0 1px 0 rgba(112,110,110,0.5);
-  pointer-events: none;
+.wrapper::before {
+    content: var(--brand-text);
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 3.6px;
+    font-size: 12px;
+    color: var(--brand-color);
+    text-shadow: 0 1px 0 rgba(112,110,110,0.5);
+    pointer-events: none;
 }
 
-/* Pantalla estilo iOS */
-.screen{
-  height: 92px;
-  border-radius: 10px;
-  background: var(--screen-bg);
-  color: var(--screen-text);
-  display:flex;
-  align-items:flex-end;
-  justify-content:flex-end;
-  padding: 0 18px;
-  font-size: var(--screen-size);
-  font-weight: 400;
-  letter-spacing: 1.4px;
-  border: none;
-  box-shadow: none;
-  margin-top: 8px;   /* deja espacio para IMATH */
-  margin-bottom: 20px;
+/* ------------------------------
+   Pantalla estilo iOS
+   ------------------------------ */
+.screen {
+    height: 92px;
+    border-radius: 10px;
+    background: var(--screen-bg);
+    color: var(--screen-text);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0 18px;
+    font-size: var(--screen-size);
+    font-weight: 400;
+    letter-spacing: 1.4px;
+    border: none;
+    box-shadow: none;
+    margin-top: 8px;
+    margin-bottom: 20px;
 }
 
-/* Grid de botones (4 columnas) */
-.calc-buttons{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--btn-gap);
+/* ------------------------------
+   Grid de botones (4 columnas)
+   ------------------------------ */
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--btn-gap);
 }
-.calc-button-row{ display: contents; } /* no rompe tu estructura */
+.calc-button-row { display: contents; }
 
-/* Botón circular base */
-.calc-button{
-  border: none;
-  outline: none;
-  width: 100%;
-  aspect-ratio: 1 / 1;                 /* círculo */
-  min-height: var(--btn-size);
-  border-radius: 50%;
-  background: var(--btn-grey);
-  color: var(--btn-text);
-  font-size: var(--btn-font);
-  font-weight: 400;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: var(--btn-shadow);
-  transition: background .15s ease, color .15s ease, transform .09s ease;
+/* ------------------------------
+   Botón circular base
+   ------------------------------ */
+.calc-button {
+    border: none;
+    outline: none;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    min-height: var(--btn-size);
+    border-radius: 50%;
+    background: var(--btn-grey);
+    color: var(--btn-text);
+    font-size: var(--btn-font);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: var(--btn-shadow);
+    transition: background .15s ease, color .15s ease, transform .09s ease;
 }
 
-/* Hover con zoom (desktop) + Active */
-.calc-button:hover{ background: var(--btn-grey-hover); transform: scale(1.05); }
-.calc-button:active{ transform: scale(.98); }
-.calc-button:focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; }
+/* Hover y active para botones */
+.calc-button:hover { background: var(--btn-grey-hover); transform: scale(1.05); }
+.calc-button:active { transform: scale(.98); }
+.calc-button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
 /* Operaciones grandes (÷ × − + =) */
-.calc-button.op{ font-size: var(--btn-font-ops); }
+.calc-button.op { font-size: var(--btn-font-ops); }
 
-/* Punto “.” ligeramente más grande para legibilidad */
-.calc-button.dot{ font-size: var(--btn-font-dot); }
+/* Punto “.” ligeramente más grande */
+.calc-button.dot { font-size: var(--btn-font-dot); }
 
 /* Botón “calculadora” (ícono/emoji/SVG) */
-.calc-button.tool{
-  background: var(--btn-grey);
-  color: var(--btn-text);
+.calc-button.tool {
+    background: var(--btn-grey);
+    color: var(--btn-text);
 }
-.calc-button.tool:hover{ background: var(--btn-grey-hover); }
+.calc-button.tool:hover { background: var(--btn-grey-hover); }
 
-/* AC claro (solo el primer botón de la 1ª fila por posición y/o clase) */
-.calc-button.ac{
-  background: var(--btn-ac);
-  color:#fff;
+/* AC claro */
+.calc-button.ac {
+    background: var(--btn-ac);
+    color: #fff;
 }
-.calc-button.ac:hover{ background: var(--btn-ac-hover); }
+.calc-button.ac:hover { background: var(--btn-ac-hover); }
 
-/* Columna de operaciones (÷ × − + y =) -> naranja */
+/* Columna de operaciones (naranja) */
 .calc-button.op,
 .calc-buttons > .calc-button:nth-child(4n),
-.calc-button-row > .calc-button:last-child{
-  background: var(--btn-op);
-  color:#fff;
+.calc-button-row > .calc-button:last-child {
+    background: var(--btn-op);
+    color: #fff;
 }
 .calc-button.op:hover,
 .calc-buttons > .calc-button:nth-child(4n):hover,
-.calc-button-row > .calc-button:last-child:hover{
-  background: var(--btn-op-hover);
+.calc-button-row > .calc-button:last-child:hover {
+    background: var(--btn-op-hover);
 }
 
-/* Igual (fallback si no cae en col 4 por estructura) */
+/* Igual (=) */
 .calc-buttons .calc-button.equal,
 .calc-buttons .calc-button:last-child,
 .calc-button-row:last-child .calc-button:last-child{
-  background: var(--btn-op);
-  color:#fff;
+    background: var(--btn-op);
+    color:#fff;
 }
 .calc-buttons .calc-button.equal:hover{ background: var(--btn-op-hover); }
 
-/* Botones anchos en pastilla (si los usas en otras vistas) */
-.double{
-  grid-column: span 2;
-  aspect-ratio: auto;
-  height: var(--btn-size);
-  border-radius: 999px;
+/* Botones anchos en pastilla */
+.double {
+    grid-column: span 2;
+    aspect-ratio: auto;
+    height: var(--btn-size);
+    border-radius: 999px;
 }
-.triple{
-  grid-column: span 3;
-  aspect-ratio: auto;
-  height: var(--btn-size);
-  border-radius: 999px;
+.triple {
+    grid-column: span 3;
+    aspect-ratio: auto;
+    height: var(--btn-size);
+    border-radius: 999px;
 }
 
 /* Scientific row styling */
 .scientific-row {
-  transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
-
 .calc-button.scientific {
-  background: var(--btn-grey);
-  color: var(--btn-text);
-  font-size: 1.4rem;
-  font-weight: 500;
+    background: var(--btn-grey);
+    color: var(--btn-text);
+    font-size: 1.4rem;
+    font-weight: 500;
 }
-
 .calc-button.scientific:hover {
-  background: var(--btn-grey-hover);
+    background: var(--btn-grey-hover);
 }
 
 /* Responsive adjustments for scientific mode */
 .calc-buttons.scientific-mode {
-  gap: 14px;
+    gap: 14px;
 }
-
 .calc-buttons.scientific-mode .calc-button {
-  min-height: 70px;
+    min-height: 70px;
 }
 
-@media (max-width: 480px) {
-  .calc-buttons.scientific-mode .calc-button {
-    min-height: 60px;
-    font-size: 1.6rem;
-  }
-  
-  .calc-button.scientific {
-    font-size: 1.2rem;
-  }
-}
-/* Responsivo */
+/* ------------------------------
+   Responsividad para pantallas pequeñas
+   ------------------------------ */
 @media (max-width: 480px){
-  :root{
-    --btn-gap: 14px;
-    --btn-size: 68px;
-    --btn-font: 1.9rem;
-    --btn-font-ops: 2.3rem;
-    --btn-font-dot: 2.1rem;
-    --screen-size: 50px;
-    --wrapper-w: 100%;
-  }
-  .wrapper{ width: 100%; padding: 16px; border-radius: 16px; }
-  .screen{ height: 78px; }
+    :root{
+        --btn-gap: 14px;
+        --btn-size: 68px;
+        --btn-font: 1.9rem;
+        --btn-font-ops: 2.3rem;
+        --btn-font-dot: 2.1rem;
+        --screen-size: 50px;
+        --wrapper-w: 100%;
+    }
+    .wrapper{ width: 100%; padding: 16px; border-radius: 16px; }
+    .screen{ height: 78px; }
+    .calc-buttons.scientific-mode .calc-button {
+        min-height: 60px;
+        font-size: 1.6rem;
+    }
+    .calc-button.scientific {
+        font-size: 1.2rem;
+    }
 }

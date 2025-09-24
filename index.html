@@ -17,7 +17,7 @@
             <span></span>
             <span></span>
         </button>
-        
+
         <!-- Panel lateral con historial -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -38,10 +38,10 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Overlay para el menú -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        
+
         <!-- Pantalla donde se muestran los resultados y operaciones -->
         <section class="screen" aria-label="Pantalla de la calculadora">
             0
@@ -51,9 +51,8 @@
         <section class="calc-buttons" id="calcButtons">
             <!-- Fila 1: AC, +/−, %, ÷ -->
             <div class="calc-button-row">
-                <!-- Nota: mostramos AC; si tu JS espera "C", puedes leer data-key="C" -->
-                <button class="calc-button ac" aria-label="Limpiar" data-key="C">AC</button>
-                <button class="calc-button" aria-label="Más/Menos">±</button>
+                <button class="calc-button" aria-label="Limpiar">AC</button>
+                <button class="calc-button" aria-label="Cambio de signo">+/−</button>
                 <button class="calc-button" aria-label="Porcentaje">%</button>
                 <button class="calc-button op" aria-label="Dividir">÷</button>
             </div>
@@ -90,12 +89,11 @@
                 <button class="calc-button op" aria-label="Sumar">+</button>
             </div>
 
-            <!-- Fila 5: calculadora, 0, ., = -->
+            <!-- Fila 5: 0, ., = -->
             <div class="calc-button-row">
-                <button class="calc-button tool" aria-label="Herramienta">🧮</button>
-                <button class="calc-button" aria-label="Cero">0</button>
-                <button class="calc-button dot" aria-label="Punto">.</button>
-                <button class="calc-button op equal" aria-label="Igual">=</button>
+                <button class="calc-button zero" aria-label="Cero">0</button>
+                <button class="calc-button" aria-label="Punto decimal">.</button>
+                <button class="calc-button eq" aria-label="Igual">=</button>
             </div>
         </section>
     </div>
