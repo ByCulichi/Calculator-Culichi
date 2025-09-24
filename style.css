@@ -3,14 +3,14 @@
    ============================================================ */
 
 /* ------------------------------
-    Paleta de colores iPhone light theme
+    Paleta de colores iPhone dark theme (iOS Calculator style)
    ------------------------------ */
 :root {
     /* Fondo de la web */
-    --bg: #F2F2F7;
+    --bg: #F5F5F5;
     
     /* Calculadora */
-    --panel-bg: #FFFFFF;
+    --panel-bg: #000000;
     --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
     --panel-border-radius: 20px;
 
@@ -20,26 +20,27 @@
 
     /* Pantalla */
     --screen-bg: transparent;
-    --screen-text: #000000;
-    --screen-size: 64px;
+    --screen-text: #FFFFFF;
+    --screen-size: 48px;
 
     /* Botones */
-    --btn-bg: #F8F8F8;
-    --btn-bg-hover: #E8E8E8;
-    --btn-ac: #D4D4D2;
-    --btn-ac-hover: #C5C5C3;
-    --btn-op: #FF9500;
+    --btn-bg: #333333;           /* Number buttons: dark gray */
+    --btn-bg-hover: #404040;
+    --btn-ac: #A6A6A6;           /* Function buttons: medium gray */
+    --btn-ac-hover: #B8B8B8;
+    --btn-op: #FF9500;           /* Operator buttons: orange */
     --btn-op-hover: #FFB84D;
-    --btn-text: #000000;
-    --btn-text-op: #FFFFFF;
-    --btn-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --btn-border-radius: 12px;
+    --btn-text: #FFFFFF;         /* White text on dark buttons */
+    --btn-text-ac: #000000;      /* Black text on function buttons */
+    --btn-text-op: #FFFFFF;      /* White text on operator buttons */
+    --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --btn-border-radius: 50%;    /* Circular buttons */
 
     /* Tamaños */
     --btn-gap: 12px;
-    --btn-size: 72px;
-    --btn-font: 2rem;
-    --btn-font-ops: 2.3rem;
+    --btn-size: 78px;
+    --btn-font: 32px;            /* 32pt for numbers */
+    --btn-font-ops: 28px;        /* 28pt for operators */
 
     --focus: #007AFF;
     --wrapper-w: 380px;
@@ -356,7 +357,7 @@ body {
     Pantalla estilo iOS
    ------------------------------ */
 .screen {
-    height: 100px;
+    height: 120px;
     border-radius: 12px;
     background: var(--screen-bg);
     color: var(--screen-text);
@@ -364,8 +365,8 @@ body {
     align-items: flex-end;
     justify-content: flex-end;
     padding: 0 20px;
-    font-size: var(--screen-size);
-    font-weight: 300;
+    font-size: 48px;               /* Large 48pt digits */
+    font-weight: 200;              /* Thin weight like iOS */
     letter-spacing: -0.5px;
     border: none;
     box-shadow: none;
@@ -387,8 +388,16 @@ body {
     display: contents; 
 }
 
+/* Special bottom row with 3 columns */
+.calc-button-row.bottom-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--btn-gap);
+}
+
 /* ------------------------------
-    Botón estilo iPhone
+    Botón estilo iPhone circular
    ------------------------------ */
 .calc-button {
     border: none;
@@ -396,7 +405,7 @@ body {
     width: 100%;
     aspect-ratio: 1 / 1;
     min-height: var(--btn-size);
-    border-radius: var(--btn-border-radius);
+    border-radius: var(--btn-border-radius);  /* Circular buttons */
     background: var(--btn-bg);
     color: var(--btn-text);
     font-size: var(--btn-font);
@@ -406,17 +415,19 @@ body {
     box-shadow: var(--btn-shadow);
     transition: all 0.15s ease;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Hover y active para botones */
 .calc-button:hover { 
     background: var(--btn-bg-hover); 
-    transform: translateY(-1px); 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(0.95);           /* iOS-style scale on press */
 }
 
 .calc-button:active { 
-    transform: translateY(0); 
+    transform: scale(0.95); 
     box-shadow: var(--btn-shadow);
 }
 
@@ -436,24 +447,27 @@ body {
     background: var(--btn-op-hover);
 }
 
-/* AC y +/- botones (primera fila) */
+/* AC, +/- y % botones (primera fila - function buttons) */
 .calc-button-row:first-child .calc-button:first-child,
-.calc-button-row:first-child .calc-button:nth-child(2) {
+.calc-button-row:first-child .calc-button:nth-child(2),
+.calc-button-row:first-child .calc-button:nth-child(3) {
     background: var(--btn-ac);
-    color: var(--btn-text);
+    color: var(--btn-text-ac);
 }
 
 .calc-button-row:first-child .calc-button:first-child:hover,
-.calc-button-row:first-child .calc-button:nth-child(2):hover {
+.calc-button-row:first-child .calc-button:nth-child(2):hover,
+.calc-button-row:first-child .calc-button:nth-child(3):hover {
     background: var(--btn-ac-hover);
 }
 
-/* Botón cero ancho */
+/* Botón cero - ahora cuadrado como los demás */
 .calc-button.zero {
-    grid-column: span 2;
-    aspect-ratio: auto;
+    /* Remove the double-wide spanning */
+    grid-column: span 1;
+    aspect-ratio: 1 / 1;
     height: var(--btn-size);
-    border-radius: 999px;
+    border-radius: var(--btn-border-radius);  /* Circular like other buttons */
 }
 
 /* Scientific y conversion button styling */

@@ -94,9 +94,5 @@ function handleSymbol(symbol) {
         case "e":
             buffer = String(Math.E);
             break;
-
-        case "🧮":
-            toggleSidebar();
-            break;
     }
 }
