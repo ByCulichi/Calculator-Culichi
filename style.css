@@ -33,12 +33,12 @@
     --btn-text: #FFFFFF;         /* White text on dark buttons */
     --btn-text-ac: #000000;      /* Black text on function buttons */
     --btn-text-op: #FFFFFF;      /* White text on operator buttons */
-    --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);  /* Enhanced shadow for neumorphism */
     --btn-border-radius: 50%;    /* Circular buttons */
 
     /* Tamaños */
     --btn-gap: 12px;
-    --btn-size: 78px;
+    --btn-size: 75px;            /* 75px diameter for circular buttons */
     --btn-font: 32pt;            /* 32pt for numbers - bold */
     --btn-font-ops: 28pt;        /* 28pt for operators - bold */
 
@@ -582,11 +582,12 @@ body {
 .calc-button:hover { 
     background: var(--btn-bg-hover); 
     transform: scale(0.95);           /* iOS-style scale on press */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);  /* Reduced shadow on press */
 }
 
 .calc-button:active { 
-    transform: scale(0.95); 
-    box-shadow: var(--btn-shadow);
+    transform: scale(0.90);           /* More pronounced press effect */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);  /* Deeper shadow when pressed */
 }
 
 .calc-button:focus-visible { 
@@ -604,6 +605,8 @@ body {
 
 .calc-button.op:hover {
     background: var(--btn-op-hover);
+    transform: scale(0.95);           /* Consistent hover effect */
+    box-shadow: 0 2px 8px rgba(255, 149, 0, 0.4);  /* Orange shadow for operators */
 }
 
 /* AC, +/- y % botones (primera fila - function buttons) */
