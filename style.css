@@ -70,6 +70,204 @@ body{
   overflow: hidden;
 }
 
+/* Hamburger menu */
+.hamburger-menu{
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hamburger-menu:hover{
+  background: rgba(255,255,255,0.2);
+}
+
+.hamburger-menu span{
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #ffffff;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger-menu.active span:nth-child(1){
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.active span:nth-child(2){
+  opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3){
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Sidebar */
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
+  border-right: 1px solid var(--panel-border);
+  z-index: 1001;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.active{
+  left: 0;
+}
+
+.sidebar-header{
+  padding: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h3{
+  color: #ffffff;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-sidebar{
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.close-sidebar:hover{
+  background: rgba(255,255,255,0.1);
+}
+
+.sidebar-content{
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Mode switcher */
+.mode-switcher{
+  display: flex;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 30px;
+}
+
+.mode-btn{
+  flex: 1;
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.mode-btn.active{
+  background: var(--btn-op);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.mode-btn:not(.active):hover{
+  background: rgba(255,255,255,0.1);
+}
+
+/* History section */
+.history-section h4{
+  color: #ffffff;
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.history-content{
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.history-item{
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.history-item:hover{
+  background: rgba(255,255,255,0.1);
+}
+
+.clear-history{
+  width: 100%;
+  background: rgba(255,0,0,0.2);
+  color: #ff6b6b;
+  border: 1px solid rgba(255,107,107,0.3);
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.clear-history:hover{
+  background: rgba(255,0,0,0.3);
+  border-color: rgba(255,107,107,0.5);
+}
+
+/* Sidebar overlay */
+.sidebar-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-overlay.active{
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 /* Marca IMATH centrada arriba */
 .wrapper::before{
   content: var(--brand-text);

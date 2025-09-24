@@ -11,6 +11,37 @@
 <body>
     <!-- Contenedor principal de la calculadora -->
     <div class="wrapper">
+        <!-- Hamburger menu -->
+        <button class="hamburger-menu" id="hamburgerBtn" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Panel lateral con historial -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>IMATH Calculator</h3>
+                <button class="close-sidebar" id="closeSidebar" aria-label="Cerrar menú">×</button>
+            </div>
+            <div class="sidebar-content">
+                <div class="mode-switcher">
+                    <button class="mode-btn active" id="normalMode">Normal</button>
+                    <button class="mode-btn" id="scientificMode">Científica</button>
+                </div>
+                <div class="history-section">
+                    <h4>Historial</h4>
+                    <div class="history-content" id="historyContent">
+                        <!-- El historial se llenará dinámicamente -->
+                    </div>
+                    <button class="clear-history" id="clearHistory">Limpiar Historial</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Overlay para el menú -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
         <!-- Pantalla donde se muestran los resultados y operaciones -->
         <section class="screen" aria-label="Pantalla de la calculadora">
             0
@@ -62,6 +93,6 @@
     </div>
 
     <!-- Script principal para la funcionalidad de la calculadora -->
-    <script src="script.js?v=1"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>
