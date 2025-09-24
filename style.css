@@ -83,7 +83,7 @@ body {
     max-width: calc(100% - 40px);
     background: var(--panel-bg);
     border-radius: var(--panel-border-radius);
-    padding: 24px 20px 20px;
+    padding: 24px 20px 50px;
     box-shadow: var(--panel-shadow);
     position: relative;
     overflow: visible;
@@ -132,9 +132,9 @@ body {
 /* Mode selector */
 .mode-selector {
     position: absolute;
-    bottom: 16px;
-    left: 16px;
-    z-index: 100;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
 }
 
 .mode-selector-btn {
