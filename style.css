@@ -1,15 +1,18 @@
 /* ============================================================
-    IMATH Calculator - Estilos iPhone Light Theme
-   ============================================================ */
+    IMATH Calculator - Estilos iPhone Dark Theme (iOS Calculator style)
+    Notas:
+    - Edita variables en :root para personalizar colores y tamaños.
+    - Estructura: Reset -> Layout -> UI (sidebar, menús) -> Pantalla -> Botones -> Responsive
+    ============================================================ */
 
-/* ------------------------------
-    Paleta de colores iPhone dark theme (iOS Calculator style)
-   ------------------------------ */
-:root {
-    /* Fondo de la web */
+    /* ------------------------------
+    Variables (tema y tamaños)
+    ------------------------------ */
+    :root {
+    /* Fondo de la página */
     --bg: #F5F5F5;
-    
-    /* Calculadora */
+
+    /* Panel calculadora (estilo iOS dark calculator) */
     --panel-bg: #000000;
     --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
     --panel-border-radius: 20px;
@@ -18,56 +21,59 @@
     --brand-text: "IMATH";
     --brand-color: #8E8E93;
 
-    /* Pantalla */
+    /* Pantalla de resultado */
     --screen-bg: transparent;
     --screen-text: #FFFFFF;
     --screen-size: 48px;
 
     /* Botones */
-    --btn-bg: #333333;           /* Number buttons: dark gray */
+    --btn-bg: #333333;        /* Números (gris oscuro) */
     --btn-bg-hover: #404040;
-    --btn-ac: #A6A6A6;           /* Function buttons: medium gray */
+    --btn-ac: #A6A6A6;        /* Funciones (AC, +/- , %) */
     --btn-ac-hover: #B8B8B8;
-    --btn-op: #FF9500;           /* Operator buttons: orange */
+    --btn-op: #FF9500;        /* Operadores (÷ × − + =) */
     --btn-op-hover: #FFB84D;
-    --btn-text: #FFFFFF;         /* White text on dark buttons */
-    --btn-text-ac: #000000;      /* Black text on function buttons */
-    --btn-text-op: #FFFFFF;      /* White text on operator buttons */
+    --btn-text: #FFFFFF;      /* Texto en botones oscuros */
+    --btn-text-ac: #000000;   /* Texto en botones de función */
+    --btn-text-op: #FFFFFF;   /* Texto en operadores */
     --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --btn-border-radius: 50%;    /* Circular buttons */
+    --btn-border-radius: 50%;
 
-    /* Tamaños */
+    /* Tamaños de botones */
     --btn-gap: 12px;
     --btn-size: 78px;
-    --btn-font: 32px;            /* 32pt for numbers */
-    --btn-font-ops: 28px;        /* 28pt for operators */
+    --btn-font: 32px;
+    --btn-font-ops: 28px;
 
+    /* Accesibilidad */
     --focus: #007AFF;
+
+    /* Ancho del wrapper */
     --wrapper-w: 380px;
-    
-    /* Sidebar */
+
+    /* Sidebar / menús claros */
     --sidebar-bg: #FFFFFF;
     --sidebar-border: #E5E5EA;
     --sidebar-text: #000000;
     --sidebar-button-bg: #F2F2F7;
     --sidebar-button-hover: #E8E8ED;
-    
-    /* Mode selector */
+
+    /* Selector de modo (dropdown) */
     --mode-selector-bg: #FFFFFF;
     --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     --mode-selector-border: #E5E5EA;
-}
+    }
 
-/* ------------------------------
-    Reset y layout principal
-   ------------------------------ */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
+    /* ------------------------------
+    Reset básico y layout de página
+    ------------------------------ */
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
 
-body {
+    body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
     display: flex;
@@ -75,13 +81,14 @@ body {
     justify-content: center;
     padding: 32px;
     min-height: 100vh;
-}
+    }
 
-/* Splash Screen */
-.splash-screen {
+    /* ------------------------------
+    Splash Screen (pantalla inicial)
+    ------------------------------ */
+    .splash-screen {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.8);
@@ -91,26 +98,26 @@ body {
     z-index: 9999;
     opacity: 1;
     transition: opacity 0.3s ease;
-}
+    }
 
-.splash-screen.hidden {
+    .splash-screen.hidden {
     opacity: 0;
     pointer-events: none;
-}
+    }
 
-.splash-content h1 {
+    .splash-content h1 {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 24pt;
     font-weight: bold;
     color: white;
     text-align: center;
     margin: 0;
-}
+    }
 
-/* ------------------------------
-    Contenedor principal de la calculadora
-   ------------------------------ */
-.wrapper {
+    /* ------------------------------
+    Contenedor principal calculadora
+    ------------------------------ */
+    .wrapper {
     width: var(--wrapper-w);
     max-width: calc(100% - 40px);
     background: var(--panel-bg);
@@ -119,10 +126,11 @@ body {
     box-shadow: var(--panel-shadow);
     position: relative;
     overflow: visible;
-}
+    color-scheme: dark; /* Hint UA to use dark form controls/scrollbars */
+    }
 
-/* Branding */
-.wrapper::before {
+    /* Branding sobre el panel */
+    .wrapper::before {
     content: var(--brand-text);
     position: absolute;
     top: 12px;
@@ -134,18 +142,20 @@ body {
     font-size: 13px;
     color: var(--brand-color);
     pointer-events: none;
-}
+    }
 
-/* Hamburger menu - frameless orange icon */
-.hamburger-menu {
+    /* ------------------------------
+    Botón menú hamburguesa (esquina sup. izq.)
+    ------------------------------ */
+    .hamburger-menu {
     position: absolute;
     top: 16px;
     left: 16px;
     z-index: 1000;
-    background: transparent;     /* Frameless */
-    border: none;               /* No border */
+    background: transparent;
+    border: none;
     border-radius: 8px;
-    width: 24px;               /* 24x24px as specified */
+    width: 24px;
     height: 24px;
     display: flex;
     flex-direction: column;
@@ -153,33 +163,36 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-}
+    }
 
-.hamburger-menu:hover {
-    background: rgba(255, 149, 0, 0.1);  /* Subtle orange hover */
-}
+    .hamburger-menu:hover {
+    background: rgba(255, 149, 0, 0.1);
+    }
 
-.hamburger-menu span {
+    .hamburger-menu span {
     display: block;
     width: 16px;
     height: 2px;
-    background: #FF9500;        /* Orange color */
+    background: #FF9500;
     margin: 1.5px 0;
     transition: all 0.2s ease;
     border-radius: 1px;
-}
-.hamburger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(4px, 4px);
-}
-.hamburger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
-.hamburger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
+    }
 
-/* Calculator logo and bottom controls */
-.bottom-left-controls {
+    .hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+    }
+    .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+    }
+    .hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ------------------------------
+    Controles fijos inferiores (logo + botón)
+    ------------------------------ */
+    .bottom-left-controls {
     position: fixed;
     bottom: 16px;
     left: 16px;
@@ -188,15 +201,15 @@ body {
     align-items: center;
     gap: 12px;
     z-index: 100;
-}
+    }
 
-.calculator-logo {
+    .calculator-logo {
     width: 24px;
     height: 24px;
     border-radius: 4px;
-}
+    }
 
-.bottom-menu-btn {
+    .bottom-menu-btn {
     background: transparent;
     border: none;
     width: 24px;
@@ -207,14 +220,14 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-}
+    }
 
-.bottom-menu-btn:hover {
+    .bottom-menu-btn:hover {
     background: rgba(255, 149, 0, 0.1);
     border-radius: 4px;
-}
+    }
 
-.bottom-menu-btn span {
+    .bottom-menu-btn span {
     display: block;
     width: 16px;
     height: 2px;
@@ -222,13 +235,14 @@ body {
     margin: 1.5px 0;
     transition: all 0.2s ease;
     border-radius: 1px;
-}
+    }
 
-/* Bottom slide-up menu */
-.bottom-menu-overlay {
+    /* ------------------------------
+    Menú deslizante inferior (overlay + hoja)
+    ------------------------------ */
+    .bottom-menu-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
@@ -236,14 +250,14 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-}
+    }
 
-.bottom-menu-overlay.active {
+    .bottom-menu-overlay.active {
     opacity: 1;
     visibility: visible;
-}
+    }
 
-.bottom-menu {
+    .bottom-menu {
     position: fixed;
     bottom: -300px;
     left: 0;
@@ -253,32 +267,32 @@ body {
     z-index: 999;
     transition: bottom 0.3s ease;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-}
+    }
 
-.bottom-menu.active {
+    .bottom-menu.active {
     bottom: 0;
-}
+    }
 
-.bottom-menu-header {
+    .bottom-menu-header {
     padding: 12px 0 8px;
     display: flex;
     justify-content: center;
-}
+    }
 
-.bottom-menu-handle {
+    .bottom-menu-handle {
     width: 36px;
     height: 4px;
     background: #636366;
     border-radius: 2px;
-}
+    }
 
-.bottom-menu-content {
+    .bottom-menu-content {
     padding: 20px 0 40px;
     display: flex;
     flex-direction: column;
-}
+    }
 
-.menu-option {
+    .menu-option {
     background: none;
     border: none;
     color: #007AFF;
@@ -288,29 +302,31 @@ body {
     text-align: center;
     cursor: pointer;
     transition: background 0.2s ease;
-}
+    }
 
-.menu-option:hover {
+    .menu-option:hover {
     background: rgba(255, 255, 255, 0.05);
-}
+    }
 
-.menu-option.active {
+    .menu-option.active {
     color: #FF9500;
     font-weight: 600;
-}
+    }
 
-/* Mode selector */
-.mode-selector {
+    /* ------------------------------
+    Selector de modo (botón + dropdown)
+    ------------------------------ */
+    .mode-selector {
     position: absolute;
     bottom: 20px;
-    left: 60px;                /* Move right to avoid logo */
+    left: 60px; /* Mover a la derecha para evitar el logo */
     z-index: 50;
-}
+    }
 
-.mode-selector-btn {
+    .mode-selector-btn {
     background: var(--mode-selector-bg);
     border: 1px solid var(--mode-selector-border);
-    color: var(--btn-text);
+    color: var(--sidebar-text); /* Contraste correcto en fondo claro */
     padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
@@ -319,13 +335,13 @@ body {
     transition: all 0.2s ease;
     box-shadow: var(--mode-selector-shadow);
     min-width: 80px;
-}
+    }
 
-.mode-selector-btn:hover {
+    .mode-selector-btn:hover {
     background: var(--sidebar-button-hover);
-}
+    }
 
-.mode-dropdown {
+    .mode-dropdown {
     position: absolute;
     bottom: 100%;
     left: 0;
@@ -339,78 +355,80 @@ body {
     transform: translateY(10px);
     transition: all 0.2s ease;
     min-width: 120px;
-}
+    }
 
-.mode-dropdown.active {
+    .mode-dropdown.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-}
+    }
 
-.mode-option {
+    .mode-option {
     display: block;
     width: 100%;
     background: none;
     border: none;
-    color: var(--btn-text);
+    color: var(--sidebar-text); /* Contraste correcto */
     padding: 12px 16px;
     text-align: left;
     cursor: pointer;
     font-size: 14px;
     transition: background 0.2s ease;
-}
+    }
 
-.mode-option:hover {
+    .mode-option:hover {
     background: var(--sidebar-button-hover);
-}
+    }
 
-.mode-option:first-child {
+    .mode-option:first-child {
     border-radius: 8px 8px 0 0;
-}
+    }
 
-.mode-option:last-child {
+    .mode-option:last-child {
     border-radius: 0 0 8px 8px;
-}
+    }
 
-/* Sidebar - Enhanced iOS-style history panel */
-.sidebar {
+    /* ------------------------------
+    Sidebar de historial (estilo iOS)
+    ------------------------------ */
+    .sidebar {
     position: fixed;
     top: 0;
     left: -350px;
     width: 350px;
     height: 100vh;
-    background: #1C1C1E;  /* Dark background like iOS */
+    background: #1C1C1E;
     border-right: 1px solid #2C2C2E;
     z-index: 1001;
     transition: left 0.3s ease;
     display: flex;
     flex-direction: column;
     box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
-}
+    }
 
-.sidebar.active {
+    .sidebar.active {
     left: 0;
-}
+    }
 
-.sidebar-header {
-    padding: 60px 20px 20px;  /* More padding for status bar */
+    .sidebar-header {
+    padding: 60px 20px 20px; /* Más espacio por barra de estado */
     border-bottom: 1px solid #2C2C2E;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+    }
 
-.sidebar-header h3 {
+    .sidebar-header h3 {
     color: #FFFFFF;
     margin: 0;
     font-size: 24px;
     font-weight: 700;
-}
+    }
 
-.close-sidebar {
+    .close-sidebar {
     background: none;
     border: none;
-    color: #FF9500;  /* Orange close button */
+    color: #FF9500;
     font-size: 24px;
     cursor: pointer;
     padding: 8px;
@@ -421,34 +439,34 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+    }
 
-.close-sidebar:hover {
+    .close-sidebar:hover {
     background: rgba(255, 149, 0, 0.1);
-}
+    }
 
-.sidebar-content {
+    .sidebar-content {
     flex: 1;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-}
+    }
 
-/* History section */
-.history-section {
+    /* Historial: tabs + lista + acciones */
+    .history-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: 0 20px 20px;
-}
+    }
 
-.history-period-tabs {
+    .history-period-tabs {
     display: flex;
     margin-bottom: 20px;
     border-bottom: 1px solid #2C2C2E;
-}
+    }
 
-.period-tab {
+    .period-tab {
     flex: 1;
     background: none;
     border: none;
@@ -458,20 +476,20 @@ body {
     cursor: pointer;
     transition: color 0.2s ease;
     border-bottom: 2px solid transparent;
-}
+    }
 
-.period-tab.active {
+    .period-tab.active {
     color: #007AFF;
     border-bottom-color: #007AFF;
-}
+    }
 
-.history-content {
+    .history-content {
     flex: 1;
     overflow-y: auto;
     margin-bottom: 20px;
-}
+    }
 
-.history-item {
+    .history-item {
     background: #2C2C2E;
     border-radius: 12px;
     padding: 12px 16px;
@@ -483,20 +501,20 @@ body {
     justify-content: space-between;
     align-items: center;
     transition: background 0.2s ease;
-}
+    }
 
-.history-item:hover {
+    .history-item:hover {
     background: #3A3A3C;
-}
+    }
 
-.history-actions {
+    .history-actions {
     display: flex;
     gap: 12px;
     padding-top: 20px;
     border-top: 1px solid #2C2C2E;
-}
+    }
 
-.history-action-btn {
+    .history-action-btn {
     flex: 1;
     border: none;
     padding: 12px 16px;
@@ -505,40 +523,32 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-}
+    }
 
-.edit-btn {
+    .edit-btn {
     background: #007AFF;
     color: white;
-}
+    }
 
-.edit-btn:hover {
+    .edit-btn:hover {
     background: #0056CC;
-}
+    }
 
-.delete-btn {
+    .delete-btn {
     background: #FF3B30;
     color: white;
-}
+    }
 
-.delete-btn:hover {
+    .delete-btn:hover {
     background: #D70015;
-}
-    padding: 12px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    color: var(--sidebar-text);
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
+    }
 
-/* Sidebar overlay */
-.sidebar-overlay {
+    /* ------------------------------
+    Overlay para la sidebar
+    ------------------------------ */
+    .sidebar-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
@@ -547,17 +557,18 @@ body {
     visibility: hidden;
     transition: all 0.3s ease;
     pointer-events: none;
-}
-.sidebar-overlay.active {
+    }
+
+    .sidebar-overlay.active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-}
+    }
 
-/* ------------------------------
-    Pantalla estilo iOS
-   ------------------------------ */
-.screen {
+    /* ------------------------------
+    Pantalla de la calculadora (estilo iOS)
+    ------------------------------ */
+    .screen {
     height: 120px;
     border-radius: 12px;
     background: var(--screen-bg);
@@ -566,47 +577,49 @@ body {
     align-items: flex-end;
     justify-content: flex-end;
     padding: 0 20px;
-    font-size: 48px;               /* Large 48pt digits */
-    font-weight: 200;              /* Thin weight like iOS */
+    font-size: var(--screen-size); /* Usar variable global */
+    font-weight: 200;              /* Thin */
     letter-spacing: -0.5px;
     border: none;
     box-shadow: none;
     margin-top: 12px;
     margin-bottom: 24px;
     text-align: right;
-}
+    font-variant-numeric: tabular-nums; /* Align digits like iOS */
+    }
 
-/* ------------------------------
+    /* ------------------------------
     Grid de botones
-   ------------------------------ */
-.calc-buttons {
+    ------------------------------ */
+    .calc-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--btn-gap);
-}
+    }
 
-.calc-button-row { 
-    display: contents; 
-}
+    /* Permite declarar filas como "display: contents" para usar el grid del padre */
+    .calc-button-row {
+    display: contents;
+    }
 
-/* Special bottom row with 3 columns */
-.calc-button-row.bottom-row {
+    /* Fila inferior especial a 3 columnas (si se usa) */
+    .calc-button-row.bottom-row {
     display: grid;
     grid-column: 1 / -1;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--btn-gap);
-}
+    }
 
-/* ------------------------------
-    Botón estilo iPhone circular
-   ------------------------------ */
-.calc-button {
+    /* ------------------------------
+    Botón estilo iPhone (circular)
+    ------------------------------ */
+    .calc-button {
     border: none;
     outline: none;
     width: 100%;
     aspect-ratio: 1 / 1;
     min-height: var(--btn-size);
-    border-radius: var(--btn-border-radius);  /* Circular buttons */
+    border-radius: var(--btn-border-radius);
     background: var(--btn-bg);
     color: var(--btn-text);
     font-size: var(--btn-font);
@@ -619,92 +632,93 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+    touch-action: manipulation;   /* Remove 300ms delay on mobile */
+    will-change: transform;       /* Smooth press animation */
+    }
 
-/* Hover y active para botones */
-.calc-button:hover { 
-    background: var(--btn-bg-hover); 
-    transform: scale(0.95);           /* iOS-style scale on press */
-}
+    /* Hover / active */
+    .calc-button:hover {
+    background: var(--btn-bg-hover);
+    transform: scale(0.95);
+    }
 
-.calc-button:active { 
-    transform: scale(0.95); 
+    .calc-button:active {
+    transform: scale(0.95);
     box-shadow: var(--btn-shadow);
-}
+    }
 
-.calc-button:focus-visible { 
-    outline: 2px solid var(--focus); 
-    outline-offset: 2px; 
-}
+    .calc-button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    }
 
-/* Operaciones (÷ × − + =) */
-.calc-button.op { 
-    font-size: var(--btn-font-ops); 
+    /* Operadores */
+    .calc-button.op {
+    font-size: var(--btn-font-ops);
     background: var(--btn-op);
     color: var(--btn-text-op);
-}
+    }
 
-.calc-button.op:hover {
+    .calc-button.op:hover {
     background: var(--btn-op-hover);
-}
+    }
 
-/* AC, +/- y % botones (primera fila - function buttons) */
-.calc-button-row:first-child .calc-button:first-child,
-.calc-button-row:first-child .calc-button:nth-child(2),
-.calc-button-row:first-child .calc-button:nth-child(3) {
+    /* Primera fila: AC, +/- y % (función) */
+    .calc-button-row:first-child .calc-button:first-child,
+    .calc-button-row:first-child .calc-button:nth-child(2),
+    .calc-button-row:first-child .calc-button:nth-child(3) {
     background: var(--btn-ac);
     color: var(--btn-text-ac);
-}
+    }
 
-.calc-button-row:first-child .calc-button:first-child:hover,
-.calc-button-row:first-child .calc-button:nth-child(2):hover,
-.calc-button-row:first-child .calc-button:nth-child(3):hover {
+    .calc-button-row:first-child .calc-button:first-child:hover,
+    .calc-button-row:first-child .calc-button:nth-child(2):hover,
+    .calc-button-row:first-child .calc-button:nth-child(3):hover {
     background: var(--btn-ac-hover);
-}
+    }
 
-/* Botón cero - ahora cuadrado como los demás */
-.calc-button.zero {
-    /* Remove the double-wide spanning */
+    /* Botón 0 cuadrado/circular igual al resto (sin span doble ancho) */
+    .calc-button.zero {
     grid-column: span 1 !important;
     aspect-ratio: 1 / 1 !important;
     height: var(--btn-size) !important;
     width: var(--btn-size) !important;
-    border-radius: 50% !important;  /* Force circular like other buttons */
-}
+    border-radius: 50% !important;
+    }
 
-/* Scientific y conversion button styling */
-.calc-button.scientific,
-.calc-button.conversion {
+    /* Botones de modo científico / conversión (texto más pequeño) */
+    .calc-button.scientific,
+    .calc-button.conversion {
     background: var(--btn-bg);
     color: var(--btn-text);
     font-size: 14px;
     font-weight: 500;
-}
+    }
 
-.calc-button.scientific:hover,
-.calc-button.conversion:hover {
+    .calc-button.scientific:hover,
+    .calc-button.conversion:hover {
     background: var(--btn-bg-hover);
-}
+    }
 
-/* Scientific and conversion rows */
-.scientific-row,
-.conversion-row {
+    /* Filas científicas / conversión (transiciones) */
+    .scientific-row,
+    .conversion-row {
     transition: all 0.3s ease;
-}
+    }
 
-/* Responsive adjustments */
-.calc-buttons.scientific-mode {
+    /* Ajustes al activar modo científico (más compacto) */
+    .calc-buttons.scientific-mode {
     gap: 10px;
-}
+    }
 
-.calc-buttons.scientific-mode .calc-button {
+    .calc-buttons.scientific-mode .calc-button {
     min-height: 60px;
-}
+    }
 
-/* ------------------------------
-    Responsividad para pantallas pequeñas
-   ------------------------------ */
-@media (max-width: 480px) {
+    /* ------------------------------
+    Responsive (pantallas pequeñas)
+    ------------------------------ */
+    @media (max-width: 480px) {
     :root {
         --btn-gap: 10px;
         --btn-size: 64px;
@@ -713,32 +727,41 @@ body {
         --screen-size: 48px;
         --wrapper-w: 100%;
     }
-    
-    .wrapper { 
-        width: 100%; 
-        padding: 20px 16px 16px; 
-        border-radius: 16px; 
+
+    .wrapper {
+        width: 100%;
+        padding: 20px 16px 16px;
+        border-radius: 16px;
     }
-    
-    .screen { 
-        height: 84px; 
+
+    .screen {
+        height: 84px;
         margin-bottom: 20px;
     }
-    
+
     .calc-buttons.scientific-mode .calc-button {
         min-height: 56px;
         font-size: 1.4rem;
     }
-    
+
     .calc-button.scientific,
     .calc-button.conversion {
         font-size: 12px;
     }
-    
+
     .hamburger-menu {
         top: 12px;
         left: 12px;
         width: 32px;
         height: 32px;
     }
-}
+    }
+
+    /* Prefer reduced motion: minimize animations/transitions for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+    }
