@@ -13,7 +13,12 @@ const screen = document.querySelector('.screen');
 
 // Core calculator functions
 function updateScreen() {
-    screen.textContent = buffer;
+    // Display negative numbers in parentheses for clarity
+    let displayValue = buffer;
+    if (buffer.startsWith("-") && buffer !== "-0" && buffer !== "0") {
+        displayValue = `(${buffer})`;
+    }
+    screen.textContent = displayValue;
 }
 
 function handleACButton() {
@@ -268,6 +273,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to all calculator buttons
     document.querySelectorAll('.calc-button').forEach(button => {
         button.addEventListener('click', () => {
+            // Special handling for icon button
+            if (button.classList.contains('icon-btn')) {
+                console.log('Calculator icon clicked - could show info or settings');
+                return; // Don't process as a symbol
+            }
+            
             const symbol = button.textContent.trim();
             handleSymbol(symbol);
         });
@@ -291,17 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
         closeSidebar.addEventListener('click', toggleSidebar);
     }
 
-    // Bottom menu functionality
-    const bottomMenuBtn = document.getElementById('bottomMenuBtn');
-    const bottomMenuOverlay = document.getElementById('bottomMenuOverlay');
-    
-    if (bottomMenuBtn) {
-        bottomMenuBtn.addEventListener('click', toggleBottomMenu);
-    }
-    
-    if (bottomMenuOverlay) {
-        bottomMenuOverlay.addEventListener('click', toggleBottomMenu);
-    }
+    // Bottom menu functionality - REMOVED since bottom menu button no longer exists
+    // The icon is now inside the calculator keypad
 
     // Menu options handling
     document.querySelectorAll('.menu-option').forEach(option => {
