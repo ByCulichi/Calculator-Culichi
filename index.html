@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Enlace al archivo de estilos externo -->
     <link rel="stylesheet" href="style.css">
-    <title>IMATH Calculator</title>
+    <title>Calculator Culichi</title>
 </head>
 <body>
     <!-- Splash screen overlay -->
     <div class="splash-screen" id="splashScreen">
         <div class="splash-content">
-            <h1>MAC de la página</h1>
+            <h1>IMAC</h1>
         </div>
     </div>
 
@@ -51,15 +51,7 @@
         <!-- Overlay para el menú -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- Calculator logo and bottom menu in bottom-left -->
-        <div class="bottom-left-controls">
-            <img src="iconoCalaculadora.jpg" alt="Calculator Logo" class="calculator-logo">
-            <button class="bottom-menu-btn" id="bottomMenuBtn" aria-label="Calculator Modes">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+        <!-- Calculator logo and bottom menu in bottom-left removed - icon now in calculator grid -->
 
         <!-- Bottom slide-up menu -->
         <div class="bottom-menu-overlay" id="bottomMenuOverlay"></div>
@@ -70,7 +62,6 @@
             <div class="bottom-menu-content">
                 <button class="menu-option active" data-mode="basic">Básica</button>
                 <button class="menu-option" data-mode="scientific">Científica</button>
-                <button class="menu-option" data-mode="notes">Notas matemáticas</button>
                 <button class="menu-option" data-mode="convert">Convertir</button>
             </div>
         </div>
@@ -156,8 +147,11 @@
                 <button class="calc-button op" aria-label="Sumar">+</button>
             </div>
 
-            <!-- Fila 5: 0, ., = (3 columns) -->
+            <!-- Fila 5: Icon, 0, ., = (4 equal columns in calculator keypad) -->
             <div class="calc-button-row bottom-row">
+                <button class="calc-button icon-btn" aria-label="Calculator Icon">
+                    <img src="iconoCalaculadora.jpg" alt="Calculator" class="icon-img">
+                </button>
                 <button class="calc-button zero" aria-label="Cero">0</button>
                 <button class="calc-button" aria-label="Punto decimal">.</button>
                 <button class="calc-button op eq" aria-label="Igual">=</button>

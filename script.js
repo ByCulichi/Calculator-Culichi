@@ -13,7 +13,12 @@ const screen = document.querySelector('.screen');
 
 // Core calculator functions
 function updateScreen() {
-    screen.textContent = buffer;
+    // Display negative numbers in parentheses for clarity
+    let displayValue = buffer;
+    if (buffer.startsWith("-") && buffer !== "-0" && buffer !== "0") {
+        displayValue = `(${buffer})`;
+    }
+    screen.textContent = displayValue;
 }
 
 function handleACButton() {
@@ -122,6 +127,21 @@ function updateHistoryDisplay() {
 
 function showMessage(message) {
     console.log(message); // For debugging
+    
+    // Show message in the calculator display briefly
+    const originalBuffer = buffer;
+    const originalDisplay = screen.textContent;
+    
+    screen.textContent = message;
+    screen.style.fontSize = '24px'; // Smaller font for messages
+    screen.style.color = '#FF9500'; // Orange color for messages
+    
+    setTimeout(() => {
+        buffer = originalBuffer;
+        updateScreen();
+        screen.style.fontSize = '48px'; // Restore normal font size
+        screen.style.color = '#FFFFFF'; // Restore white color
+    }, 2000);
 }
 
 function toggleSidebar() {
@@ -268,6 +288,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to all calculator buttons
     document.querySelectorAll('.calc-button').forEach(button => {
         button.addEventListener('click', () => {
+            // Special handling for icon button
+            if (button.classList.contains('icon-btn')) {
+                console.log('Calculator icon clicked - could show info or settings');
+                return; // Don't process as a symbol
+            }
+            
             const symbol = button.textContent.trim();
             handleSymbol(symbol);
         });
@@ -291,17 +317,8 @@ document.addEventListener('DOMContentLoaded', function() {
         closeSidebar.addEventListener('click', toggleSidebar);
     }
 
-    // Bottom menu functionality
-    const bottomMenuBtn = document.getElementById('bottomMenuBtn');
-    const bottomMenuOverlay = document.getElementById('bottomMenuOverlay');
-    
-    if (bottomMenuBtn) {
-        bottomMenuBtn.addEventListener('click', toggleBottomMenu);
-    }
-    
-    if (bottomMenuOverlay) {
-        bottomMenuOverlay.addEventListener('click', toggleBottomMenu);
-    }
+    // Bottom menu functionality - REMOVED since bottom menu button no longer exists
+    // The icon is now inside the calculator keypad
 
     // Menu options handling
     document.querySelectorAll('.menu-option').forEach(option => {
@@ -322,20 +339,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Clear history button
+    // Clear history button with confirmation
     const clearHistoryBtn = document.getElementById('clearHistory');
     if (clearHistoryBtn) {
         clearHistoryBtn.addEventListener('click', () => {
-            calculatorHistory = [];
-            updateHistoryDisplay();
+            if (calculatorHistory.length === 0) {
+                showMessage('No hay historial para borrar');
+                return;
+            }
+            
+            // Show confirmation prompt as specified
+            const confirmDelete = confirm('¿Estás seguro de que quieres borrar todo el historial?');
+            if (confirmDelete) {
+                calculatorHistory = [];
+                updateHistoryDisplay();
+                showMessage('Historial borrado');
+            }
         });
     }
 
-    // Edit history button (placeholder)
+    // Enhanced edit history button functionality
     const editHistoryBtn = document.getElementById('editHistory');
     if (editHistoryBtn) {
         editHistoryBtn.addEventListener('click', () => {
-            console.log('Edit history functionality would go here');
+            if (calculatorHistory.length === 0) {
+                showMessage('No hay historial para editar');
+                return;
+            }
+            
+            // Show recent calculation in display for re-editing
+            const lastCalculation = calculatorHistory[calculatorHistory.length - 1];
+            if (lastCalculation) {
+                const parts = lastCalculation.split(' = ');
+                const expression = parts[0];
+                // Extract the last number from the expression for editing
+                const match = expression.match(/[\d.]+$/);
+                if (match) {
+                    buffer = match[0];
+                    updateScreen();
+                    showMessage('Última operación cargada para editar');
+                }
+            }
         });
     }
 

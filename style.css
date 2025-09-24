@@ -15,7 +15,7 @@
     --panel-border-radius: 20px;
 
     /* Branding */
-    --brand-text: "IMATH";
+    --brand-text: "";  /* Remove IMATH branding */
     --brand-color: #8E8E93;
 
     /* Pantalla */
@@ -33,14 +33,14 @@
     --btn-text: #FFFFFF;         /* White text on dark buttons */
     --btn-text-ac: #000000;      /* Black text on function buttons */
     --btn-text-op: #FFFFFF;      /* White text on operator buttons */
-    --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);  /* Enhanced shadow for neumorphism */
     --btn-border-radius: 50%;    /* Circular buttons */
 
     /* Tamaños */
     --btn-gap: 12px;
-    --btn-size: 78px;
-    --btn-font: 32px;            /* 32pt for numbers */
-    --btn-font-ops: 28px;        /* 28pt for operators */
+    --btn-size: 75px;            /* 75px diameter for circular buttons */
+    --btn-font: 32pt;            /* 32pt for numbers - bold */
+    --btn-font-ops: 28pt;        /* 28pt for operators - bold */
 
     --focus: #007AFF;
     --wrapper-w: 380px;
@@ -178,51 +178,7 @@ body {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Calculator logo and bottom controls */
-.bottom-left-controls {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    z-index: 100;
-}
-
-.calculator-logo {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-}
-
-.bottom-menu-btn {
-    background: transparent;
-    border: none;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.bottom-menu-btn:hover {
-    background: rgba(255, 149, 0, 0.1);
-    border-radius: 4px;
-}
-
-.bottom-menu-btn span {
-    display: block;
-    width: 16px;
-    height: 2px;
-    background: #FF9500;
-    margin: 1.5px 0;
-    transition: all 0.2s ease;
-    border-radius: 1px;
-}
+/* Calculator logo and bottom controls - REMOVED (now in calculator grid) */
 
 /* Bottom slide-up menu */
 .bottom-menu-overlay {
@@ -508,12 +464,12 @@ body {
 }
 
 .edit-btn {
-    background: #007AFF;
+    background: #FF9500;    /* Orange for edit as specified */
     color: white;
 }
 
 .edit-btn:hover {
-    background: #0056CC;
+    background: #FFB84D;    /* Lighter orange on hover */
 }
 
 .delete-btn {
@@ -589,11 +545,11 @@ body {
     display: contents; 
 }
 
-/* Special bottom row with 3 columns */
+/* Special bottom row with 4 equal columns */
 .calc-button-row.bottom-row {
     display: grid;
     grid-column: 1 / -1;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--btn-gap);
 }
 
@@ -610,7 +566,7 @@ body {
     background: var(--btn-bg);
     color: var(--btn-text);
     font-size: var(--btn-font);
-    font-weight: 400;
+    font-weight: bold;               /* Bold text for all buttons */
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     box-shadow: var(--btn-shadow);
@@ -619,17 +575,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Hover y active para botones */
 .calc-button:hover { 
     background: var(--btn-bg-hover); 
     transform: scale(0.95);           /* iOS-style scale on press */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);  /* Reduced shadow on press */
 }
 
 .calc-button:active { 
-    transform: scale(0.95); 
-    box-shadow: var(--btn-shadow);
+    transform: scale(0.90);           /* More pronounced press effect */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);  /* Deeper shadow when pressed */
 }
 
 .calc-button:focus-visible { 
@@ -640,12 +598,15 @@ body {
 /* Operaciones (÷ × − + =) */
 .calc-button.op { 
     font-size: var(--btn-font-ops); 
+    font-weight: bold;           /* Bold operators */
     background: var(--btn-op);
     color: var(--btn-text-op);
 }
 
 .calc-button.op:hover {
     background: var(--btn-op-hover);
+    transform: scale(0.95);           /* Consistent hover effect */
+    box-shadow: 0 2px 8px rgba(255, 149, 0, 0.4);  /* Orange shadow for operators */
 }
 
 /* AC, +/- y % botones (primera fila - function buttons) */
@@ -662,14 +623,37 @@ body {
     background: var(--btn-ac-hover);
 }
 
-/* Botón cero - ahora cuadrado como los demás */
+/* Botón cero - ahora igual que los demás */
 .calc-button.zero {
-    /* Remove the double-wide spanning */
+    /* Make it exactly like other number buttons */
     grid-column: span 1 !important;
     aspect-ratio: 1 / 1 !important;
     height: var(--btn-size) !important;
     width: var(--btn-size) !important;
-    border-radius: 50% !important;  /* Force circular like other buttons */
+    border-radius: 50% !important;  /* Circular like other buttons */
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: var(--btn-font);
+    font-weight: bold;
+}
+
+/* Icon button in bottom row */
+.calc-button.icon-btn {
+    background: var(--btn-bg);      /* Same as number buttons */
+    color: var(--btn-text);
+    padding: 0;                     /* No padding for image */
+    border-radius: 50%;
+}
+
+.calc-button.icon-btn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.icon-img {
+    width: 24px;                    /* 24x24px as specified */
+    height: 24px;
+    border-radius: 4px;             /* Slight rounding for the image */
+    object-fit: cover;              /* Ensure good fit */
 }
 
 /* Scientific y conversion button styling */
