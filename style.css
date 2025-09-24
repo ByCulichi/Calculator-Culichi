@@ -1,47 +1,60 @@
 /* ============================================================
-    IMATH Calculator - Estilos principales y carcasa web (oscuro)
+    IMATH Calculator - Estilos iPhone Light Theme
    ============================================================ */
 
 /* ------------------------------
-    Paleta de colores y variables base
+    Paleta de colores iPhone light theme
    ------------------------------ */
 :root {
-    /* Carcasa */
-    --bg: #000000;
-    --panel-top: #0a0b0d;
-    --panel-bot: #05060a;
-    --panel-border: rgba(255,255,255,0.06);
-    --panel-shadow: 0 28px 64px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.04);
+    /* Fondo de la web */
+    --bg: #F2F2F7;
+    
+    /* Calculadora */
+    --panel-bg: #FFFFFF;
+    --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+    --panel-border-radius: 20px;
 
     /* Branding */
     --brand-text: "IMATH";
-    --brand-color: rgba(255,255,255,0.12);
+    --brand-color: #8E8E93;
 
     /* Pantalla */
     --screen-bg: transparent;
-    --screen-text: #ffffff;
+    --screen-text: #000000;
     --screen-size: 64px;
 
     /* Botones */
-    --btn-grey: #3e3e3e;
-    --btn-grey-hover: #575757;
-    --btn-ac: #9d9d9d;
-    --btn-ac-hover: #b8b8b8;
-    --btn-op: #ff9500;
-    --btn-op-hover: #ffb84d;
-    --btn-text: #ffffff;
+    --btn-bg: #F8F8F8;
+    --btn-bg-hover: #E8E8E8;
+    --btn-ac: #D4D4D2;
+    --btn-ac-hover: #C5C5C3;
+    --btn-op: #FF9500;
+    --btn-op-hover: #FFB84D;
+    --btn-text: #000000;
+    --btn-text-op: #FFFFFF;
+    --btn-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --btn-border-radius: 12px;
 
     /* Tamaños */
-    --btn-gap: 18px;
-    --btn-size: 84px;
-    --btn-font: 2.2rem;
-    --btn-font-ops: 2.7rem;
-    --btn-font-dot: 2.3rem;
+    --btn-gap: 12px;
+    --btn-size: 72px;
+    --btn-font: 2rem;
+    --btn-font-ops: 2.3rem;
 
-    --focus: #a58cff;
-    --btn-shadow: 0 2px 10px rgba(0,0,0,.28);
-
-    --wrapper-w: 440px;
+    --focus: #007AFF;
+    --wrapper-w: 380px;
+    
+    /* Sidebar */
+    --sidebar-bg: #FFFFFF;
+    --sidebar-border: #E5E5EA;
+    --sidebar-text: #000000;
+    --sidebar-button-bg: #F2F2F7;
+    --sidebar-button-hover: #E8E8ED;
+    
+    /* Mode selector */
+    --mode-selector-bg: #FFFFFF;
+    --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --mode-selector-border: #E5E5EA;
 }
 
 /* ------------------------------
@@ -59,6 +72,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 32px;
+    min-height: 100vh;
 }
 
 /* ------------------------------
@@ -67,188 +81,243 @@ body {
 .wrapper {
     width: var(--wrapper-w);
     max-width: calc(100% - 40px);
-    background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
-    border-radius: 18px;
-    padding: 26px 20px 22px;
-    border: 1px solid var(--panel-border);
+    background: var(--panel-bg);
+    border-radius: var(--panel-border-radius);
+    padding: 24px 20px 20px;
     box-shadow: var(--panel-shadow);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* Hamburger menu */
-.hamburger-menu{
+.hamburger-menu {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 16px;
+    left: 16px;
     z-index: 1000;
-    background: rgba(255,255,255,0.1);
-    border: none;
+    background: var(--sidebar-button-bg);
+    border: 1px solid var(--mode-selector-border);
     border-radius: 8px;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.2s ease;
 }
-.hamburger-menu:hover{
-    background: rgba(255,255,255,0.2);
+.hamburger-menu:hover {
+    background: var(--sidebar-button-hover);
 }
-.hamburger-menu span{
+.hamburger-menu span {
     display: block;
-    width: 20px;
+    width: 18px;
     height: 2px;
-    background: #ffffff;
-    margin: 2px 0;
-    transition: all 0.3s ease;
-    border-radius: 2px;
+    background: var(--btn-text);
+    margin: 1.5px 0;
+    transition: all 0.2s ease;
+    border-radius: 1px;
 }
-.hamburger-menu.active span:nth-child(1){
-    transform: rotate(45deg) translate(5px, 5px);
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
 }
-.hamburger-menu.active span:nth-child(2){
+.hamburger-menu.active span:nth-child(2) {
     opacity: 0;
 }
-.hamburger-menu.active span:nth-child(3){
-    transform: rotate(-45deg) translate(7px, -6px);
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mode selector */
+.mode-selector {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 100;
+}
+
+.mode-selector-btn {
+    background: var(--mode-selector-bg);
+    border: 1px solid var(--mode-selector-border);
+    color: var(--btn-text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: var(--mode-selector-shadow);
+    min-width: 80px;
+}
+
+.mode-selector-btn:hover {
+    background: var(--sidebar-button-hover);
+}
+
+.mode-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: var(--mode-selector-bg);
+    border: 1px solid var(--mode-selector-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.mode-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mode-option {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--btn-text);
+    padding: 12px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.mode-option:hover {
+    background: var(--sidebar-button-hover);
+}
+
+.mode-option:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.mode-option:last-child {
+    border-radius: 0 0 8px 8px;
 }
 
 /* Sidebar */
-.sidebar{
+.sidebar {
     position: fixed;
     top: 0;
-    left: -320px;
-    width: 320px;
+    left: -350px;
+    width: 350px;
     height: 100vh;
-    background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
-    border-right: 1px solid var(--panel-border);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
     z-index: 1001;
     transition: left 0.3s ease;
     display: flex;
     flex-direction: column;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
 }
-.sidebar.active{
+.sidebar.active {
     left: 0;
 }
-.sidebar-header{
+.sidebar-header {
     padding: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid var(--sidebar-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.sidebar-header h3{
-    color: #ffffff;
+.sidebar-header h3 {
+    color: var(--sidebar-text);
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
 }
-.close-sidebar{
+.close-sidebar {
     background: none;
     border: none;
-    color: #ffffff;
+    color: var(--sidebar-text);
     font-size: 24px;
     cursor: pointer;
-    padding: 5px;
-    border-radius: 4px;
-    transition: background 0.3s ease;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.close-sidebar:hover{
-    background: rgba(255,255,255,0.1);
+.close-sidebar:hover {
+    background: var(--sidebar-button-hover);
 }
-.sidebar-content{
+.sidebar-content {
     padding: 20px;
     flex: 1;
     overflow-y: auto;
 }
 
-/* Mode switcher */
-.mode-switcher{
-    display: flex;
-    background: rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 4px;
-    margin-bottom: 30px;
-}
-.mode-btn{
-    flex: 1;
-    background: none;
-    border: none;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-.mode-btn.active{
-    background: var(--btn-op);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-.mode-btn:not(.active):hover{
-    background: rgba(255,255,255,0.1);
-}
-
 /* History section */
-.history-section h4{
-    color: #ffffff;
-    margin: 0 0 15px 0;
-    font-size: 16px;
-    font-weight: 500;
+.history-section h4 {
+    color: var(--sidebar-text);
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
 }
-.history-content{
-    max-height: 300px;
+.history-content {
+    max-height: 400px;
     overflow-y: auto;
     margin-bottom: 20px;
 }
-.history-item{
-    background: rgba(255,255,255,0.05);
+.history-item {
+    background: var(--sidebar-button-bg);
+    border: 1px solid var(--mode-selector-border);
     padding: 12px;
     margin-bottom: 8px;
     border-radius: 8px;
-    color: #ffffff;
-    font-family: monospace;
+    color: var(--sidebar-text);
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
     font-size: 14px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.2s ease;
 }
-.history-item:hover{
-    background: rgba(255,255,255,0.1);
+.history-item:hover {
+    background: var(--sidebar-button-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-.clear-history{
+.clear-history {
     width: 100%;
-    background: rgba(255,0,0,0.2);
-    color: #ff6b6b;
-    border: 1px solid rgba(255,107,107,0.3);
+    background: #FF3B30;
+    color: #FFFFFF;
+    border: none;
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
-    transition: all 0.3s ease;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
-.clear-history:hover{
-    background: rgba(255,0,0,0.3);
-    border-color: rgba(255,107,107,0.5);
+.clear-history:hover {
+    background: #D70015;
+    transform: translateY(-1px);
 }
 
 /* Sidebar overlay */
-.sidebar-overlay{
+.sidebar-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     pointer-events: none;
 }
-.sidebar-overlay.active{
+.sidebar-overlay.active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -258,15 +327,14 @@ body {
 .wrapper::before {
     content: var(--brand-text);
     position: absolute;
-    top: 10px;
+    top: 12px;
     left: 0;
     right: 0;
     text-align: center;
-    font-weight: 800;
-    letter-spacing: 3.6px;
-    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 13px;
     color: var(--brand-color);
-    text-shadow: 0 1px 0 rgba(112,110,110,0.5);
     pointer-events: none;
 }
 
@@ -274,21 +342,22 @@ body {
     Pantalla estilo iOS
    ------------------------------ */
 .screen {
-    height: 92px;
-    border-radius: 10px;
+    height: 100px;
+    border-radius: 12px;
     background: var(--screen-bg);
     color: var(--screen-text);
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 0 18px;
+    padding: 0 20px;
     font-size: var(--screen-size);
-    font-weight: 400;
-    letter-spacing: 1.4px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
     border: none;
     box-shadow: none;
-    margin-top: 8px;
-    margin-bottom: 20px;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    text-align: right;
 }
 
 /* ------------------------------
@@ -302,7 +371,7 @@ body {
 .calc-button-row { display: contents; }
 
 /* ------------------------------
-    Botón circular base
+    Botón estilo iPhone
    ------------------------------ */
 .calc-button {
     border: none;
@@ -310,8 +379,8 @@ body {
     width: 100%;
     aspect-ratio: 1 / 1;
     min-height: var(--btn-size);
-    border-radius: 50%;
-    background: var(--btn-grey);
+    border-radius: var(--btn-border-radius);
+    background: var(--btn-bg);
     color: var(--btn-text);
     font-size: var(--btn-font);
     font-weight: 400;
@@ -322,90 +391,76 @@ body {
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     box-shadow: var(--btn-shadow);
-    transition: background .15s ease, color .15s ease, transform .09s ease;
+    transition: all 0.15s ease;
 }
 
 /* Hover y active para botones */
-.calc-button:hover { background: var(--btn-grey-hover); transform: scale(1.05); }
-.calc-button:active { transform: scale(.98); }
-.calc-button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-
-/* Operaciones grandes (÷ × − + =) */
-.calc-button.op { font-size: var(--btn-font-ops); }
-
-/* Punto “.” ligeramente más grande */
-.calc-button.dot { font-size: var(--btn-font-dot); }
-
-/* Botón “calculadora” (ícono/emoji/SVG) */
-.calc-button.tool {
-    background: var(--btn-grey);
-    color: var(--btn-text);
+.calc-button:hover { 
+    background: var(--btn-bg-hover); 
+    transform: translateY(-1px); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-.calc-button.tool:hover { background: var(--btn-grey-hover); }
-
-/* AC claro */
-.calc-button.ac {
-    background: var(--btn-ac);
-    color: #fff;
+.calc-button:active { 
+    transform: translateY(0); 
+    box-shadow: var(--btn-shadow);
 }
-.calc-button.ac:hover { background: var(--btn-ac-hover); }
+.calc-button:focus-visible { 
+    outline: 2px solid var(--focus); 
+    outline-offset: 2px; 
+}
 
-/* Columna de operaciones (naranja) */
-.calc-button.op,
-.calc-buttons > .calc-button:nth-child(4n),
-.calc-button-row > .calc-button:last-child {
+/* Operaciones (÷ × − + =) */
+.calc-button.op { 
+    font-size: var(--btn-font-ops); 
     background: var(--btn-op);
-    color: #fff;
+    color: var(--btn-text-op);
 }
-.calc-button.op:hover,
-.calc-buttons > .calc-button:nth-child(4n):hover,
-.calc-button-row > .calc-button:last-child:hover {
+.calc-button.op:hover {
     background: var(--btn-op-hover);
 }
 
-/* Igual (=) */
-.calc-buttons .calc-button.equal,
-.calc-buttons .calc-button:last-child,
-.calc-button-row:last-child .calc-button:last-child{
-    background: var(--btn-op);
-    color:#fff;
-}
-.calc-buttons .calc-button.equal:hover{ background: var(--btn-op-hover); }
-
-/* Botones anchos en pastilla */
-.double {
-    grid-column: span 2;
-    aspect-ratio: auto;
-    height: var(--btn-size);
-    border-radius: 999px;
-}
-.triple {
-    grid-column: span 3;
-    aspect-ratio: auto;
-    height: var(--btn-size);
-    border-radius: 999px;
-}
-
-/* Scientific row styling */
-.scientific-row {
-    transition: all 0.3s ease;
-}
-.calc-button.scientific {
-    background: var(--btn-grey);
+/* AC y +/- botones (primera fila) */
+.calc-button-row:first-child .calc-button:first-child,
+.calc-button-row:first-child .calc-button:nth-child(2) {
+    background: var(--btn-ac);
     color: var(--btn-text);
-    font-size: 1.4rem;
+}
+.calc-button-row:first-child .calc-button:first-child:hover,
+.calc-button-row:first-child .calc-button:nth-child(2):hover {
+    background: var(--btn-ac-hover);
+}
+
+/* Botón cero ancho */
+.calc-button.zero {
+    grid-column: span 2;
+    border-radius: 999px;
+}
+
+/* Scientific y conversion button styling */
+.calc-button.scientific,
+.calc-button.conversion {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 14px;
     font-weight: 500;
 }
-.calc-button.scientific:hover {
-    background: var(--btn-grey-hover);
+.calc-button.scientific:hover,
+.calc-button.conversion:hover {
+    background: var(--btn-bg-hover);
 }
 
-/* Responsive adjustments for scientific mode */
+/* Scientific and conversion rows */
+.scientific-row,
+.conversion-row {
+    transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
 .calc-buttons.scientific-mode {
-    gap: 14px;
+    gap: 10px;
 }
 .calc-buttons.scientific-mode .calc-button {
-    min-height: 70px;
+    min-height: 60px;
 }
 
 /* ------------------------------
@@ -413,21 +468,38 @@ body {
    ------------------------------ */
 @media (max-width: 480px){
     :root{
-        --btn-gap: 14px;
-        --btn-size: 68px;
-        --btn-font: 1.9rem;
-        --btn-font-ops: 2.3rem;
-        --btn-font-dot: 2.1rem;
-        --screen-size: 50px;
+        --btn-gap: 10px;
+        --btn-size: 64px;
+        --btn-font: 1.8rem;
+        --btn-font-ops: 2.1rem;
+        --screen-size: 48px;
         --wrapper-w: 100%;
     }
-    .wrapper{ width: 100%; padding: 16px; border-radius: 16px; }
-    .screen{ height: 78px; }
-    .calc-buttons.scientific-mode .calc-button {
-        min-height: 60px;
-        font-size: 1.6rem;
+    .wrapper{ 
+        width: 100%; 
+        padding: 20px 16px 16px; 
+        border-radius: 16px; 
     }
-    .calc-button.scientific {
-        font-size: 1.2rem;
+    .screen{ 
+        height: 84px; 
+        margin-bottom: 20px;
+    }
+    .calc-buttons.scientific-mode .calc-button {
+        min-height: 56px;
+        font-size: 1.4rem;
+    }
+    .calc-button.scientific,
+    .calc-button.conversion {
+        font-size: 12px;
+    }
+    .mode-selector {
+        bottom: 12px;
+        left: 12px;
+    }
+    .hamburger-menu {
+        top: 12px;
+        left: 12px;
+        width: 32px;
+        height: 32px;
     }
 }

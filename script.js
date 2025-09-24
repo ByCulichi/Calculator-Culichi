@@ -139,7 +139,6 @@ function handleACButton() {
     runningTotal = 0;
     previousOperator = null;
     // No limpiamos el historial aquí, solo el estado de la calculadora
-    showMessage("Limpiado");
 }
 
 // ============================================================
@@ -163,11 +162,15 @@ function handlePlusMinusButton() {
 function handlePercentage() {
     const currentNumber = parseFloat(buffer);
     
+    // Si el número actual es 0 o NaN, no hacer nada
+    if (isNaN(currentNumber) || currentNumber === 0) {
+        return;
+    }
+    
     // Si no hay operación pendiente: número aislado -> conversión a decimal
     // Ejemplo: 50% -> 0.5
     if (!previousOperator || runningTotal === 0) {
         buffer = String(currentNumber / 100);
-        showMessage("% aislado");
         return;
     }
     
@@ -176,10 +179,6 @@ function handlePercentage() {
     // Ejemplo: 50 + 10% -> 50 + (50 * 10 / 100) -> 50 + 5 = 55
     const percentageValue = runningTotal * currentNumber / 100;
     buffer = String(percentageValue);
-    
-    // Mostrar temporalmente qué se calculó
-    const tempMessage = `${runningTotal} × ${currentNumber}% = ${percentageValue}`;
-    showMessage(`${currentNumber}% de ${runningTotal}`);
 }
 
 // ============================================================
