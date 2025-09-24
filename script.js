@@ -23,7 +23,7 @@ function buttonClick(value) {
 }
 
 // =========================
-// Maneja los símbolos y operadores (+, -, ×, ÷, C, ←, =)
+// Maneja los símbolos y operadores (+, -, ×, ÷, C, ←, =, .)
 // =========================
 function handleSymbol(symbol) {
     switch (symbol) {
@@ -35,7 +35,7 @@ function handleSymbol(symbol) {
 
         case "=": // Calcular el resultado
             if (!previousOperator) return;
-            flushOperation(parseInt(buffer));
+            flushOperation(parseFloat(buffer));
             previousOperator = null;
             buffer = String(runningTotal);
             runningTotal = 0;
@@ -46,6 +46,12 @@ function handleSymbol(symbol) {
                 buffer = "0";
             } else {
                 buffer = buffer.substring(0, buffer.length - 1);
+            }
+            break;
+
+        case ".": // Punto decimal
+            if (buffer.indexOf(".") === -1) {
+                buffer += ".";
             }
             break;
 
@@ -63,13 +69,13 @@ function handleSymbol(symbol) {
 // Procesa los operadores matemáticos
 // =========================
 function handleMath(symbol) {
-    const intBuffer = parseInt(buffer);
+    const floatBuffer = parseFloat(buffer);
 
     // Si es la primera operación, inicializa el runningTotal
     if (runningTotal === 0) {
-        runningTotal = intBuffer;
+        runningTotal = floatBuffer;
     } else {
-        flushOperation(intBuffer);
+        flushOperation(floatBuffer);
     }
 
     previousOperator = symbol;
@@ -79,16 +85,16 @@ function handleMath(symbol) {
 // =========================
 // Realiza la operación matemática pendiente
 // =========================
-function flushOperation(intBuffer) {
+function flushOperation(floatBuffer) {
     if (previousOperator === "+") {
-        runningTotal += intBuffer;
+        runningTotal += floatBuffer;
     } else if (previousOperator === "−") {
-        runningTotal -= intBuffer;
+        runningTotal -= floatBuffer;
     } else if (previousOperator === "×") {
-        runningTotal *= intBuffer;
+        runningTotal *= floatBuffer;
     } else if (previousOperator === "÷") {
         // Evita la división por cero
-        runningTotal = intBuffer === 0 ? NaN : runningTotal / intBuffer;
+        runningTotal = floatBuffer === 0 ? NaN : runningTotal / floatBuffer;
     }
 }
 
