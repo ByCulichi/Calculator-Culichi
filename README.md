@@ -1,16 +1,19 @@
-    # Calculadora Básica — Christian
+## 🎥 Demo
 
-Pequeña calculadora web creada como primer proyecto del bootcamp Full Stack.  
-Diseño oscuro con acentos de neón, soporte por teclado y cálculo de porcentaje.
+![Calculadora Demo](./Animation.gif)
 
-## Características
-- Operaciones básicas: suma, resta, multiplicación, división.
-- Soporte de punto decimal.
-- Botón `%` (convierte el valor actual a porcentaje).
-- Teclado físico soportado: números, `Enter` (=), `Backspace` (←), `Escape` (C).
-- Animación de pantalla al mostrar resultado.
+# Basic Calculator — Christian
 
-## Tecnologías
+Web calculator created as a first small project.
+Dark design with neon accents, keyboard support, and percentage calculations.
+
+## Features
+
+- Basic operations: addition, subtraction, multiplication, division.
+- Decimal point support.
+- Physical keyboard support: numbers, Enter (=), Backspace (←), Escape (C).
+
+## Technologies
 - HTML5
-- CSS3 (variables, grid, animaciones)
-- JavaScript (DOM, eventos, manejo de strings/números)
+- CSS3 (variables, grid, animations)
+- JavaScript (DOM, events, string/number handling)
