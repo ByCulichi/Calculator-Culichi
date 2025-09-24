@@ -58,16 +58,17 @@
 }
 
 /* ------------------------------
-    Reset y estilos base
+    Reset y layout principal
    ------------------------------ */
-html, body { height: 100%; }
-* { box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
-    margin: 0;
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
-    color: var(--btn-text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +77,7 @@ body {
 }
 
 /* ------------------------------
-    Carcasa principal de la calculadora
+    Contenedor principal de la calculadora
    ------------------------------ */
 .wrapper {
     width: var(--wrapper-w);
@@ -87,6 +88,21 @@ body {
     box-shadow: var(--panel-shadow);
     position: relative;
     overflow: visible;
+}
+
+/* Branding */
+.wrapper::before {
+    content: var(--brand-text);
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 13px;
+    color: var(--brand-color);
+    pointer-events: none;
 }
 
 /* Hamburger menu */
@@ -107,9 +123,11 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
 }
+
 .hamburger-menu:hover {
     background: var(--sidebar-button-hover);
 }
+
 .hamburger-menu span {
     display: block;
     width: 18px;
@@ -217,9 +235,11 @@ body {
     flex-direction: column;
     box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
 }
+
 .sidebar.active {
     left: 0;
 }
+
 .sidebar-header {
     padding: 20px;
     border-bottom: 1px solid var(--sidebar-border);
@@ -227,12 +247,14 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
 .sidebar-header h3 {
     color: var(--sidebar-text);
     margin: 0;
     font-size: 20px;
     font-weight: 600;
 }
+
 .close-sidebar {
     background: none;
     border: none;
@@ -248,9 +270,11 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .close-sidebar:hover {
     background: var(--sidebar-button-hover);
 }
+
 .sidebar-content {
     padding: 20px;
     flex: 1;
@@ -264,11 +288,13 @@ body {
     font-size: 18px;
     font-weight: 600;
 }
+
 .history-content {
     max-height: 400px;
     overflow-y: auto;
     margin-bottom: 20px;
 }
+
 .history-item {
     background: var(--sidebar-button-bg);
     border: 1px solid var(--mode-selector-border);
@@ -281,11 +307,13 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
 }
+
 .history-item:hover {
     background: var(--sidebar-button-hover);
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .clear-history {
     width: 100%;
     background: #FF3B30;
@@ -298,6 +326,7 @@ body {
     font-weight: 500;
     transition: all 0.2s ease;
 }
+
 .clear-history:hover {
     background: #D70015;
     transform: translateY(-1px);
@@ -323,21 +352,6 @@ body {
     pointer-events: auto;
 }
 
-/* Marca IMATH centrada arriba */
-.wrapper::before {
-    content: var(--brand-text);
-    position: absolute;
-    top: 12px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-weight: 700;
-    letter-spacing: 2px;
-    font-size: 13px;
-    color: var(--brand-color);
-    pointer-events: none;
-}
-
 /* ------------------------------
     Pantalla estilo iOS
    ------------------------------ */
@@ -361,14 +375,17 @@ body {
 }
 
 /* ------------------------------
-    Grid de botones (4 columnas)
+    Grid de botones
    ------------------------------ */
 .calc-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--btn-gap);
 }
-.calc-button-row { display: contents; }
+
+.calc-button-row { 
+    display: contents; 
+}
 
 /* ------------------------------
     Botón estilo iPhone
@@ -384,14 +401,11 @@ body {
     color: var(--btn-text);
     font-size: var(--btn-font);
     font-weight: 400;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     box-shadow: var(--btn-shadow);
     transition: all 0.15s ease;
+    cursor: pointer;
 }
 
 /* Hover y active para botones */
@@ -400,10 +414,12 @@ body {
     transform: translateY(-1px); 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
 .calc-button:active { 
     transform: translateY(0); 
     box-shadow: var(--btn-shadow);
 }
+
 .calc-button:focus-visible { 
     outline: 2px solid var(--focus); 
     outline-offset: 2px; 
@@ -415,6 +431,7 @@ body {
     background: var(--btn-op);
     color: var(--btn-text-op);
 }
+
 .calc-button.op:hover {
     background: var(--btn-op-hover);
 }
@@ -425,6 +442,7 @@ body {
     background: var(--btn-ac);
     color: var(--btn-text);
 }
+
 .calc-button-row:first-child .calc-button:first-child:hover,
 .calc-button-row:first-child .calc-button:nth-child(2):hover {
     background: var(--btn-ac-hover);
@@ -433,6 +451,8 @@ body {
 /* Botón cero ancho */
 .calc-button.zero {
     grid-column: span 2;
+    aspect-ratio: auto;
+    height: var(--btn-size);
     border-radius: 999px;
 }
 
@@ -444,6 +464,7 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
+
 .calc-button.scientific:hover,
 .calc-button.conversion:hover {
     background: var(--btn-bg-hover);
@@ -459,6 +480,7 @@ body {
 .calc-buttons.scientific-mode {
     gap: 10px;
 }
+
 .calc-buttons.scientific-mode .calc-button {
     min-height: 60px;
 }
@@ -466,8 +488,8 @@ body {
 /* ------------------------------
     Responsividad para pantallas pequeñas
    ------------------------------ */
-@media (max-width: 480px){
-    :root{
+@media (max-width: 480px) {
+    :root {
         --btn-gap: 10px;
         --btn-size: 64px;
         --btn-font: 1.8rem;
@@ -475,27 +497,28 @@ body {
         --screen-size: 48px;
         --wrapper-w: 100%;
     }
-    .wrapper{ 
+    
+    .wrapper { 
         width: 100%; 
         padding: 20px 16px 16px; 
         border-radius: 16px; 
     }
-    .screen{ 
+    
+    .screen { 
         height: 84px; 
         margin-bottom: 20px;
     }
+    
     .calc-buttons.scientific-mode .calc-button {
         min-height: 56px;
         font-size: 1.4rem;
     }
+    
     .calc-button.scientific,
     .calc-button.conversion {
         font-size: 12px;
     }
-    .mode-selector {
-        bottom: 12px;
-        left: 12px;
-    }
+    
     .hamburger-menu {
         top: 12px;
         left: 12px;
