@@ -1,9 +1,9 @@
 /* ============================================================
-   IMATH Calculator - Estilos principales y carcasa web (oscuro)
+    IMATH Calculator - Estilos principales y carcasa web (oscuro)
    ============================================================ */
 
 /* ------------------------------
-   Paleta de colores y variables base
+    Paleta de colores y variables base
    ------------------------------ */
 :root {
     /* Carcasa */
@@ -45,7 +45,7 @@
 }
 
 /* ------------------------------
-   Reset y estilos base
+    Reset y estilos base
    ------------------------------ */
 html, body { height: 100%; }
 * { box-sizing: border-box; }
@@ -62,7 +62,7 @@ body {
 }
 
 /* ------------------------------
-   Carcasa principal de la calculadora
+    Carcasa principal de la calculadora
    ------------------------------ */
 .wrapper {
     width: var(--wrapper-w);
@@ -271,7 +271,7 @@ body {
 }
 
 /* ------------------------------
-   Pantalla estilo iOS
+    Pantalla estilo iOS
    ------------------------------ */
 .screen {
     height: 92px;
@@ -292,7 +292,7 @@ body {
 }
 
 /* ------------------------------
-   Grid de botones (4 columnas)
+    Grid de botones (4 columnas)
    ------------------------------ */
 .calc-buttons {
     display: grid;
@@ -302,7 +302,7 @@ body {
 .calc-button-row { display: contents; }
 
 /* ------------------------------
-   Botón circular base
+    Botón circular base
    ------------------------------ */
 .calc-button {
     border: none;
@@ -409,7 +409,7 @@ body {
 }
 
 /* ------------------------------
-   Responsividad para pantallas pequeñas
+    Responsividad para pantallas pequeñas
    ------------------------------ */
 @media (max-width: 480px){
     :root{
