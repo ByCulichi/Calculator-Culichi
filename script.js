@@ -1,17 +1,40 @@
 /* ============================================================
-    IMATH Calculator - Complete JavaScript Implementation
+    Calculator Culichi - Complete JavaScript Implementation
+    
+    A sophisticated iOS-style calculator with three modes:
+    - Basic: Standard arithmetic operations
+    - Scientific: Trigonometric and logarithmic functions  
+    - Conversion: Unit conversions (temperature, distance, weight)
    ============================================================ */
 
-// Global calculator state variables
+/**
+ * Global calculator state variables
+ */
+/** @type {string} Current number being input or result being displayed */
 let buffer = "0";
+
+/** @type {number} Running total for chained operations */
 let runningTotal = 0;
+
+/** @type {string|null} Last operator used (+, −, ×, ÷) */
 let previousOperator = null;
+
+/** @type {Array<string>} History of calculations for sidebar display */
 let calculatorHistory = [];
 
-// Get display element
+/** @type {HTMLElement} Reference to the calculator display screen */
 const screen = document.querySelector('.screen');
 
-// Core calculator functions
+/**
+ * ============================================================
+ *                    CORE CALCULATOR FUNCTIONS
+ * ============================================================
+ */
+
+/**
+ * Updates the calculator display with the current buffer value
+ * Handles negative number display by wrapping in parentheses
+ */
 function updateScreen() {
     // Display negative numbers in parentheses for clarity
     let displayValue = buffer;
@@ -21,6 +44,10 @@ function updateScreen() {
     screen.textContent = displayValue;
 }
 
+/**
+ * Resets calculator to initial state (All Clear function)
+ * Clears buffer, running total, and previous operator
+ */
 function handleACButton() {
     buffer = "0";
     runningTotal = 0;
@@ -28,6 +55,10 @@ function handleACButton() {
     updateScreen();
 }
 
+/**
+ * Toggles the sign of the current number (+/− button)
+ * Does nothing if buffer is "0"
+ */
 function handlePlusMinusButton() {
     if (buffer === "0") return;
     if (buffer.charAt(0) === "-") {
@@ -38,11 +69,18 @@ function handlePlusMinusButton() {
     updateScreen();
 }
 
+/**
+ * Converts current number to percentage by dividing by 100
+ */
 function handlePercentage() {
     buffer = String(parseFloat(buffer) / 100);
     updateScreen();
 }
 
+/**
+ * Handles mathematical operations (+, −, ×, ÷)
+ * @param {string} operator - The operator symbol to process
+ */
 function handleMath(operator) {
     if (buffer === "0") return;
     
@@ -57,6 +95,11 @@ function handleMath(operator) {
     buffer = "0";
 }
 
+/**
+ * Performs the pending mathematical operation
+ * Updates runningTotal based on previousOperator
+ * @param {number} intBuffer - The number to operate with
+ */
 function flushOperation(intBuffer) {
     if (previousOperator === "+") {
         runningTotal += intBuffer;
@@ -69,6 +112,12 @@ function flushOperation(intBuffer) {
     }
 }
 
+/**
+ * Performs pending operation and returns the result
+ * Used for equals (=) button functionality
+ * @param {number} intBuffer - The number to operate with
+ * @returns {number} The calculated result
+ */
 function flushOperationAndReturn(intBuffer) {
     if (previousOperator === "+") {
         runningTotal += intBuffer;
@@ -82,6 +131,11 @@ function flushOperationAndReturn(intBuffer) {
     return runningTotal;
 }
 
+/**
+ * Handles number input (0-9)
+ * Appends digits to buffer or replaces "0"
+ * @param {string} numString - The digit to add
+ */
 function handleNumber(numString) {
     if (buffer === "0") {
         buffer = numString;
@@ -91,6 +145,16 @@ function handleNumber(numString) {
     updateScreen();
 }
 
+/**
+ * ============================================================
+ *                    UI INTERACTION FUNCTIONS
+ * ============================================================
+ */
+
+/**
+ * Toggles the bottom menu visibility (currently unused)
+ * Legacy function for bottom menu interface
+ */
 function toggleBottomMenu() {
     const bottomMenu = document.getElementById('bottomMenu');
     const overlay = document.getElementById('bottomMenuOverlay');
@@ -107,6 +171,10 @@ function toggleBottomMenu() {
     }
 }
 
+/**
+ * Updates the history display in the sidebar
+ * Shows the last 10 calculations with expression and result
+ */
 function updateHistoryDisplay() {
     // Update history in sidebar if exists
     const historyContent = document.getElementById('historyContent');
@@ -125,6 +193,11 @@ function updateHistoryDisplay() {
     }
 }
 
+/**
+ * Displays a temporary message on the calculator screen
+ * Used for unit conversion results and user feedback
+ * @param {string} message - The message to display
+ */
 function showMessage(message) {
     console.log(message); // For debugging
     
@@ -144,6 +217,10 @@ function showMessage(message) {
     }, 2000);
 }
 
+/**
+ * Toggles the sidebar visibility
+ * Controls hamburger menu, sidebar, and overlay states
+ */
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
@@ -154,8 +231,22 @@ function toggleSidebar() {
     hamburgerBtn.classList.toggle('active');
 }
 
+/**
+ * ============================================================
+ *                    MAIN SYMBOL HANDLER
+ * ============================================================
+ */
+
+/**
+ * Main function that handles all calculator button inputs
+ * Routes different symbols to appropriate handler functions
+ * Supports basic operations, scientific functions, and unit conversions
+ * @param {string} symbol - The symbol from button press or keyboard input
+ */
 function handleSymbol(symbol) {
     switch (symbol) {
+        // === BASIC CALCULATOR FUNCTIONS ===
+        
         case "AC":
         case "C":
             handleACButton();
@@ -175,6 +266,7 @@ function handleSymbol(symbol) {
             flushOperation(parseFloat(buffer));
             previousOperator = null;
             buffer = String(runningTotal);
+            // Add to history if not duplicate
             if (calculatorHistory[calculatorHistory.length - 1] !== calculation) {
                 calculatorHistory.push(calculation);
                 updateHistoryDisplay();
@@ -184,17 +276,21 @@ function handleSymbol(symbol) {
             break;
 
         case "←":
+            // Backspace: remove last digit or reset to "0"
             buffer = buffer.length === 1 ? "0" : buffer.slice(0, -1);
             updateScreen();
             break;
 
         case ".":
+            // Add decimal point if not already present
             if (!buffer.includes(".")) {
                 buffer += ".";
                 updateScreen();
             }
             break;
 
+        // === MATHEMATICAL OPERATORS ===
+        
         case "+":
         case "−":
         case "×":
@@ -202,75 +298,95 @@ function handleSymbol(symbol) {
             handleMath(symbol);
             break;
 
-        // Scientific functions
+        // === SCIENTIFIC FUNCTIONS ===
+        // All trigonometric functions expect input in degrees
+        
         case "sin":
+            // Sine function (input in degrees, converted to radians)
             buffer = String(Math.sin(parseFloat(buffer) * Math.PI / 180));
             updateScreen();
             break;
         case "cos":
+            // Cosine function (input in degrees, converted to radians)
             buffer = String(Math.cos(parseFloat(buffer) * Math.PI / 180));
             updateScreen();
             break;
         case "tan":
+            // Tangent function (input in degrees, converted to radians)
             buffer = String(Math.tan(parseFloat(buffer) * Math.PI / 180));
             updateScreen();
             break;
         case "log":
+            // Base-10 logarithm
             buffer = String(Math.log10(parseFloat(buffer)));
             updateScreen();
             break;
         case "ln":
+            // Natural logarithm (base e)
             buffer = String(Math.log(parseFloat(buffer)));
             updateScreen();
             break;
         case "√":
+            // Square root
             buffer = String(Math.sqrt(parseFloat(buffer)));
             updateScreen();
             break;
         case "x²":
+            // Square (power of 2)
             buffer = String(Math.pow(parseFloat(buffer), 2));
             updateScreen();
             break;
         case "(":
+            // Parentheses not implemented yet
             showMessage("Paréntesis no implementado");
             break;
 
-        // Conversiones
+        // === UNIT CONVERSION FUNCTIONS ===
+
         case "°C→°F":
+            // Temperature: Celsius to Fahrenheit
             const celsius = parseFloat(buffer);
             buffer = String((celsius * 9/5) + 32);
             showMessage(`${celsius}°C = ${buffer}°F`);
             updateScreen();
             break;
         case "km→mi":
+            // Distance: Kilometers to miles
             const km = parseFloat(buffer);
             buffer = String(km * 0.621371);
             showMessage(`${km}km = ${buffer}mi`);
             updateScreen();
             break;
         case "kg→lb":
+            // Weight: Kilograms to pounds
             const kg = parseFloat(buffer);
             buffer = String(kg * 2.20462);
             showMessage(`${kg}kg = ${buffer}lb`);
             updateScreen();
             break;
         case "m→ft":
+            // Distance: Meters to feet
             const meters = parseFloat(buffer);
             buffer = String(meters * 3.28084);
             showMessage(`${meters}m = ${buffer}ft`);
             updateScreen();
             break;
+
+        // === MATHEMATICAL CONSTANTS ===
+            
         case "π":
+            // Pi constant (3.14159...)
             buffer = String(Math.PI);
             updateScreen();
             break;
         case "e":
+            // Euler's number (2.71828...)
             buffer = String(Math.E);
             updateScreen();
             break;
 
         default:
-            // Handle number inputs
+            // Handle numeric input (0-9)
             if (!isNaN(parseInt(symbol))) {
                 handleNumber(symbol);
             }
@@ -278,17 +394,27 @@ function handleSymbol(symbol) {
     }
 }
 
-/* ------------------------------
-    Initialization and Event Handlers
-   ------------------------------ */
+/**
+ * ============================================================
+ *                    INITIALIZATION & EVENT HANDLERS
+ * ============================================================
+ */
+
+/**
+ * Main initialization function - runs when DOM is fully loaded
+ * Sets up all event listeners and initializes calculator state
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize display
+    // Initialize display with "0"
     updateScreen();
 
-    // Add event listeners to all calculator buttons
+    /**
+     * === CALCULATOR BUTTON EVENT LISTENERS ===
+     * Adds click handlers to all calculator buttons
+     */
     document.querySelectorAll('.calc-button').forEach(button => {
         button.addEventListener('click', () => {
-            // Special handling for icon button
+            // Special handling for icon button (bottom-left calculator icon)
             if (button.classList.contains('icon-btn')) {
                 console.log('Calculator icon clicked - could show info or settings');
                 return; // Don't process as a symbol
@@ -299,7 +425,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Hamburger menu functionality
+    /**
+     * === SIDEBAR/HAMBURGER MENU FUNCTIONALITY ===
+     * Controls the slide-out history sidebar
+     */
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
@@ -317,29 +446,33 @@ document.addEventListener('DOMContentLoaded', function() {
         closeSidebar.addEventListener('click', toggleSidebar);
     }
 
-    // Bottom menu functionality - REMOVED since bottom menu button no longer exists
-    // The icon is now inside the calculator keypad
-
-    // Menu options handling
+    /**
+     * === MODE SWITCHING FUNCTIONALITY ===
+     * Handles Basic, Scientific, and Conversion mode switching
+     */
     document.querySelectorAll('.menu-option').forEach(option => {
         option.addEventListener('click', (e) => {
-            // Remove active from all options
+            // Remove active state from all mode options
             document.querySelectorAll('.menu-option').forEach(opt => opt.classList.remove('active'));
-            // Add active to clicked option
+            // Add active state to clicked option
             e.target.classList.add('active');
             
-            // Here you can add mode switching logic
+            // Get selected mode and log for future implementation
             const mode = e.target.dataset.mode;
             console.log('Switching to mode:', mode);
             
-            // Close menu
+            // Close bottom menu with delay for smooth UX
             setTimeout(() => {
                 toggleBottomMenu();
             }, 300);
         });
     });
 
-    // Clear history button with confirmation
+    /**
+     * === HISTORY MANAGEMENT FUNCTIONS ===
+     */
+    
+    // Clear history with user confirmation
     const clearHistoryBtn = document.getElementById('clearHistory');
     if (clearHistoryBtn) {
         clearHistoryBtn.addEventListener('click', () => {
@@ -348,7 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Show confirmation prompt as specified
+            // Show confirmation dialog before clearing
             const confirmDelete = confirm('¿Estás seguro de que quieres borrar todo el historial?');
             if (confirmDelete) {
                 calculatorHistory = [];
@@ -358,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Enhanced edit history button functionality
+    // Edit history functionality - loads last calculation for editing
     const editHistoryBtn = document.getElementById('editHistory');
     if (editHistoryBtn) {
         editHistoryBtn.addEventListener('click', () => {
@@ -367,12 +500,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Show recent calculation in display for re-editing
+            // Extract last number from most recent calculation
             const lastCalculation = calculatorHistory[calculatorHistory.length - 1];
             if (lastCalculation) {
                 const parts = lastCalculation.split(' = ');
                 const expression = parts[0];
-                // Extract the last number from the expression for editing
+                // Use regex to find the last number in the expression
                 const match = expression.match(/[\d.]+$/);
                 if (match) {
                     buffer = match[0];
@@ -383,19 +516,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Splash Screen handling
+    /**
+     * === SPLASH SCREEN HANDLING ===
+     * Auto-dismiss splash screen and handle user tap to dismiss
+     */
     const splashScreen = document.getElementById('splashScreen');
     if (splashScreen) {
         // Auto dismiss after 2 seconds
         setTimeout(() => {
             splashScreen.classList.add('hidden');
-            // Remove from DOM after transition
+            // Remove from DOM after CSS transition completes
             setTimeout(() => {
                 splashScreen.remove();
             }, 300);
         }, 2000);
         
-        // Allow tap to dismiss
+        // Allow manual dismissal by clicking
         splashScreen.addEventListener('click', () => {
             splashScreen.classList.add('hidden');
             setTimeout(() => {
@@ -404,32 +540,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Keyboard support
+    /**
+     * === KEYBOARD SUPPORT ===
+     * Maps physical keyboard keys to calculator functions
+     * Supported keys: 0-9, +, -, *, /, =, Enter, Escape, Backspace, ., %
+     */
     document.addEventListener('keydown', (event) => {
         const key = event.key;
         
-        // Number keys
+        // Number keys (0-9)
         if (key >= '0' && key <= '9') {
             handleSymbol(key);
         }
-        // Operators
+        // Mathematical operators
         else if (key === '+') {
             handleSymbol('+');
         } else if (key === '-') {
-            handleSymbol('−');
+            handleSymbol('−'); // Use proper minus symbol
         } else if (key === '*') {
-            handleSymbol('×');
+            handleSymbol('×'); // Use proper multiplication symbol
         } else if (key === '/') {
-            event.preventDefault();
-            handleSymbol('÷');
+            event.preventDefault(); // Prevent browser search
+            handleSymbol('÷'); // Use proper division symbol
         }
-        // Special keys
+        // Special function keys
         else if (key === 'Enter' || key === '=') {
             handleSymbol('=');
         } else if (key === 'Escape') {
-            handleSymbol('AC');
+            handleSymbol('AC'); // Clear calculator
         } else if (key === 'Backspace') {
-            handleSymbol('←');
+            handleSymbol('←'); // Backspace function
         } else if (key === '.') {
             handleSymbol('.');
         } else if (key === '%') {
