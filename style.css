@@ -1,217 +1,212 @@
 /* =========================
-    Variables de color y estilos globales
+   IMATH iOS look + carcasa web (oscuro)
    ========================= */
+
+/* Paleta y dimensiones base */
 :root{
-    --bg: #07070a;
-    --panel-top: #111217;
-    --panel-bot: #090a0d;
-    --screen-grad: linear-gradient(180deg, #0b0f12 0%, #071018 100%);
-    --btn: #131417;
-    --btn-2: #0e0f12;
-    --text: #e6eef8;
-    --muted: #8a8f98;
-    --neon: #00ffd1;
-    --neon-2: #8cffef;
-    --accent: #a58cff;
+  /* Carcasa */
+  --bg: #000000;
+  --panel-top: #0a0b0d;
+  --panel-bot: #05060a;
+  --panel-border: rgba(255,255,255,0.06);
+  --panel-shadow: 0 28px 64px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.04);
+
+  /* Branding */
+  --brand-text: "IMATH";
+  --brand-color: rgba(255,255,255,0.12);
+
+  /* Pantalla */
+  --screen-bg: transparent;
+  --screen-text: #ffffff;
+  --screen-size: 64px;
+
+  /* Botones */
+  --btn-grey: #3e3e3e;           /* más oscuro */
+  --btn-grey-hover: #575757;
+  --btn-ac: #9d9d9d;             /* AC claro */
+  --btn-ac-hover: #b8b8b8;
+  --btn-op: #ff9500;             /* naranja iOS */
+  --btn-op-hover: #ffb84d;
+  --btn-text: #ffffff;
+
+  /* Tamaños */
+  --btn-gap: 18px;
+  --btn-size: 84px;              /* diámetro mínimo (más grande) */
+  --btn-font: 2.2rem;            /* números */
+  --btn-font-ops: 2.7rem;        /* operaciones más grandes */
+  --btn-font-dot: 2.3rem;        /* punto un poco más grande */
+
+  --focus: #a58cff;              /* foco accesible */
+  --btn-shadow: 0 2px 10px rgba(0,0,0,.28);
+
+  --wrapper-w: 440px;            /* un poco más grande */
 }
 
-/* =========================
-    Reset y estilos base
-   ========================= */
-html, body { height: 100%; }
-* { box-sizing: border-box; }
+/* Reset/base */
+html, body{ height:100%; }
+*{ box-sizing:border-box; }
 
 body{
-    /* Fondo con gradientes radiales y color base */
-    margin:0;
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    color: var(--text);
-    background:
-    radial-gradient(1100px 600px at 12% 8%, rgba(117, 23, 194, 0.895), transparent 40%),
-    radial-gradient(900px 500px at 88% 92%, rgba(0, 255, 208, 0.768), transparent 45%),
-    var(--bg);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding: 32px;
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: var(--bg);
+  color: var(--btn-text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 32px;
 }
 
-/* =========================
-    Contenedor principal de la calculadora
-   ========================= */
+/* Carcasa web con marca centrada */
 .wrapper{
-    width: 360px;
-    max-width: calc(100% - 40px);
-    background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
-    border-radius: 12px;
-    padding: 18px;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow:0 24px 60px rgba(0,0,0,0.7),
-    inset 0 1px 0 rgba(255,255,255,0.04);
-    position: relative;
-    overflow: hidden;
+  width: var(--wrapper-w);
+  max-width: calc(100% - 40px);
+  background: linear-gradient(180deg, var(--panel-top), var(--panel-bot));
+  border-radius: 18px;
+  padding: 26px 20px 22px;
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Marca decorativa tipo "CASIO" */
+/* Marca IMATH centrada arriba */
 .wrapper::before{
-    content: "CASIO";
-    position: absolute;
-    left: 30px;
-    top: 1px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.08);
-    text-shadow: 0 1px 0 rgba(112, 110, 110, 0.8);
-    pointer-events: none;
+  content: var(--brand-text);
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 3.6px;
+  font-size: 12px;
+  color: var(--brand-color);
+  text-shadow: 0 1px 0 rgba(112,110,110,0.5);
+  pointer-events: none;
 }
 
-/* =========================
-    Pantalla de la calculadora
-   ========================= */
+/* Pantalla estilo iOS */
 .screen{
-    height: 76px;
-    border-radius: 8px;
-    background: var(--screen-grad);
-    color: var(--neon);
-    display:flex;
-    align-items:flex-end;
-    justify-content:flex-end;
-    padding: 12px 16px;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    box-shadow: inset 0 -6px 18px rgba(0,0,0,0.7), 0 6px 26px rgba(98,98,255,0.05);
-    border: 1px solid rgba(255,255,255,0.06);
-    position: relative;
-    margin-bottom: 18px;
+  height: 92px;
+  border-radius: 10px;
+  background: var(--screen-bg);
+  color: var(--screen-text);
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-end;
+  padding: 0 18px;
+  font-size: var(--screen-size);
+  font-weight: 400;
+  letter-spacing: 1.4px;
+  border: none;
+  box-shadow: none;
+  margin-top: 8px;   /* deja espacio para IMATH */
+  margin-bottom: 20px;
 }
 
-/* Efecto de brillo en la pantalla */
-.screen::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.12));
-    border-radius: 7px;
-    pointer-events:none;
-}
-
-/* Efecto de neón en la parte inferior de la pantalla */
-.screen::before{
-    content: "";
-    position: absolute;
-    left: 12px; right: 12px; bottom: -8px;
-    height: 6px;
-    background: linear-gradient(90deg, rgba(140,140,255,0.0), rgba(140,140,255,0.10) 20%, var(--neon) 50%, rgba(140,255,255,0.08) 80%, rgba(140,140,255,0.0));
-    filter: blur(8px);
-    border-radius: 6px;
-    opacity: .3;
-    pointer-events:none;
-}
-
-/* =========================
-    Botones de la calculadora
-   ========================= */
+/* Grid de botones (4 columnas) */
 .calc-buttons{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--btn-gap);
 }
+.calc-button-row{ display: contents; } /* no rompe tu estructura */
 
-/* Permite que las filas de botones se comporten como contenido de grid */
-.calc-button-row{ display: contents; }
-
-/* Estilos generales para los botones */
+/* Botón circular base */
 .calc-button{
-    border: none;
-    outline: none;
-    height: 62px;
-    border-radius: 8px;
-    background: linear-gradient(180deg, var(--btn), var(--btn-2));
-    color: var(--text);
-    font-size: 18px;
-    font-weight: 700;
-    box-shadow:0 6px 12px rgba(0,0,0,0.6),
-    inset 0 -6px 14px rgba(255,255,255,0.02);
-    cursor: pointer;
-    position: relative;
-    transition: transform 80ms ease, box-shadow 140ms ease, color 140ms ease;
-    -webkit-tap-highlight-color: transparent;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    user-select: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  aspect-ratio: 1 / 1;                 /* círculo */
+  min-height: var(--btn-size);
+  border-radius: 50%;
+  background: var(--btn-grey);
+  color: var(--btn-text);
+  font-size: var(--btn-font);
+  font-weight: 400;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: var(--btn-shadow);
+  transition: background .15s ease, color .15s ease, transform .09s ease;
 }
 
-/* Efecto hover para botones */
-.calc-button:hover{
-    transform: translateY(-2px);
-    box-shadow:
-    0 10px 24px rgba(0,0,0,0.75),
-    0 0 12px rgba(143,255,233,0.07),
-    inset 0 -6px 18px rgba(255,255,255,0.03);
-}
+/* Hover con zoom (desktop) + Active */
+.calc-button:hover{ background: var(--btn-grey-hover); transform: scale(1.05); }
+.calc-button:active{ transform: scale(.98); }
+.calc-button:focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; }
 
-/* Efecto al presionar el botón */
-.calc-button:active{
-    transform: translateY(1px) scale(0.995);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.65);
-}
+/* Operaciones grandes (÷ × − + =) */
+.calc-button.op{ font-size: var(--btn-font-ops); }
 
-/* Resalta el botón cuando está enfocado */
-.calc-button:focus-visible{
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
+/* Punto “.” ligeramente más grande para legibilidad */
+.calc-button.dot{ font-size: var(--btn-font-dot); }
 
-/* =========================
-   Colores especiales para botones de operaciones
-   ========================= */
+/* Botón “calculadora” (ícono/emoji/SVG) */
+.calc-button.tool{
+  background: var(--btn-grey);
+  color: var(--btn-text);
+}
+.calc-button.tool:hover{ background: var(--btn-grey-hover); }
+
+/* AC claro (solo el primer botón de la 1ª fila por posición y/o clase) */
+.calc-button.ac{
+  background: var(--btn-ac);
+  color:#fff;
+}
+.calc-button.ac:hover{ background: var(--btn-ac-hover); }
+
+/* Columna de operaciones (÷ × − + y =) -> naranja */
+.calc-button.op,
 .calc-buttons > .calc-button:nth-child(4n),
 .calc-button-row > .calc-button:last-child{
-    color: var(--neon-2);
-    background: linear-gradient(180deg, #17171a 0%, #0e0f12 100%);
-    box-shadow: 0 8px 18px rgba(10,8,25,0.6), inset 0 -4px 10px rgba(255,255,255,0.02);
+  background: var(--btn-op);
+  color:#fff;
 }
+.calc-button.op:hover,
 .calc-buttons > .calc-button:nth-child(4n):hover,
 .calc-button-row > .calc-button:last-child:hover{
-    color: var(--neon);
-    box-shadow:
-    0 12px 30px rgba(0,0,0,0.78),
-    0 0 18px rgba(143,255,233,0.16),
-    0 0 40px rgba(143,255,233,0.08);
+  background: var(--btn-op-hover);
 }
 
-/* Botones de la primera fila (C, ←, ÷) */
-.calc-buttons .calc-button:nth-child(-n+4),
-.calc-button-row:first-child .calc-button{
-    background: linear-gradient(180deg, #14151a 0%, #0e0f12 100%);
-    color: #dfe6f2;
-    border: 1px solid rgba(255,255,255,0.04);
-}
-
-/* Botón de igual (=) con color de acento */
+/* Igual (fallback si no cae en col 4 por estructura) */
+.calc-buttons .calc-button.equal,
 .calc-buttons .calc-button:last-child,
 .calc-button-row:last-child .calc-button:last-child{
-    background: linear-gradient(180deg, rgba(160,0,255,0.10), rgba(160,0,255,0.04));
-    border: 1px solid rgba(160,0,255,0.12);
-    box-shadow:
-    0 10px 30px rgba(120,80,255,0.10),
-    0 0 18px rgba(0,255,210,0.06);
+  background: var(--btn-op);
+  color:#fff;
+}
+.calc-buttons .calc-button.equal:hover{ background: var(--btn-op-hover); }
+
+/* Botones anchos en pastilla (si los usas en otras vistas) */
+.double{
+  grid-column: span 2;
+  aspect-ratio: auto;
+  height: var(--btn-size);
+  border-radius: 999px;
+}
+.triple{
+  grid-column: span 3;
+  aspect-ratio: auto;
+  height: var(--btn-size);
+  border-radius: 999px;
 }
 
-/* =========================
-    Botones especiales: doble y triple ancho
-   ========================= */
-.double{ grid-column: span 2; height: 62px; }
-.triple{ grid-column: span 3; height: 62px; }
-
-/* =========================
-    Responsividad para pantallas pequeñas
-   ========================= */
-@media (max-width: 420px){
-    .wrapper{ width: 320px; padding: 14px; }
-    .screen{ height: 64px; font-size: 24px; }
-    .calc-button{ height: 56px; font-size: 16px; }
+/* Responsivo */
+@media (max-width: 480px){
+  :root{
+    --btn-gap: 14px;
+    --btn-size: 68px;
+    --btn-font: 1.9rem;
+    --btn-font-ops: 2.3rem;
+    --btn-font-dot: 2.1rem;
+    --screen-size: 50px;
+    --wrapper-w: 100%;
+  }
+  .wrapper{ width: 100%; padding: 16px; border-radius: 16px; }
+  .screen{ height: 78px; }
 }

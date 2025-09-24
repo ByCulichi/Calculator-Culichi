@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Enlace al archivo de estilos externo -->
     <link rel="stylesheet" href="style.css">
-    <title>Calculator</title>
+    <title>IMATH Calculator</title>
 </head>
 <body>
     <!-- Contenedor principal de la calculadora -->
@@ -16,43 +16,47 @@
             0
         </section>
 
-        <!-- Sección de botones de la calculadora -->
+        <!-- Teclado: 5 filas, 4 columnas -->
         <section class="calc-buttons">
-            <!-- Fila de botones: limpiar, retroceso y división -->
+            <!-- Fila 1: AC, +/−, %, ÷ -->
             <div class="calc-button-row">
-                <button class="calc-button double" aria-label="Limpiar">C</button>
-                <button class="calc-button" aria-label="Retroceso">&larr;</button>
-                <button class="calc-button" aria-label="Dividir">&divide;</button>
+                <!-- Nota: mostramos AC; si tu JS espera "C", puedes leer data-key="C" -->
+                <button class="calc-button ac" aria-label="Limpiar" data-key="C">AC</button>
+                <button class="calc-button" aria-label="Más/Menos">±</button>
+                <button class="calc-button" aria-label="Porcentaje">%</button>
+                <button class="calc-button op" aria-label="Dividir">÷</button>
             </div>
 
-            <!-- Fila de botones: números 7-9 y multiplicar -->
+            <!-- Fila 2: 7 8 9 × -->
             <div class="calc-button-row">
                 <button class="calc-button" aria-label="Siete">7</button>
                 <button class="calc-button" aria-label="Ocho">8</button>
                 <button class="calc-button" aria-label="Nueve">9</button>
-                <button class="calc-button" aria-label="Multiplicar">&times;</button>
+                <button class="calc-button op" aria-label="Multiplicar">×</button>
             </div>
 
-            <!-- Fila de botones: números 4-6 y restar -->
+            <!-- Fila 3: 4 5 6 − -->
             <div class="calc-button-row">
                 <button class="calc-button" aria-label="Cuatro">4</button>
                 <button class="calc-button" aria-label="Cinco">5</button>
                 <button class="calc-button" aria-label="Seis">6</button>
-                <button class="calc-button" aria-label="Restar">&minus;</button>
+                <button class="calc-button op" aria-label="Restar">−</button>
             </div>
 
-            <!-- Fila de botones: números 1-3 y sumar -->
+            <!-- Fila 4: 1 2 3 + -->
             <div class="calc-button-row">
                 <button class="calc-button" aria-label="Uno">1</button>
                 <button class="calc-button" aria-label="Dos">2</button>
                 <button class="calc-button" aria-label="Tres">3</button>
-                <button class="calc-button" aria-label="Sumar">&plus;</button>
+                <button class="calc-button op" aria-label="Sumar">+</button>
             </div>
 
-            <!-- Fila de botones: cero y igual -->
+            <!-- Fila 5: calculadora, 0, ., = -->
             <div class="calc-button-row">
-                <button class="calc-button triple" aria-label="Cero">0</button>
-                <button class="calc-button" aria-label="Igual">&equals;</button>
+                <button class="calc-button tool" aria-label="Herramienta">🧮</button>
+                <button class="calc-button" aria-label="Cero">0</button>
+                <button class="calc-button dot" aria-label="Punto">.</button>
+                <button class="calc-button op equal" aria-label="Igual">=</button>
             </div>
         </section>
     </div>
