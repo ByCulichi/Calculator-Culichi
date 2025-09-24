@@ -62,7 +62,15 @@
                 <button class="calc-button scientific" aria-label="Seno">sin</button>
                 <button class="calc-button scientific" aria-label="Coseno">cos</button>
                 <button class="calc-button scientific" aria-label="Tangente">tan</button>
-                <button class="calc-button scientific" aria-label="Logaritmo">log</button>
+                <button class="calc-button scientific" aria-label="Logaritmo natural">ln</button>
+            </div>
+
+            <!-- Segunda fila científica (oculta en modo normal) -->
+            <div class="calc-button-row scientific-row" style="display: none;">
+                <button class="calc-button scientific" aria-label="Logaritmo base 10">log</button>
+                <button class="calc-button scientific" aria-label="Raíz cuadrada">√</button>
+                <button class="calc-button scientific" aria-label="Al cuadrado">x²</button>
+                <button class="calc-button scientific" aria-label="Pi">π</button>
             </div>
 
             <!-- Fila 2: 7 8 9 × -->
@@ -89,12 +97,12 @@
                 <button class="calc-button op" aria-label="Sumar">+</button>
             </div>
 
-            <!-- Fila 5: 0, ., = -->
+            <!-- Fila 5: 🧮, 0, ., = -->
             <div class="calc-button-row">
                 <button class="calc-button tool" aria-label="Herramienta">🧮</button>
                 <button class="calc-button zero" aria-label="Cero">0</button>
                 <button class="calc-button" aria-label="Punto decimal">.</button>
-                <button class="calc-button eq" aria-label="Igual">=</button>
+                <button class="calc-button op eq" aria-label="Igual">=</button>
             </div>
         </section>
     </div>

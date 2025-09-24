@@ -24,7 +24,19 @@ function buttonClick(value) {
     } else {
         handleSymbol(value);
     }
-    screen.innerText = buffer;
+    
+    // Formatear números largos
+    let displayValue = buffer;
+    if (!isNaN(parseFloat(buffer)) && isFinite(buffer)) {
+        const num = parseFloat(buffer);
+        if (Math.abs(num) >= 1e9 || (Math.abs(num) < 1e-6 && num !== 0)) {
+            displayValue = num.toExponential(6);
+        } else if (buffer.includes('.') && buffer.length > 10) {
+            displayValue = num.toPrecision(8);
+        }
+    }
+    
+    screen.innerText = displayValue;
 }
 
 // ============================================================
@@ -32,18 +44,30 @@ function buttonClick(value) {
 // ============================================================
 function handleSymbol(symbol) {
     switch (symbol) {
-        case "C": // Limpiar con funcionalidad dual (doble clic borra historial)
+        case "AC": // Limpiar con funcionalidad dual (doble clic borra historial)
             handleACButton();
+            break;
+            
+        case "+/−": // Cambio de signo
+            if (buffer !== "0") {
+                buffer = buffer.startsWith("-") ? buffer.slice(1) : "-" + buffer;
+            }
+            break;
+            
+        case "%": // Porcentaje
+            buffer = String(parseFloat(buffer) / 100);
             break;
 
         case "=": // Calcular el resultado y guardar en historial
             if (!previousOperator) return;
-            const calculation = `${runningTotal} ${previousOperator} ${buffer} = `;
+            const calculation = `${runningTotal} ${previousOperator} ${buffer} = ${flushOperationAndReturn(parseFloat(buffer))}`;
             flushOperation(parseFloat(buffer));
             previousOperator = null;
             buffer = String(runningTotal);
-            calculatorHistory.push(calculation + buffer);
-            updateHistoryDisplay();
+            if (calculatorHistory[calculatorHistory.length - 1] !== calculation) {
+                calculatorHistory.push(calculation);
+                updateHistoryDisplay();
+            }
             runningTotal = 0;
             break;
 
@@ -81,6 +105,30 @@ function handleSymbol(symbol) {
             break;
         case "log":
             buffer = String(Math.log10(parseFloat(buffer)));
+            break;
+            
+        case "🧮": // Botón herramienta - toggle sidebar
+            toggleSidebar();
+            break;
+            
+        case "ln":
+            buffer = String(Math.log(parseFloat(buffer)));
+            break;
+            
+        case "√":
+            buffer = String(Math.sqrt(parseFloat(buffer)));
+            break;
+            
+        case "x²":
+            buffer = String(Math.pow(parseFloat(buffer), 2));
+            break;
+            
+        case "π":
+            buffer = String(Math.PI);
+            break;
+            
+        case "e":
+            buffer = String(Math.E);
             break;
     }
 }
@@ -181,11 +229,31 @@ function flushOperation(floatBuffer) {
     }
 }
 
+// Función auxiliar para calcular resultado sin modificar estado
+function flushOperationAndReturn(floatBuffer) {
+    let result = runningTotal;
+    if (previousOperator === "+") {
+        result += floatBuffer;
+    } else if (previousOperator === "−") {
+        result -= floatBuffer;
+    } else if (previousOperator === "×") {
+        result *= floatBuffer;
+    } else if (previousOperator === "÷") {
+        result = floatBuffer === 0 ? "Error" : result / floatBuffer;
+    }
+    return result;
+}
+
 // ============================================================
 // Maneja la entrada de números
 // ============================================================
 function handleNumber(numberString) {
     buffer = buffer === "0" ? numberString : buffer + numberString;
+    
+    // Limitar la longitud del buffer para evitar números muy largos
+    if (buffer.length > 12) {
+        buffer = buffer.slice(0, 12);
+    }
 }
 
 // ============================================================
@@ -248,19 +316,19 @@ function switchMode(scientific) {
     const normalBtn = document.getElementById('normalMode');
     const scientificBtn = document.getElementById('scientificMode');
     const calcButtons = document.getElementById('calcButtons');
-    const scientificRow = document.querySelector('.scientific-row');
+    const scientificRows = document.querySelectorAll('.scientific-row');
 
     if (scientific) {
         normalBtn.classList.remove('active');
         scientificBtn.classList.add('active');
         calcButtons.classList.add('scientific-mode');
-        scientificRow.style.display = 'contents';
+        scientificRows.forEach(row => row.style.display = 'contents');
         showMessage("Modo científico");
     } else {
         scientificBtn.classList.remove('active');
         normalBtn.classList.add('active');
         calcButtons.classList.remove('scientific-mode');
-        scientificRow.style.display = 'none';
+        scientificRows.forEach(row => row.style.display = 'none');
         showMessage("Modo normal");
     }
 }
