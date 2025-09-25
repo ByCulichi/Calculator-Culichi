@@ -1,167 +1,283 @@
-# IOS Calculator Culichi 🧮
+# Calculadora iOS Culichi 🧮
 
 ![Demo](calculator.gif)
 
-> A sophisticated iOS-inspired calculator web application with multiple calculation modes and advanced features.
+> Una sofisticada aplicación web de calculadora inspirada en iOS con múltiples modos de cálculo y funciones avanzadas.
 
-## ✨ Features
+## ✨ Características
 
-### 🔢 **Three Calculation Modes**
-- **Basic Mode**: Standard arithmetic operations for everyday calculations
-- **Scientific Mode**: Advanced mathematical functions for complex calculations  
-- **Conversion Mode**: Unit conversions for practical applications
+### 🔢 **Tres Modos de Cálculo**
+- **Modo Básico**: Operaciones aritméticas estándar para cálculos cotidianos
+- **Modo Científico**: Funciones matemáticas avanzadas para cálculos complejos  
+- **Modo Conversión**: Conversiones de unidades para aplicaciones prácticas
 
-### 🧮 **Basic Operations**
-- ➕ **Addition, Subtraction, Multiplication, Division** - All standard arithmetic operations
-- 🔢 **Decimal Point Support** - Handle floating point numbers with precision
-- ➕➖ **Plus/Minus Toggle** - Quickly switch between positive and negative numbers
-- 📊 **Percentage Calculations** - Convert numbers to percentages instantly
-- ↩️ **Backspace Function** - Delete individual digits for easy correction
+### 🧮 **Operaciones Básicas**
+- ➕ **Suma, Resta, Multiplicación, División** - Todas las operaciones aritméticas estándar
+- 🔢 **Soporte de Punto Decimal** - Maneja números de punto flotante con precisión
+- ➕➖ **Alternar Más/Menos** - Cambia rápidamente entre números positivos y negativos
+- 📊 **Cálculos de Porcentaje** - Convierte números a porcentajes instantáneamente
+- ↩️ **Función Retroceso** - Borra dígitos individuales para corrección fácil
 
-### 🔬 **Scientific Functions**
-- 📐 **Trigonometric Functions**: `sin`, `cos`, `tan` (input in degrees)
-- 📈 **Logarithmic Functions**: `log` (base 10), `ln` (natural logarithm)
-- √ **Root Functions**: Square root (`√`) and power functions (`x²`)
-- 🔢 **Mathematical Constants**: π (Pi) and e (Euler's number)
+### 🔬 **Funciones Científicas**
+- 📐 **Funciones Trigonométricas**: `sin`, `cos`, `tan` (entrada en grados)
+- 📈 **Funciones Logarítmicas**: `log` (base 10), `ln` (logaritmo natural)
+- √ **Funciones de Raíz**: Raíz cuadrada (`√`) y funciones de potencia (`x²`)
+- 🔢 **Constantes Matemáticas**: π (Pi) y e (número de Euler)
 
-### 🔄 **Unit Conversions**
-- 🌡️ **Temperature**: Celsius to Fahrenheit (`°C→°F`)
-- 📏 **Distance**: Kilometers to Miles (`km→mi`), Meters to Feet (`m→ft`)
-- ⚖️ **Weight**: Kilograms to Pounds (`kg→lb`)
+### 🔄 **Conversiones de Unidades**
+- 🌡️ **Temperatura**: Celsius a Fahrenheit (`°C→°F`)
+- 📏 **Distancia**: Kilómetros a Millas (`km→mi`), Metros a Pies (`m→ft`)
+- ⚖️ **Peso**: Kilogramos a Libras (`kg→lb`)
 
-### 💾 **History & Memory**
-- 📋 **Calculation History** - Automatic storage of all calculations
-- ✏️ **Edit Previous Calculations** - Reload last calculation for editing
-- 🗑️ **Clear History** - Remove all stored calculations with confirmation
-- 📅 **Time-based Filtering** - View calculations from last 7 days or 30 days
+### 💾 **Historial y Memoria**
+- 📋 **Historial de Cálculos** - Almacenamiento automático de todos los cálculos
+- ✏️ **Editar Cálculos Anteriores** - Recarga el último cálculo para edición
+- 🗑️ **Limpiar Historial** - Elimina todos los cálculos almacenados con confirmación
+- 📅 **Filtrado por Tiempo** - Ve cálculos de los últimos 7 días o 30 días
 
-### ⌨️ **Keyboard Support**
-Full keyboard navigation and input support:
-- **Numbers**: `0-9` for digit input
-- **Operations**: `+`, `-`, `*`, `/` for mathematical operations
-- **Functions**: `Enter` or `=` for equals, `Escape` for clear, `Backspace` for delete
-- **Special**: `.` for decimal point, `%` for percentage
+### ⌨️ **Soporte de Teclado**
+Soporte completo de navegación e entrada por teclado:
+- **Números**: `0-9` para entrada de dígitos
+- **Operaciones**: `+`, `-`, `*`, `/` para operaciones matemáticas
+- **Funciones**: `Enter` o `=` para igual, `Escape` para limpiar, `Backspace` para borrar
+- **Especiales**: `.` para punto decimal, `%` para porcentaje
 
-### 🎨 **Modern UI/UX**
-- 📱 **iOS-Inspired Design** - Familiar calculator interface with modern aesthetics
-- 🌑 **Dark Theme** - Easy on the eyes with high contrast for visibility
-- 🟠 **Orange Accent Colors** - Distinctive operator buttons following iOS design
-- ↗️ **Smooth Animations** - Fluid transitions and responsive feedback
-- 📲 **Responsive Layout** - Adapts to different screen sizes and devices
-- ♿ **Accessibility** - Proper ARIA labels and keyboard navigation
+### 🎨 **UI/UX Moderna**
+- 📱 **Diseño Inspirado en iOS** - Interfaz familiar de calculadora con estética moderna
+- 🌑 **Tema Oscuro** - Suave para los ojos con alto contraste para visibilidad
+- 🟠 **Colores Naranjas de Acento** - Botones de operador distintivos siguiendo el diseño iOS
+- ↗️ **Animaciones Suaves** - Transiciones fluidas y retroalimentación responsiva
+- 📲 **Diseño Responsivo** - Se adapta a diferentes tamaños de pantalla y dispositivos
+- ♿ **Accesibilidad** - Etiquetas ARIA apropiadas y navegación por teclado
 
-## 🚀 Quick Start
+## 🚀 Inicio Rápido
 
-### Installation
-1. **Clone the repository**:
+### Instalación
+1. **Clonar el repositorio**:
    ```bash
    git clone https://github.com/ByCulichi/Calculator-Culichi.git
    cd Calculator-Culichi
    ```
 
-2. **Open in browser**:
-   - Simply open `index.html` in any modern web browser
-   - Or use a local server for optimal performance:
+2. **Abrir en navegador**:
+   - Simplemente abre `index.html` en cualquier navegador web moderno
+   - O usa un servidor local para rendimiento óptimo:
    ```bash
-   # Using Python
+   # Usando Python
    python -m http.server 8000
-   # Then visit http://localhost:8000
+   # Luego visita http://localhost:8000
    
-   # Using Node.js
+   # Usando Node.js
    npx serve
    
-   # Using PHP
+   # Usando PHP
    php -S localhost:8000
    ```
 
-### Usage
+### Uso
 
-1. **Basic Calculations**: Use the numeric keypad and operator buttons for standard math
-2. **Mode Switching**: Tap the mode selector at the bottom to switch between Basic, Scientific, and Conversion modes
-3. **History Access**: Click the hamburger menu (☰) in the top-left to view calculation history
-4. **Keyboard Input**: Use your physical keyboard for faster input
-5. **Unit Conversion**: Switch to Conversion mode and input a value, then tap the conversion button
+1. **Cálculos Básicos**: Usa el teclado numérico y botones de operadores para matemáticas estándar
+2. **Cambio de Modo**: Toca el selector de modo en la parte inferior para cambiar entre modos Básico, Científico y Conversión
+3. **Acceso al Historial**: Haz clic en el menú hamburguesa (☰) en la parte superior izquierda para ver el historial de cálculos
+4. **Entrada por Teclado**: Usa tu teclado físico para entrada más rápida
+5. **Conversión de Unidades**: Cambia al modo Conversión e ingresa un valor, luego toca el botón de conversión
 
-## 🎯 Keyboard Shortcuts
+## 🎯 Atajos de Teclado
 
-| Key | Function |
-|-----|----------|
-| `0-9` | Number input |
-| `+` | Addition |
-| `-` | Subtraction |
-| `*` | Multiplication |
-| `/` | Division |
-| `=` or `Enter` | Calculate result |
-| `Escape` | Clear (AC) |
-| `Backspace` | Delete last digit |
-| `.` | Decimal point |
-| `%` | Percentage |
+| Tecla | Función |
+|-------|---------|
+| `0-9` | Entrada numérica |
+| `+` | Suma |
+| `-` | Resta |
+| `*` | Multiplicación |
+| `/` | División |
+| `=` o `Enter` | Calcular resultado |
+| `Escape` | Limpiar (AC) |
+| `Backspace` | Borrar último dígito |
+| `.` | Punto decimal |
+| `%` | Porcentaje |
 
-## 🛠️ Technical Specifications
+## 🛠️ Especificaciones Técnicas
 
-### Technologies Used
-- **HTML5**: Semantic markup with accessibility features
-- **CSS3**: Modern styling with custom properties (CSS variables), Grid layout, and animations
-- **Vanilla JavaScript**: Pure JavaScript (ES6+) with no external dependencies
+### Tecnologías Utilizadas
+- **HTML5**: Marcado semántico con características de accesibilidad
+- **CSS3**: Estilos modernos con propiedades personalizadas (variables CSS), diseño Grid y animaciones
+- **JavaScript Vanilla**: JavaScript puro (ES6+) sin dependencias externas
 
-### Browser Compatibility
-- ✅ **Chrome/Edge**: 88+ (Full support)
-- ✅ **Firefox**: 78+ (Full support) 
-- ✅ **Safari**: 14+ (Full support)
-- ✅ **Mobile Browsers**: iOS Safari 14+, Chrome Mobile 88+
+### Compatibilidad de Navegadores
+- ✅ **Chrome/Edge**: 88+ (Soporte completo)
+- ✅ **Firefox**: 78+ (Soporte completo) 
+- ✅ **Safari**: 14+ (Soporte completo)
+- ✅ **Navegadores Móviles**: iOS Safari 14+, Chrome Mobile 88+
 
-### Performance Features
-- 🚀 **Zero Dependencies** - No external libraries, loads instantly
-- 💾 **Local Storage** - History persisted in browser storage
-- ⚡ **Lightweight** - Total size < 50KB for all assets
-- 📱 **PWA Ready** - Can be installed as a mobile app
+### Características de Rendimiento
+- 🚀 **Cero Dependencias** - Sin librerías externas, carga instantáneamente
+- 💾 **Almacenamiento Local** - Historial persistido en almacenamiento del navegador
+- ⚡ **Ligero** - Tamaño total < 50KB para todos los assets
+- 📱 **Listo para PWA** - Puede instalarse como aplicación móvil
 
-## 📁 Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 Calculator-Culichi/
-├── index.html          # Main HTML structure with comprehensive comments
-├── style.css           # Complete styling with CSS variables and responsive design
-├── script.js           # Calculator logic with detailed JSDoc documentation  
-├── iconoCalaculadora.jpg # Calculator icon for branding
-├── Animation.gif       # Demo animation for README
-└── README.md          # This documentation file
+├── index.html          # Estructura HTML principal con comentarios completos
+├── style.css           # Estilos completos con variables CSS y diseño responsivo
+├── script.js           # Lógica de la calculadora con documentación JSDoc detallada  
+├── iconoCalaculadora.jpg # Icono de la calculadora para branding
+├── Animation.gif       # Animación demo para README
+└── README.md          # Este archivo de documentación
 ```
 
-## 🔧 Code Architecture
+## 🔧 Arquitectura del Código
 
-### JavaScript Modules
-- **Global State Management**: `buffer`, `runningTotal`, `previousOperator`, `calculatorHistory`
-- **Core Functions**: Calculation logic, screen updates, operation handling
-- **UI Controllers**: Sidebar management, mode switching, history operations
-- **Event Handlers**: Button clicks, keyboard input, splash screen management
-- **Utility Functions**: Message display, validation, format conversion
+### Módulos JavaScript
+- **Gestión de Estado Global**: `buffer`, `runningTotal`, `previousOperator`, `calculatorHistory`
+- **Funciones Principales**: Lógica de cálculo, actualizaciones de pantalla, manejo de operaciones
+- **Controladores UI**: Gestión de barra lateral, cambio de modo, operaciones de historial
+- **Manejadores de Eventos**: Clics de botones, entrada de teclado, gestión de pantalla splash
+- **Funciones de Utilidad**: Visualización de mensajes, validación, conversión de formato
 
-### CSS Organization  
-- **CSS Custom Properties**: Centralized theming and color management
-- **Component Styling**: Modular styles for calculator, sidebar, buttons
-- **Responsive Design**: Mobile-first approach with flexible layouts
-- **Animations**: Smooth transitions and hover effects
+### Organización CSS  
+- **Propiedades Personalizadas CSS**: Gestión centralizada de temas y colores
+- **Estilos de Componentes**: Estilos modulares para calculadora, barra lateral, botones
+- **Diseño Responsivo**: Enfoque mobile-first con diseños flexibles
+- **Animaciones**: Transiciones suaves y efectos hover
 
-## 🤝 Contributing
+## 🤝 Contribuir
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes:
+¡Las contribuciones son bienvenidas! Por favor, siéntete libre de enviar un Pull Request. Para cambios importantes:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Haz fork del repositorio
+2. Crea una rama de característica (`git checkout -b feature/CaracteristicaIncreible`)
+3. Haz commit de tus cambios (`git commit -m 'Añadir alguna CaracteristicaIncreible'`)
+4. Haz push a la rama (`git push origin feature/CaracteristicaIncreible`)
+5. Abre un Pull Request
 
-## 📄 License
+### 🐛 Reportar Problemas
+Si encuentras un error o tienes una sugerencia:
+1. Revisa si ya existe un issue similar
+2. Crea un nuevo issue con descripción detallada
+3. Incluye pasos para reproducir el problema
+4. Añade capturas de pantalla si es relevante
 
-This project is open source and available under the [MIT License](LICENSE).
+### 💡 Solicitar Funcionalidades
+Para proponer nuevas funcionalidades:
+1. Explica el caso de uso
+2. Describe la funcionalidad propuesta
+3. Considera el impacto en la experiencia del usuario
 
-## 👨‍💻 Author
+## 📊 Funcionalidades Detalladas
+
+### Modo Científico
+- **Funciones Trigonométricas**: Cálculos precisos de seno, coseno y tangente
+- **Logaritmos**: Base 10 y logaritmo natural con alta precisión
+- **Potencias y Raíces**: Cálculo de cuadrados y raíces cuadradas
+- **Constantes**: Valores precisos de π y e para cálculos avanzados
+
+### Sistema de Historial
+- **Persistencia**: Los cálculos se guardan automáticamente en localStorage
+- **Filtros Temporales**: Visualiza cálculos por períodos específicos
+- **Edición**: Reutiliza cálculos anteriores para nuevas operaciones
+- **Gestión**: Limpieza selectiva o completa del historial
+
+### Conversiones de Unidades
+- **Temperatura**: Conversión precisa °C a °F con fórmula estándar
+- **Distancia**: Conversiones métricas/imperiales (km↔mi, m↔ft)  
+- **Peso**: Conversión kg↔lb con factores de conversión exactos
+- **Interfaz Intuitiva**: Botones dedicados con mensajes informativos
+
+## 🔍 Detalles de Implementación
+
+### Gestión del Estado
+```javascript
+// Variables globales para el estado de la calculadora
+let buffer = "0";           // Número actual en pantalla
+let runningTotal = 0;       // Total acumulado
+let previousOperator = null; // Último operador usado
+let calculatorHistory = []; // Historial de operaciones
+```
+
+### Funciones Principales
+- **`handleSymbol()`**: Procesador central de entrada
+- **`updateScreen()`**: Actualización de la interfaz
+- **`processOperator()`**: Manejo de operaciones matemáticas
+- **`toggleSidebar()`**: Control del menú de historial
+
+### Eventos y Interactividad
+- Soporte completo de teclado físico
+- Gestos touch para dispositivos móviles
+- Retroalimentación visual en interacciones
+- Validación de entrada en tiempo real
+
+## 📱 Características Mobile-First
+
+### Diseño Responsivo
+- **Breakpoints**: Optimizado para móvil, tablet y escritorio
+- **Touch Targets**: Botones con tamaño mínimo de 44px
+- **Orientación**: Soporte para portrait y landscape
+- **Viewport**: Configuración óptima para dispositivos móviles
+
+### Rendimiento Móvil
+- **Carga Rápida**: Optimizado para conexiones lentas
+- **Memoria Eficiente**: Gestión cuidadosa de recursos
+- **Batería**: Minimiza el uso de CPU con animaciones eficientes
+
+## 🎨 Guía de Estilo Visual
+
+### Paleta de Colores
+- **Fondo**: `#000000` (Negro puro para contraste máximo)
+- **Botones Números**: `#333333` (Gris oscuro)
+- **Botones Función**: `#A6A6A6` (Gris claro) 
+- **Botones Operador**: `#FF9500` (Naranja iOS)
+- **Texto**: `#FFFFFF` (Blanco para legibilidad)
+
+### Tipografía
+- **Fuente Principal**: SF Pro Display (sistema iOS)
+- **Fallbacks**: -apple-system, BlinkMacSystemFont, sans-serif
+- **Tamaños**: Escalados responsivamente
+- **Peso**: Regular para números, Medium para operadores
+
+## 🧪 Testing y Calidad
+
+### Casos de Prueba
+- ✅ Operaciones básicas (suma, resta, multiplicación, división)
+- ✅ Funciones científicas con valores conocidos
+- ✅ Conversiones de unidades con factores estándar
+- ✅ Gestión de historial (guardar, cargar, limpiar)
+- ✅ Navegación por teclado completa
+- ✅ Compatibilidad cross-browser
+
+### Estándares de Código
+- **JSDoc**: Documentación completa de funciones
+- **Comentarios**: Explicaciones en español para claridad
+- **Convenciones**: Nombres descriptivos y estructura modular
+- **Accesibilidad**: Etiquetas ARIA y navegación por teclado
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE).
+
+## 👨‍💻 Autor
 
 **Christian (ByCulichi)**
 - GitHub: [@ByCulichi](https://github.com/ByCulichi)
+- Proyecto: [Calculator-Culichi](https://github.com/ByCulichi/Calculator-Culichi)
+
+## 🙏 Agradecimientos
+
+- Inspirado en el diseño de la calculadora de iOS
+- Desarrollado con amor para la comunidad hispanohablante
+- Gracias a todos los contribuidores y usuarios que reportan issues
 
 ---
 
-*Built with ❤️ and modern web technologies*
+*Construido con ❤️ y tecnologías web modernas*
+
+### 📞 Contacto y Soporte
+
+¿Tienes preguntas o necesitas ayuda? 
+- 🐛 [Reportar un error](https://github.com/ByCulichi/Calculator-Culichi/issues)
+- 💡 [Solicitar funcionalidad](https://github.com/ByCulichi/Calculator-Culichi/issues)
+- 📧 Contactar al autor a través de GitHub
+
+**¡Tu feedback es valioso para mejorar la aplicación! 🚀**
