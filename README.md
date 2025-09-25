@@ -1,6 +1,6 @@
-# Calculator Culichi 🧮
+# IOS Calculator Culichi 🧮
 
-![Calculator Screenshot](https://github.com/user-attachments/assets/eeff208a-3c70-46ac-9c38-169f5b9db105)
+![Demo](calculator.gif)
 
 > A sophisticated iOS-inspired calculator web application with multiple calculation modes and advanced features.
 
