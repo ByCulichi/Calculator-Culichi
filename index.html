@@ -16,6 +16,27 @@
 
     <!-- Main Calculator Container -->
     <div class="wrapper">
+        <!-- Botón de menú flotante (abajo izquierda) -->
+<button class="fab-menu-btn" id="fabMenuBtn" aria-label="Cambiar modo">
+    <img src="iconoCalaculadora.jpg" alt="" class="icon-img" draggable="false">
+</button>
+
+<!-- Menú flotante de modos (inicialmente oculto) -->
+<div class="fab-menu-popup" id="fabMenuPopup">
+    <ul>
+        <li data-mode="basic" class="active"><span class="fab-menu-icon">÷×</span> Básica</li>
+        <li data-mode="scientific"><span class="fab-menu-icon">𝑓(x)</span> Científica</li>
+        <li data-mode="notes"><span class="fab-menu-icon">𝑥/𝑦</span> Notas matemáticas</li>
+        <li class="fab-menu-divider"></li>
+        <li>
+            <label class="fab-menu-switch">
+                <input type="checkbox" id="convertSwitch">
+                <span class="fab-menu-slider"></span>
+            </label>
+            Convertir
+        </li>
+    </ul>
+</div>
         <!-- Hamburger Menu Button -->
         <button class="hamburger-menu" id="hamburgerBtn" aria-label="Menú">
             <span></span>

@@ -577,3 +577,76 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// --- EDITAR y BORRAR en historial ---
+const historyContent = document.getElementById('historyContent');
+const editBtn = document.getElementById('editHistory');
+const clearBtn = document.getElementById('clearHistory');
+let editMode = false;
+
+// Alternar modo editar (selección)
+editBtn.addEventListener('click', () => {
+    editMode = !editMode;
+    editBtn.textContent = editMode ? 'Listo' : 'Editar';
+    clearBtn.style.display = editMode ? 'inline-block' : '';
+    // Marcar items como seleccionables
+    Array.from(historyContent.children).forEach(item=>{
+        if(editMode) item.classList.add('selectable');
+        else { item.classList.remove('selectable','selected'); }
+    });
+});
+
+// Seleccionar/deseleccionar items
+historyContent.addEventListener('click', (e)=>{
+    if(!editMode) return;
+    const item = e.target.closest('.history-item');
+    if(item) item.classList.toggle('selected');
+});
+
+// Borrar seleccionados
+clearBtn.addEventListener('click', ()=>{
+    if(!editMode) return;
+    Array.from(historyContent.getElementsByClassName('selected')).forEach(item=>item.remove());
+});
+
+// --- FAB MENU (menú flotante de modos) ---
+const fabBtn = document.getElementById('fabMenuBtn');
+const fabMenu = document.getElementById('fabMenuPopup');
+let fabOpen = false;
+
+fabBtn.addEventListener('click', e=>{
+    fabMenu.style.display = fabOpen ? 'none' : 'block';
+    fabOpen = !fabOpen;
+    // Cerrar si haces click fuera del menú
+    if(fabOpen) {
+        setTimeout(()=>{
+            document.addEventListener('mousedown', closeFabMenuOnClickOutside);
+        },1);
+    }
+});
+
+function closeFabMenuOnClickOutside(e) {
+    if(!fabMenu.contains(e.target) && e.target !== fabBtn) {
+        fabMenu.style.display = 'none';
+        fabOpen = false;
+        document.removeEventListener('mousedown', closeFabMenuOnClickOutside);
+    }
+}
+
+// Resalta el modo activo (puedes conectar esta parte con tu lógica de cambio de modo)
+fabMenu.querySelectorAll('li[data-mode]').forEach(li=>{
+    li.addEventListener('click', ()=>{
+        fabMenu.querySelectorAll('li').forEach(l=>l.classList.remove('active'));
+        li.classList.add('active');
+        fabMenu.style.display = 'none';
+        fabOpen = false;
+        // TODO: Cambia el modo de calculadora aquí según li.dataset.mode
+        // Por ejemplo: switchCalculatorMode(li.dataset.mode);
+    });
+});
+
+// Switch para convertir
+document.getElementById('convertSwitch').addEventListener('change', function(){
+    // TODO: aquí puedes activar/desactivar modo convertir
+    // Por ejemplo: toggleConvertMode(this.checked);
+});

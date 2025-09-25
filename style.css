@@ -471,3 +471,94 @@ body {
         min-height: 50vh;
     }
 }
+/* FAB (Floating Action Button) tipo menú */
+.fab-menu-btn {
+    position: absolute;
+    bottom: 32px;
+    left: 20px;
+    z-index: 1100;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #181818;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.fab-menu-btn:hover { box-shadow: 0 4px 24px rgba(0,0,0,.35); }
+
+/* Menú flotante estilo iOS */
+.fab-menu-popup {
+    position: absolute;
+    left: 14px;
+    bottom: 96px;
+    min-width: 220px;
+    background: #181818;
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.28);
+    padding: 14px 0;
+    z-index: 1200;
+    display: none;
+    animation: fab-fadein 0.25s;
+}
+@keyframes fab-fadein { from { opacity: 0; transform: translateY(32px);} to { opacity:1; transform: none;} }
+.fab-menu-popup ul { list-style: none; margin:0; padding:0; }
+.fab-menu-popup li {
+    padding: 12px 22px;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: background 0.13s, color 0.13s;
+}
+.fab-menu-popup li.active,
+.fab-menu-popup li:hover {
+    background: #232325;
+    color: #FF9500;
+}
+.fab-menu-icon { width: 36px; display: inline-block; margin-right: 12px; font-family: inherit; }
+.fab-menu-divider { height: 1px; background: #2C2C2E; margin: 8px 0; pointer-events: none; }
+.fab-menu-switch {
+    position: relative; display: inline-block; width: 36px; height: 22px; margin-right: 10px;
+}
+.fab-menu-switch input { opacity: 0; width: 0; height: 0;}
+.fab-menu-slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background: #333; border-radius: 14px; transition: .2s;
+}
+.fab-menu-switch input:checked + .fab-menu-slider { background: #FF9500; }
+.fab-menu-slider:before {
+    position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+    background: #fff; border-radius: 50%; transition: .2s;
+}
+.fab-menu-switch input:checked + .fab-menu-slider:before { transform: translateX(14px);}
+
+/* Selección en historial */
+.history-item.selectable {
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.history-item.selectable.selected {
+    background: #232325;
+    border-color: #FF9500;
+    color: #FF9500;
+}
+.fab-menu-btn .icon-img {
+    width: 32px;
+    height: 32px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    pointer-events: none;
+    background: none;
+    border-radius: 0;
+}
