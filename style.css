@@ -1,107 +1,42 @@
-/* ============================================================
-    Calculator Culichi - iOS-Style Calculator Styles
-    
-    A comprehensive stylesheet for a sophisticated calculator app featuring:
-    - iOS-inspired design with dark theme and orange accents
-    - Responsive layout that adapts to different screen sizes
-    - Three calculation modes: Basic, Scientific, and Conversion
-    - Smooth animations and transitions for modern UX
-    - History sidebar with slide-out functionality
-    - Circular buttons with neumorphic shadows
-    - Accessible design with proper ARIA labels
-    
-    Color Palette:
-    - Background: Light gray (#F5F5F5)
-    - Calculator Panel: Pure black (#000000)
-    - Number Buttons: Dark gray (#333333)
-    - Function Buttons: Medium gray (#A6A6A6)
-    - Operator Buttons: Orange (#FF9500) - iOS accent color
-    - Text: White on dark buttons, black on light buttons
-    
-    Layout: CSS Grid for button arrangement with responsive design
-   ============================================================ */
-
-/**
- * ============================================================
- *                    CSS CUSTOM PROPERTIES (CSS Variables)
- * ============================================================
- * Centralized color and size definitions for consistent theming
- * and easy maintenance. All colors follow iOS design guidelines.
- */
 :root {
-    /* === BACKGROUND COLORS === */
-    --bg: #F5F5F5;              /* Main page background - light gray */
-    
-    /* === CALCULATOR PANEL STYLING === */
-    --panel-bg: #000000;        /* Calculator background - pure black like iOS */
-    --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);  /* Subtle shadow for depth */
-    --panel-border-radius: 20px; /* Rounded corners for modern look */
-
-    /* === BRANDING === */
-    --brand-text: "";           /* No additional branding text */
-    --brand-color: #8E8E93;     /* iOS secondary text color */
-
-    /* === DISPLAY SCREEN === */
-    --screen-bg: transparent;   /* Transparent background blends with panel */
-    --screen-text: #FFFFFF;     /* White text for high contrast */
-    --screen-size: 48px;        /* Large font size for readability */
-
-    /* === BUTTON COLOR SCHEME === */
-    --btn-bg: #333333;          /* Number buttons - dark gray */
-    --btn-bg-hover: #404040;    /* Hover state - slightly lighter */
-    --btn-ac: #A6A6A6;          /* Function buttons (AC, +/-, %) - medium gray */
-    --btn-ac-hover: #B8B8B8;    /* Function button hover state */
-    --btn-op: #FF9500;          /* Operator buttons (+, -, ×, ÷, =) - iOS orange */
-    --btn-op-hover: #FFB84D;    /* Operator button hover - lighter orange */
-    
-    /* === BUTTON TEXT COLORS === */
-    --btn-text: #FFFFFF;        /* White text on dark number buttons */
-    --btn-text-ac: #000000;     /* Black text on light function buttons */
-    --btn-text-op: #FFFFFF;     /* White text on orange operator buttons */
-    
-    /* === BUTTON VISUAL EFFECTS === */
-    --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);  /* Neumorphic shadow effect */
-    --btn-border-radius: 50%;   /* Circular buttons like iOS calculator */
-
-    /* === BUTTON DIMENSIONS === */
-    --btn-gap: 12px;            /* Space between buttons */
-    --btn-size: 75px;           /* Standard button diameter (75px circle) */
-    --btn-font: 32pt;           /* Large font for numbers - bold and readable */
-    --btn-font-ops: 28pt;       /* Slightly smaller for operator symbols */
-
-    /* === ACCENT AND FOCUS COLORS === */
-    --focus: #007AFF;           /* iOS blue for focus states */
-    --wrapper-w: 380px;         /* Maximum calculator width */
-    
-    /* === SIDEBAR STYLING === */
-    --sidebar-bg: #FFFFFF;      /* White sidebar background */
-    --sidebar-border: #E5E5EA;  /* Light border color */
-    --sidebar-text: #000000;      /* Black text in sidebar */
-    --sidebar-button-bg: #F2F2F7; /* Light button backgrounds in sidebar */
-    --sidebar-button-hover: #E8E8ED; /* Hover state for sidebar buttons */
-    
-    /* === MODE SELECTOR STYLING === */
-    --mode-selector-bg: #FFFFFF;  /* White background for mode selector */
-    --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    --mode-selector-border: #E5E5EA; /* Light border color */
+    --bg: #F5F5F5;
+    --panel-bg: #000000;
+    --panel-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+    --panel-border-radius: 20px;
+    --brand-color: #8E8E93;
+    --screen-bg: transparent;
+    --screen-text: #FFFFFF;
+    --screen-size: 48px;
+    --btn-bg: #333333;
+    --btn-bg-hover: #404040;
+    --btn-ac: #A6A6A6;
+    --btn-ac-hover: #B8B8B8;
+    --btn-op: #FF9500;
+    --btn-op-hover: #FFB84D;
+    --btn-text: #FFFFFF;
+    --btn-text-ac: #000000;
+    --btn-text-op: #FFFFFF;
+    --btn-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --btn-border-radius: 50%;
+    --btn-gap: 12px;
+    --btn-size: 78px;
+    --btn-font: 32px;
+    --btn-font-ops: 28px;
+    --focus: #007AFF;
+    --wrapper-w: 380px;
+    --sidebar-bg: #FFFFFF;
+    --sidebar-border: #E5E5EA;
+    --sidebar-text: #000000;
+    --sidebar-button-bg: #F2F2F7;
+    --sidebar-button-hover: #E8E8ED;
+    --mode-selector-bg: #FFFFFF;
+    --mode-selector-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --mode-selector-border: #E5E5EA;
 }
 
-/**
- * ============================================================
- *                    GLOBAL RESET & BASE STYLES
- * ============================================================
- * Universal reset for consistent cross-browser styling
- * and base typography following iOS design principles
- */
+/* Reset y layout */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* Universal box model reset for consistent sizing */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
-
-/* Main body styling with iOS font stack and centering layout */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
@@ -112,34 +47,21 @@ body {
     min-height: 100vh;
 }
 
-/**
- * ============================================================
- *                    SPLASH SCREEN COMPONENT
- * ============================================================
- * Full-screen overlay shown on app startup with branding
- * Auto-dismisses after 2 seconds or on user interaction
- */
-
+/* Splash Screen */
 .splash-screen {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark overlay */
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999; /* Highest z-index to appear above everything */
+    z-index: 9999;
     opacity: 1;
     transition: opacity 0.3s ease;
 }
-
-.splash-screen.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
+.splash-screen.hidden { opacity: 0; pointer-events: none; }
 .splash-content h1 {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 24pt;
@@ -149,9 +71,7 @@ body {
     margin: 0;
 }
 
-/* ------------------------------
-    Contenedor principal de la calculadora
-   ------------------------------ */
+/* Wrapper */
 .wrapper {
     width: var(--wrapper-w);
     max-width: calc(100% - 40px);
@@ -163,31 +83,16 @@ body {
     overflow: visible;
 }
 
-/* Branding */
-.wrapper::before {
-    content: var(--brand-text);
-    position: absolute;
-    top: 12px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-weight: 700;
-    letter-spacing: 2px;
-    font-size: 13px;
-    color: var(--brand-color);
-    pointer-events: none;
-}
-
-/* Hamburger menu - frameless orange icon */
+/* ========== Menú hamburguesa ========== */
 .hamburger-menu {
     position: absolute;
     top: 16px;
     left: 16px;
     z-index: 1000;
-    background: transparent;     /* Frameless */
-    border: none;               /* No border */
+    background: transparent;
+    border: none;
     border-radius: 8px;
-    width: 24px;               /* 24x24px as specified */
+    width: 24px;
     height: 24px;
     display: flex;
     flex-direction: column;
@@ -196,188 +101,25 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
-.hamburger-menu:hover {
-    background: rgba(255, 149, 0, 0.1);  /* Subtle orange hover */
-}
-
+.hamburger-menu:hover { background: rgba(255, 149, 0, 0.1); }
 .hamburger-menu span {
     display: block;
     width: 16px;
     height: 2px;
-    background: #FF9500;        /* Orange color */
+    background: #FF9500;
     margin: 1.5px 0;
     transition: all 0.2s ease;
     border-radius: 1px;
 }
-.hamburger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(4px, 4px);
-}
-.hamburger-menu.active span:nth-child(2) {
-    opacity: 0;
-}
-.hamburger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
 
-/* Calculator logo and bottom controls - REMOVED (now in calculator grid) */
-
-/* Bottom slide-up menu */
-.bottom-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.bottom-menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.bottom-menu {
-    position: fixed;
-    bottom: -300px;
-    left: 0;
-    right: 0;
-    background: #1C1C1E;
-    border-radius: 20px 20px 0 0;
-    z-index: 999;
-    transition: bottom 0.3s ease;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.bottom-menu.active {
-    bottom: 0;
-}
-
-.bottom-menu-header {
-    padding: 12px 0 8px;
-    display: flex;
-    justify-content: center;
-}
-
-.bottom-menu-handle {
-    width: 36px;
-    height: 4px;
-    background: #636366;
-    border-radius: 2px;
-}
-
-.bottom-menu-content {
-    padding: 20px 0 40px;
-    display: flex;
-    flex-direction: column;
-}
-
-.menu-option {
-    background: none;
-    border: none;
-    color: #007AFF;
-    font-size: 18px;
-    font-weight: 400;
-    padding: 16px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-.menu-option:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.menu-option.active {
-    color: #FF9500;
-    font-weight: 600;
-}
-
-/* Mode selector */
-.mode-selector {
-    position: absolute;
-    bottom: 20px;
-    left: 60px;                /* Move right to avoid logo */
-    z-index: 50;
-}
-
-.mode-selector-btn {
-    background: var(--mode-selector-bg);
-    border: 1px solid var(--mode-selector-border);
-    color: var(--btn-text);
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    box-shadow: var(--mode-selector-shadow);
-    min-width: 80px;
-}
-
-.mode-selector-btn:hover {
-    background: var(--sidebar-button-hover);
-}
-
-.mode-dropdown {
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    background: var(--mode-selector-bg);
-    border: 1px solid var(--mode-selector-border);
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    margin-bottom: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.2s ease;
-    min-width: 120px;
-}
-
-.mode-dropdown.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.mode-option {
-    display: block;
-    width: 100%;
-    background: none;
-    border: none;
-    color: var(--btn-text);
-    padding: 12px 16px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s ease;
-}
-
-.mode-option:hover {
-    background: var(--sidebar-button-hover);
-}
-
-.mode-option:first-child {
-    border-radius: 8px 8px 0 0;
-}
-
-.mode-option:last-child {
-    border-radius: 0 0 8px 8px;
-}
-
-/* Sidebar - Enhanced iOS-style history panel */
+/* ========== Sidebar (panel lateral historial) ========== */
 .sidebar {
     position: fixed;
     top: 0;
     left: -350px;
     width: 350px;
     height: 100vh;
-    background: #1C1C1E;  /* Dark background like iOS */
+    background: #1C1C1E;
     border-right: 1px solid #2C2C2E;
     z-index: 1001;
     transition: left 0.3s ease;
@@ -385,30 +127,19 @@ body {
     flex-direction: column;
     box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
 }
-
-.sidebar.active {
-    left: 0;
-}
-
+.sidebar.active { left: 0; }
 .sidebar-header {
-    padding: 60px 20px 20px;  /* More padding for status bar */
+    padding: 60px 20px 20px;
     border-bottom: 1px solid #2C2C2E;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-.sidebar-header h3 {
-    color: #FFFFFF;
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-}
-
+.sidebar-header h3 { color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 700; }
 .close-sidebar {
     background: none;
     border: none;
-    color: #FF9500;  /* Orange close button */
+    color: #FF9500;
     font-size: 24px;
     cursor: pointer;
     padding: 8px;
@@ -420,32 +151,14 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-.close-sidebar:hover {
-    background: rgba(255, 149, 0, 0.1);
-}
-
-.sidebar-content {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-/* History section */
-.history-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0 20px 20px;
-}
-
+.close-sidebar:hover { background: rgba(255, 149, 0, 0.1); }
+.sidebar-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.history-section { flex: 1; display: flex; flex-direction: column; padding: 0 20px 20px; }
 .history-period-tabs {
     display: flex;
     margin-bottom: 20px;
     border-bottom: 1px solid #2C2C2E;
 }
-
 .period-tab {
     flex: 1;
     background: none;
@@ -457,18 +170,11 @@ body {
     transition: color 0.2s ease;
     border-bottom: 2px solid transparent;
 }
-
 .period-tab.active {
-    color: #007AFF;
-    border-bottom-color: #007AFF;
+    color: #FF9500;
+    border-bottom-color: #FF9500;
 }
-
-.history-content {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 20px;
-}
-
+.history-content { flex: 1; overflow-y: auto; margin-bottom: 20px; }
 .history-item {
     background: #2C2C2E;
     border-radius: 12px;
@@ -482,18 +188,13 @@ body {
     align-items: center;
     transition: background 0.2s ease;
 }
-
-.history-item:hover {
-    background: #3A3A3C;
-}
-
+.history-item:hover { background: #3A3A3C; }
 .history-actions {
     display: flex;
     gap: 12px;
     padding-top: 20px;
     border-top: 1px solid #2C2C2E;
 }
-
 .history-action-btn {
     flex: 1;
     border: none;
@@ -504,39 +205,13 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
-.edit-btn {
-    background: #FF9500;    /* Orange for edit as specified */
-    color: white;
-}
-
-.edit-btn:hover {
-    background: #FFB84D;    /* Lighter orange on hover */
-}
-
-.delete-btn {
-    background: #FF3B30;
-    color: white;
-}
-
-.delete-btn:hover {
-    background: #D70015;
-}
-    padding: 12px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    color: var(--sidebar-text);
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-/* Sidebar overlay */
+.edit-btn { background: #FF9500; color: white; }
+.edit-btn:hover { background: #FFB84D; color: black; }
+.delete-btn { background: #FF3B30; color: white; }
+.delete-btn:hover { background: #D70015; color: white; }
 .sidebar-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
@@ -552,9 +227,119 @@ body {
     pointer-events: auto;
 }
 
-/* ------------------------------
-    Pantalla estilo iOS
-   ------------------------------ */
+/* ========== Bottom Sheet Overlay y Menu (tipo iOS Sheet) ========== */
+.bottom-menu-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.bottom-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.bottom-menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -50vh; /* Oculto inicialmente */
+    width: 100vw;
+    max-width: 400px;
+    margin: 0 auto;
+    background: #232325;
+    border-radius: 20px 20px 0 0;
+    z-index: 999;
+    transition: bottom 0.3s cubic-bezier(.4,1.3,.7,1);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+    min-height: 40vh;    /* Solo parte de la pantalla */
+    max-height: 80vh;    /* Máximo */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.bottom-menu.active { bottom: 0; }
+.bottom-menu-header {
+    padding: 12px 0 8px;
+    display: flex;
+    justify-content: center;
+}
+.bottom-menu-handle {
+    width: 36px;
+    height: 4px;
+    background: #636366;
+    border-radius: 2px;
+    margin-bottom: 8px;
+}
+.bottom-menu-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.history-period-tabs {
+    display: flex;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #333;
+}
+.period-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #8E8E93;
+    font-size: 16px;
+    padding: 12px 0;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s;
+}
+.period-tab.active {
+    color: #FF9500;
+    border-bottom-color: #FF9500;
+}
+.history-content {
+    flex: 1;
+    overflow-y: auto;
+}
+.history-item {
+    background: none;
+    color: #fff;
+    padding: 8px 0;
+    border-radius: 0;
+    font-size: 20px;
+    border-bottom: 1px solid #2C2C2E;
+    margin-bottom: 0;
+}
+.history-actions-sheet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #333;
+    padding-top: 16px;
+    gap: 8px;
+}
+.history-action-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 24px;
+    border-radius: 8px;
+}
+.edit-btn { color: #FF9500; }
+.edit-btn:hover { background: rgba(255,149,0,0.08); }
+.delete-btn { color: #FF3B30; }
+.delete-btn:hover { background: rgba(255,59,48,0.08); }
+
+/* ========== Pantalla y botones calculadora ========== */
 .screen {
     height: 120px;
     border-radius: 12px;
@@ -564,8 +349,8 @@ body {
     align-items: flex-end;
     justify-content: flex-end;
     padding: 0 20px;
-    font-size: 48px;               /* Large 48pt digits */
-    font-weight: 200;              /* Thin weight like iOS */
+    font-size: var(--screen-size);
+    font-weight: 200;
     letter-spacing: -0.5px;
     border: none;
     box-shadow: none;
@@ -573,132 +358,66 @@ body {
     margin-bottom: 24px;
     text-align: right;
 }
-
-/* ------------------------------
-    Grid de botones
-   ------------------------------ */
 .calc-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--btn-gap);
 }
-
-.calc-button-row { 
-    display: contents; 
-}
-
-/* Special bottom row with 4 equal columns */
-.calc-button-row.bottom-row {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--btn-gap);
-}
-
-/* ------------------------------
-    Botón estilo iPhone circular
-   ------------------------------ */
+.calc-button-row { display: contents; }
 .calc-button {
     border: none;
     outline: none;
     width: 100%;
     aspect-ratio: 1 / 1;
     min-height: var(--btn-size);
-    border-radius: var(--btn-border-radius);  /* Circular buttons */
+    border-radius: var(--btn-border-radius);
     background: var(--btn-bg);
     color: var(--btn-text);
     font-size: var(--btn-font);
-    font-weight: bold;               /* Bold text for all buttons */
+    font-weight: 400;
     user-select: none;
-    -webkit-tap-highlight-color: transparent;
     box-shadow: var(--btn-shadow);
     transition: all 0.15s ease;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
-
-/* Hover y active para botones */
-.calc-button:hover { 
-    background: var(--btn-bg-hover); 
-    transform: scale(0.95);           /* iOS-style scale on press */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);  /* Reduced shadow on press */
+.calc-button:hover { background: var(--btn-bg-hover); transform: scale(0.95);}
+.calc-button:active { transform: scale(0.95); box-shadow: var(--btn-shadow);}
+.calc-button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
 }
-
-.calc-button:active { 
-    transform: scale(0.90);           /* More pronounced press effect */
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);  /* Deeper shadow when pressed */
-}
-
-.calc-button:focus-visible { 
-    outline: 2px solid var(--focus); 
-    outline-offset: 2px; 
-}
-
-/* Operaciones (÷ × − + =) */
-.calc-button.op { 
-    font-size: var(--btn-font-ops); 
-    font-weight: bold;           /* Bold operators */
+.calc-button.op {
+    font-size: var(--btn-font-ops);
     background: var(--btn-op);
     color: var(--btn-text-op);
 }
-
-.calc-button.op:hover {
-    background: var(--btn-op-hover);
-    transform: scale(0.95);           /* Consistent hover effect */
-    box-shadow: 0 2px 8px rgba(255, 149, 0, 0.4);  /* Orange shadow for operators */
-}
-
-/* AC, +/- y % botones (primera fila - function buttons) */
+.calc-button.op:hover { background: var(--btn-op-hover); }
 .calc-button-row:first-child .calc-button:first-child,
 .calc-button-row:first-child .calc-button:nth-child(2),
 .calc-button-row:first-child .calc-button:nth-child(3) {
     background: var(--btn-ac);
     color: var(--btn-text-ac);
 }
-
 .calc-button-row:first-child .calc-button:first-child:hover,
 .calc-button-row:first-child .calc-button:nth-child(2):hover,
 .calc-button-row:first-child .calc-button:nth-child(3):hover {
     background: var(--btn-ac-hover);
 }
-
-/* Botón cero - ahora igual que los demás */
-.calc-button.zero {
-    /* Make it exactly like other number buttons */
-    grid-column: span 1 !important;
-    aspect-ratio: 1 / 1 !important;
-    height: var(--btn-size) !important;
-    width: var(--btn-size) !important;
-    border-radius: 50% !important;  /* Circular like other buttons */
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-size: var(--btn-font);
-    font-weight: bold;
+.calc-button.icon-btn .icon-img {
+    width: 40px;
+    height: 40px;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    pointer-events: none;
+    background: none;
+    border-radius: 0;
 }
-
-/* Icon button in bottom row */
-.calc-button.icon-btn {
-    background: var(--btn-bg);      /* Same as number buttons */
-    color: var(--btn-text);
-    padding: 0;                     /* No padding for image */
-    border-radius: 50%;
-}
-
-.calc-button.icon-btn:hover {
-    background: var(--btn-bg-hover);
-}
-
-.icon-img {
-    width: 24px;                    /* 24x24px as specified */
-    height: 24px;
-    border-radius: 4px;             /* Slight rounding for the image */
-    object-fit: cover;              /* Ensure good fit */
-}
-
-/* Scientific y conversion button styling */
 .calc-button.scientific,
 .calc-button.conversion {
     background: var(--btn-bg);
@@ -706,30 +425,15 @@ body {
     font-size: 14px;
     font-weight: 500;
 }
-
 .calc-button.scientific:hover,
 .calc-button.conversion:hover {
     background: var(--btn-bg-hover);
 }
-
-/* Scientific and conversion rows */
 .scientific-row,
 .conversion-row {
     transition: all 0.3s ease;
 }
 
-/* Responsive adjustments */
-.calc-buttons.scientific-mode {
-    gap: 10px;
-}
-
-.calc-buttons.scientific-mode .calc-button {
-    min-height: 60px;
-}
-
-/* ------------------------------
-    Responsividad para pantallas pequeñas
-   ------------------------------ */
 @media (max-width: 480px) {
     :root {
         --btn-gap: 10px;
@@ -739,32 +443,31 @@ body {
         --screen-size: 48px;
         --wrapper-w: 100%;
     }
-    
-    .wrapper { 
-        width: 100%; 
-        padding: 20px 16px 16px; 
-        border-radius: 16px; 
+    .wrapper {
+        width: 100%;
+        padding: 20px 16px 16px;
+        border-radius: 16px;
     }
-    
-    .screen { 
-        height: 84px; 
+    .screen {
+        height: 84px;
         margin-bottom: 20px;
     }
-    
     .calc-buttons.scientific-mode .calc-button {
         min-height: 56px;
         font-size: 1.4rem;
     }
-    
     .calc-button.scientific,
     .calc-button.conversion {
         font-size: 12px;
     }
-    
     .hamburger-menu {
         top: 12px;
         left: 12px;
         width: 32px;
         height: 32px;
+    }
+    .bottom-menu {
+        max-width: 100vw;
+        min-height: 50vh;
     }
 }
