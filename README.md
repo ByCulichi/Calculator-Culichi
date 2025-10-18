@@ -2,7 +2,16 @@
 
 Modern iOS-inspired calculator application built with React, TypeScript, Vite, and Tailwind CSS. Migrated from vanilla HTML/CSS/JS to a modern stack with improved accessibility, decimal precision, and comprehensive testing.
 
-![Calculator Preview](./public/iconoCalaculadora.jpg)
+## 📸 Screenshots
+
+### Initial State
+![Calculator Initial State](https://github.com/user-attachments/assets/6114fd21-9761-4dac-b3cc-0dee0dd15ed8)
+
+### Active Operator
+![Calculator with Active Operator](https://github.com/user-attachments/assets/59eb5af4-dc1e-480f-a414-52b3cb224c77)
+
+### Calculation Result
+![Calculator Showing Result](https://github.com/user-attachments/assets/fc6c95f9-4a78-4f04-9bf1-99b4089f5bc1)
 
 ## 🚀 Features
 

@@ -6,6 +6,7 @@ export interface CalculatorState {
   buffer: string
   runningTotal: string
   previousOperator: Operator | null
+  activeOperator: Operator | null
   history: string[]
   mode: CalculatorMode
   shouldResetBuffer: boolean

@@ -2,7 +2,6 @@ import { useReducer } from 'react'
 import type {
   CalculatorState,
   CalculatorAction,
-  Operator,
 } from '../types/calculator'
 import { CalculatorEngine } from '../utils/calculator-engine'
 
@@ -10,6 +9,7 @@ const initialState: CalculatorState = {
   buffer: '0',
   runningTotal: '0',
   previousOperator: null,
+  activeOperator: null,
   history: [],
   mode: 'basic',
   shouldResetBuffer: false,
@@ -23,7 +23,7 @@ function calculatorReducer(
     case 'NUMBER_INPUT': {
       const digit = action.payload
       if (state.shouldResetBuffer) {
-        return { ...state, buffer: digit, shouldResetBuffer: false }
+        return { ...state, buffer: digit, shouldResetBuffer: false, activeOperator: null }
       }
       const newBuffer = state.buffer === '0' ? digit : state.buffer + digit
       return { ...state, buffer: newBuffer }
@@ -31,7 +31,7 @@ function calculatorReducer(
 
     case 'DECIMAL': {
       if (state.shouldResetBuffer) {
-        return { ...state, buffer: '0.', shouldResetBuffer: false }
+        return { ...state, buffer: '0.', shouldResetBuffer: false, activeOperator: null }
       }
       if (state.buffer.includes('.')) {
         return state
@@ -53,12 +53,12 @@ function calculatorReducer(
     case 'OPERATOR': {
       const operator = action.payload
       if (state.buffer === '0' && state.runningTotal === '0') {
-        return state
+        return { ...state, activeOperator: operator }
       }
 
       let newRunningTotal = state.runningTotal
 
-      if (state.previousOperator && state.runningTotal !== '0') {
+      if (state.previousOperator && state.runningTotal !== '0' && !state.shouldResetBuffer) {
         try {
           newRunningTotal = CalculatorEngine.applyOperation(
             state.runningTotal,
@@ -66,7 +66,7 @@ function calculatorReducer(
             state.previousOperator
           )
         } catch (error) {
-          return { ...state, buffer: 'Error', shouldResetBuffer: true }
+          return { ...state, buffer: 'Error', shouldResetBuffer: true, activeOperator: null }
         }
       } else {
         newRunningTotal = state.buffer
@@ -77,13 +77,14 @@ function calculatorReducer(
         runningTotal: newRunningTotal,
         buffer: newRunningTotal,
         previousOperator: operator,
+        activeOperator: operator,
         shouldResetBuffer: true,
       }
     }
 
     case 'EQUALS': {
       if (!state.previousOperator || state.runningTotal === '0') {
-        return state
+        return { ...state, activeOperator: null }
       }
 
       try {
@@ -105,11 +106,12 @@ function calculatorReducer(
           buffer: result,
           runningTotal: '0',
           previousOperator: null,
+          activeOperator: null,
           history: newHistory,
           shouldResetBuffer: true,
         }
       } catch (error) {
-        return { ...state, buffer: 'Error', shouldResetBuffer: true }
+        return { ...state, buffer: 'Error', shouldResetBuffer: true, activeOperator: null }
       }
     }
 

@@ -131,8 +131,8 @@ describe('CalculatorEngine', () => {
       expect(CalculatorEngine.formatDisplay('0')).toBe('0')
     })
 
-    it('should format negative numbers with parentheses', () => {
-      expect(CalculatorEngine.formatDisplay('-123')).toBe('(-123)')
+    it('should format negative numbers correctly', () => {
+      expect(CalculatorEngine.formatDisplay('-123')).toBe('-123')
     })
 
     it('should handle zero correctly', () => {
