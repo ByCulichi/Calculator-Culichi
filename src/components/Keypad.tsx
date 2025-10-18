@@ -1,5 +1,5 @@
 import { Button } from './Button'
-import type { Operator } from '../types/calculator'
+import type { Operator, CalculatorMode } from '../types/calculator'
 
 interface KeypadProps {
   onNumberClick: (digit: string) => void
@@ -9,7 +9,7 @@ interface KeypadProps {
   onToggleSignClick: () => void
   onPercentageClick: () => void
   onDecimalClick: () => void
-  mode: string
+  mode: CalculatorMode
   activeOperator: Operator | null
 }
 
