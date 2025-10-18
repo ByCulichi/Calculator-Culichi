@@ -1,0 +1,71 @@
+Objective Migrate the GitHub repository ByCulichi/Calculator-Culichi (vanilla HTML/CSS/JS) into a modern application using React + Vite + TypeScript + Tailwind. Preserve all existing functionality while improving accessibility, decimal precision, testing, and documentation.
+
+Source repository
+
+URL: https://github.com/ByCulichi/Calculator-Culichi
+Description: “A functional calculator application that handles basic arithmetic operations…”
+Language composition: JavaScript (37.7%), CSS (36%), HTML (26.3%)
+Recommended stack and guidelines
+
+Framework: React 18
+Build/Dev: Vite (react-ts template)
+Language: TypeScript with strict mode ("strict": true)
+Styling: Tailwind CSS + PostCSS/Autoprefixer
+Lint/Format: ESLint + Prettier
+Testing: Vitest + React Testing Library + coverage
+Accessibility: WAI-ARIA, full keyboard navigation
+Decimal precision: use a decimal library (decimal.js-light or big.js) to avoid floating point errors (e.g., 0.1 + 0.2)
+State: local component state and/or useReducer; keep logic in pure functions
+Tasks
+
+Project setup
+Initialize a Vite project with the react-ts template.
+Configure Tailwind: tailwind.config.{js,ts}, postcss.config, and index.css with @tailwind base/components/utilities.
+Add ESLint + Prettier with scripts for linting and formatting.
+Add Vitest + React Testing Library and test scripts.
+UI migration
+Convert HTML into React components (e.g., App, Calculator, Display, Keypad, Button).
+Translate existing CSS into Tailwind classes, keeping equivalent visual design and responsive behavior. Reuse original color palette if present.
+Ensure adequate color contrast and responsiveness.
+Calculator logic
+Port the calculator logic to TypeScript with clear types for operations, state, and actions.
+Support these features: addition, subtraction, multiplication, division, percentage, sign toggle (+/−), AC/C, decimal point, and repeated equals behavior.
+Implement arithmetic using decimal.js-light or big.js; handle divide-by-zero, rounding, and display trimming.
+Isolate the core logic in a reducer or pure functions with comprehensive unit tests.
+Accessibility and UX
+Keyboard support: digits, operators, Enter (=), Backspace (C), Escape (AC), period (decimal).
+Proper ARIA roles/attributes, logical tab order, visible focus states.
+Announce display updates via aria-live="polite" for screen readers.
+Testing
+Unit tests for the arithmetic engine/reducer including precision edge cases (e.g., 0.1 + 0.2, repeated equals, divide by zero, clearing behavior).
+Component tests for Display/Keypad/Calculator covering rendering, click interactions, and keyboard flows (e.g., 12.3 + 4.7 = 17).
+Aim for ≥90% coverage on the calculation logic.
+Developer experience and scripts
+package.json scripts: dev, build, preview, test, test:watch, lint, format, type-check.
+Optional CI: GitHub Actions workflow running lint, type-check, and tests on push/PR.
+Documentation
+Update README with: stack overview, how to run/build/test, architectural decisions, accessibility features, and decimal precision notes.
+Add a “Differences from the original version” section.
+Acceptance criteria
+
+All original calculator features work the same or better.
+Correct decimal precision without floating point artifacts.
+Full keyboard navigation, basic accessibility verified (roles, focus, aria-live).
+≥90% coverage on core calculation logic.
+No major Lighthouse/Best Practices issues; reasonable bundle size.
+Clear README; all scripts run successfully.
+Deliverables
+
+Pull request containing:
+React/Vite/TypeScript/Tailwind project structure.
+Migrated code under src/ with components and reducer/engine.
+Tests with coverage report.
+ESLint/Prettier configuration and scripts.
+Updated README.
+Clear commit history (Conventional Commits recommended).
+Constraints and notes
+
+Keep components small and focused; separate UI from logic.
+Prefer pure, tested functions for the arithmetic engine.
+Do not introduce SSR/SSG or routing; this is a single-page calculator.
+If needed, preserve original assets/icons but modernize where beneficial.
