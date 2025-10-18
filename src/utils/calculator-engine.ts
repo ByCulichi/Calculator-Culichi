@@ -92,14 +92,33 @@ export class CalculatorEngine {
   }
 
   static formatDisplay(value: string): string {
-    if (!value || value === '0') return '0'
+    if (!value || value === '0' || value === 'Error') return value || '0'
     
-    const decimal = new Decimal(value)
-    
-    if (decimal.isNegative() && value !== '0') {
-      return `(${value})`
+    try {
+      const decimal = new Decimal(value)
+      
+      // Handle very large or very small numbers with scientific notation
+      const absValue = decimal.abs()
+      if (absValue.greaterThan(999999999) || (absValue.lessThan(0.000001) && !absValue.equals(0))) {
+        return decimal.toExponential(6)
+      }
+      
+      // Format with proper number of decimal places
+      const formatted = decimal.toFixed()
+      const parts = formatted.split('.')
+      
+      if (parts[1]) {
+        // Remove trailing zeros after decimal point
+        const decimalPart = parts[1].replace(/0+$/, '')
+        if (decimalPart) {
+          return `${parts[0]}.${decimalPart}`
+        }
+        return parts[0]
+      }
+      
+      return formatted
+    } catch (error) {
+      return value
     }
-    
-    return value
   }
 }

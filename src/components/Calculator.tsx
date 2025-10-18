@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import { Display } from './Display'
 import { Keypad } from './Keypad'
 import { useCalculator } from '../hooks/useCalculator'
@@ -88,9 +88,10 @@ export function Calculator() {
 
   return (
     <div
-      className="bg-calc-panel rounded-3xl w-full max-w-md shadow-2xl"
+      className="bg-calc-panel rounded-3xl w-full max-w-md shadow-2xl overflow-hidden"
       role="application"
       aria-label="Calculator"
+      data-testid="calculator"
     >
       <Display value={state.buffer} />
       <Keypad
@@ -102,6 +103,7 @@ export function Calculator() {
         onPercentageClick={handlePercentageClick}
         onDecimalClick={handleDecimalClick}
         mode={state.mode}
+        activeOperator={state.activeOperator}
       />
     </div>
   )

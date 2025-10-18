@@ -86,7 +86,7 @@ describe('Calculator Component', () => {
     await user.click(screen.getByRole('button', { name: '5' }))
     await user.click(screen.getByRole('button', { name: 'Toggle sign' }))
 
-    expect(screen.getByRole('status')).toHaveTextContent('(-5)')
+    expect(screen.getByRole('status')).toHaveTextContent('-5')
   })
 
   it('should add decimal point', async () => {
